@@ -1,6 +1,6 @@
 # Ubay
 
-A web auction platform developed using Jakarta EE servlets
+A web auction platform using Jakarta EE servlets
 
 ## Build and deploy the application
 
