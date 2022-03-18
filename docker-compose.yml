@@ -1,14 +1,16 @@
 version: '3.1'
 services:
   # jdbc:postgresql://localhost/postgresql
-  # username: postgresql
+  # username: postgres
   # password: mysecretpassword
   postgres:
     container_name: 'orange-fleet'
     image: postgres
     ports:
       - '5432:5432'
+
     environment:
       POSTGRES_PASSWORD: mysecretpassword
-volumes:
-  mysql_storage:
+      POSTGRES_DB: UBAY
+    volumes:
+      - ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql

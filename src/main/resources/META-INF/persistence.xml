@@ -4,8 +4,27 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="default">
-<!--        <class></class>-->
+        <jta-data-source>jdbc/ubay</jta-data-source>
+        <class>uma.taw.ubay.entity.ExampleEntity</class>
         <properties>
+            <property name="toplink.jdbc.url"
+                      value="jdbc:postgresql://localhost:5432/UBAY"/>
+            <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url"
+                      value="jdbc:postgresql://localhost:5432/UBAY"/>
+            <property name="hibernate.connection.driver_class"
+                      value="org.postgresql.Driver"/>
+            <property name="openjpa.ConnectionURL"
+                      value="jdbc:postgresql://localhost:5432/UBAY"/>
+            <property name="openjpa.ConnectionDriverName"
+                      value="org.postgresql.Driver"/>
+            <property name="eclipselink.jdbc.url"
+                      value="jdbc:postgresql://localhost:5432/UBAY"/>
+            <property name="eclipselink.jdbc.driver"
+                      value="org.postgresql.Driver"/>
+        </properties>
+        <!--<class></class>-->
+        <!--<properties>
             <property name="eclipselink.ddl-generation" value="create-tables" />
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
 
@@ -13,16 +32,7 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost/postgresql" />
             <property name="jakarta.persistence.jdbc.user" value="postgresql" />
             <property name="jakarta.persistence.jdbc.password" value="mysecretpassword" />
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="test">
-        <properties>
-            <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:memory:bd;create=true" />
-            <property name="jakarta.persistence.jdbc.user" value="root" />
-            <property name="jakarta.persistence.jdbc.password" value="root" />
-        </properties>
+        </properties>-->
     </persistence-unit>
 
 </persistence>
