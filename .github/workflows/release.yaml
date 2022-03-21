@@ -2,6 +2,10 @@ on:
   push:
     branches:
       - release
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   maven-build:
     runs-on: ubuntu-latest
