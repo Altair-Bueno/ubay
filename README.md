@@ -5,7 +5,7 @@ A web auction platform using Jakarta EE servlets
 ## Running Ubay
 
 You can run the server by running `docker-compose up -d` from your command line.
-Ubay will be available on 0.0.0.0:8080
+Ubay will be available on `0.0.0.0:8080/ubay-1.0-SNAPSHOT/`
 
 ## Building the Docker image
 
@@ -21,7 +21,7 @@ docker build .
 
 The following software is required:
 
-- Glassfish server 6 or later
+- GlassFish server 6 or later
 - Java JDK 11 or later
 - Maven
 - Docker
@@ -86,7 +86,7 @@ pool name: postgresql
 
 1. Compile the application to a `.war` package: `mvn compile package`
 2. Locate the `.war` file under the `target` directory
-3. Deploy the application to GlassFish using asadmin or the web client
+3. Deploy the application to GlassFish using `asadmin` or the web client
 
 > Note: Some IDEs, like IntelliJ IDEA can automate these steps by adding a **run
 > configuration**. For more information visit
