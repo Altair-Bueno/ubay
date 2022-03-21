@@ -15,8 +15,9 @@
     <title>List</title>
 </head>
 <body>
+    <h1>Found <%=list.size()%> numbers</h1>
     <%for (ExampleEntity entity : list){%>
-        <h1>number: <%=entity.getNumber()%></h1>
+        <h2>number: <%=entity.getNumber()%></h2>
     <%}%>
 </body>
 </html>
