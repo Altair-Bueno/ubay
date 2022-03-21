@@ -1,8 +1,8 @@
 version: '3.1'
 services:
-  # jdbc:postgresql://localhost/postgresql
   # username: postgres
   # password: mysecretpassword
+  # Database: UBAY
   postgres:
     container_name: 'orange-fleet'
     image: postgres
@@ -14,3 +14,11 @@ services:
       POSTGRES_DB: UBAY
     volumes:
       - ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql
+  # Admin console: localhost:4848
+  # UBAY: http://localhost:8080/ubay-1.0-SNAPSHOT
+  glassfish:
+    container_name: 'white-fish'
+    build: .
+    ports:
+      - '8080:8080'
+      - '127.0.0.1:4848:4848'
