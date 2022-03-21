@@ -30,8 +30,22 @@ The following software is required:
 
 #### Using Docker
 
-```bash
-docker run -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=UBAY -v ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql postgres
+You can use the following Docker compose file to create a development database
+```yml
+version: '3.1'
+services:
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: UBAY
+    volumes:
+      - ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres-data-dev:/var/lib/postgresql/data
+volumes:
+  postgres-data-dev:
 ```
 
 #### Manual

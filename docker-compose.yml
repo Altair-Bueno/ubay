@@ -14,6 +14,7 @@ services:
       POSTGRES_DB: UBAY
     volumes:
       - ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres-data:/var/lib/postgresql/data
   # Admin console: localhost:4848
   # UBAY: http://localhost:8080/ubay-1.0-SNAPSHOT
   glassfish:
@@ -23,3 +24,5 @@ services:
     ports:
       - '8080:8080'
       - '127.0.0.1:4848:4848'
+volumes:
+  postgres-data:
