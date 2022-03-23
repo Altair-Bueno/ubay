@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "login_credentials", schema = "public")
 public class LoginCredentialsEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "username", nullable = false, length = 20)
     private String username;
