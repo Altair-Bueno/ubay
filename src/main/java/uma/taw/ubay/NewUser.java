@@ -7,11 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
+import uma.taw.ubay.entity.LoginCredentialsEntity;
 
 import java.io.IOException;
 
-@WebServlet("/example")
-public class ExampleServlet extends HttpServlet {
+@WebServlet("/newUser")
+public class NewUser extends HttpServlet {
     @EJB
     LoginCredentialsFacade facade;
 
@@ -22,8 +23,14 @@ public class ExampleServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setAttribute("example",facade.findAll());
-        request.getRequestDispatcher("example.jsp")
-                .forward(request,response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        LoginCredentialsEntity entity = new LoginCredentialsEntity();
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        entity.setUsername(username);
+        entity.setPassword(password);
+        facade.create(entity);
+        response.sendRedirect("listCredentials");
     }
 }
