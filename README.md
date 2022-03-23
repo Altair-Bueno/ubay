@@ -4,7 +4,15 @@ A web auction platform using Jakarta EE servlets
 
 ## Running Ubay
 
-You can run the server by running `docker-compose up -d` from your command line.
+You can run the deployment server using Docker compose.
+
+```shell
+git clone https://github.com/Altair-Bueno/ubay.git
+docker compose up -d
+# To stop the server
+docker compose down
+```
+
 Ubay will be available on `0.0.0.0:8080/ubay-1.0-SNAPSHOT/`
 
 ## Building the Docker image
