@@ -1,36 +1,32 @@
 package uma.taw.ubay.entity;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class BidEntityPK implements Serializable {
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private ProductEntity product;
+    @Column(name = "product_id", nullable = false)
+    private int product;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private ClientEntity user;
+    @Column(name = "user_id", nullable = false)
+    private int user;
 
-    public ProductEntity getProduct() {
+    public int getProduct() {
         return product;
     }
 
-    public void setProduct(ProductEntity product) {
+    public void setProduct(int product) {
         this.product = product;
     }
 
-    public ClientEntity getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(ClientEntity user) {
+    public void setUser(int user) {
         this.user = user;
     }
 
@@ -39,7 +35,7 @@ public class BidEntityPK implements Serializable {
         if (this == o) return true;
         if (!(o instanceof BidEntityPK)) return false;
         BidEntityPK that = (BidEntityPK) o;
-        return Objects.equals(product, that.product) && Objects.equals(user, that.user);
+        return product == that.product && user == that.user;
     }
 
     @Override

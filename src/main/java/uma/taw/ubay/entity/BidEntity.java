@@ -7,8 +7,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "bid", schema = "public")
-@IdClass(BidEntityPK.class)
 public class BidEntity {
+    @EmbeddedId
+    BidEntityPK key;
+
     @Basic
     @Column(name = "publish_date", nullable = false)
     private Timestamp publishDate;
@@ -16,13 +18,13 @@ public class BidEntity {
     @Column(name = "amount", nullable = false, precision = 0)
     private double amount;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
     @ManyToOne
+    @MapsId("product")
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
     @ManyToOne
+    @MapsId("user")
     @JoinColumn(name = "user_id", nullable = false)
     private ClientEntity user;
 
@@ -58,16 +60,24 @@ public class BidEntity {
         this.user = user;
     }
 
+    public BidEntityPK getKey() {
+        return key;
+    }
+
+    public void setKey(BidEntityPK key) {
+        this.key = key;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof BidEntity)) return false;
         BidEntity bidEntity = (BidEntity) o;
-        return Double.compare(bidEntity.amount, amount) == 0 && Objects.equals(publishDate, bidEntity.publishDate) && Objects.equals(product, bidEntity.product) && Objects.equals(user, bidEntity.user);
+        return Double.compare(bidEntity.amount, amount) == 0 && Objects.equals(key, bidEntity.key) && Objects.equals(publishDate, bidEntity.publishDate) && Objects.equals(product, bidEntity.product) && Objects.equals(user, bidEntity.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(publishDate, amount, product, user);
+        return Objects.hash(key, publishDate, amount, product, user);
     }
 }

@@ -1,37 +1,33 @@
 package uma.taw.ubay.entity;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class UserFavouritesEntityPK implements Serializable {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private CategoryEntity category;
+    @Column(name = "category_id", nullable = false)
+    private int category;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private ClientEntity user;
+    @Column(name = "user_id", nullable = false)
+    private int user;
 
-    public CategoryEntity getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryEntity category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
-    public ClientEntity getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(ClientEntity user) {
+    public void setUser(int user) {
         this.user = user;
     }
 
@@ -40,7 +36,7 @@ public class UserFavouritesEntityPK implements Serializable {
         if (this == o) return true;
         if (!(o instanceof UserFavouritesEntityPK)) return false;
         UserFavouritesEntityPK that = (UserFavouritesEntityPK) o;
-        return Objects.equals(category, that.category) && Objects.equals(user, that.user);
+        return category == that.category && user == that.user;
     }
 
     @Override
