@@ -1,5 +1,6 @@
-<%@ page import="uma.taw.ubay.entity.ExampleEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
+<%--
   Created by IntelliJ IDEA.
   User: compux72
   Date: 18/3/22
@@ -8,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  List<ExampleEntity> list = (List<ExampleEntity>) request.getAttribute("example");
+  List<LoginCredentialsEntity> list = (List<LoginCredentialsEntity>) request.getAttribute("example");
 %>
 <html>
 <head>
@@ -16,8 +17,8 @@
 </head>
 <body>
     <h1>Found <%=list.size()%> numbers</h1>
-    <%for (ExampleEntity entity : list){%>
-        <h2>number: <%=entity.getNumber()%></h2>
+    <%for (LoginCredentialsEntity entity : list){%>
+        <h2>number: <%=entity.getUsername()%></h2>
     <%}%>
 </body>
 </html>

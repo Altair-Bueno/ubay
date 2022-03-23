@@ -6,14 +6,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.ExampleFacade;
+import uma.taw.ubay.dao.LoginCredentialsFacade;
 
 import java.io.IOException;
 
 @WebServlet("/example")
 public class ExampleServlet extends HttpServlet {
     @EJB
-    ExampleFacade facade;
+    LoginCredentialsFacade facade;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
