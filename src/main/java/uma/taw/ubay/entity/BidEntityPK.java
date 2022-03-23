@@ -1,55 +1,49 @@
 package uma.taw.ubay.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class BidEntityPK implements Serializable {
-    @Column(name = "product_id", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
-    @Column(name = "user_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private ProductEntity product;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private ClientEntity user;
 
-    public int getProductId() {
-        return productId;
+    public ProductEntity getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 
-    public int getUserId() {
-        return userId;
+    public ClientEntity getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(ClientEntity user) {
+        this.user = user;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof BidEntityPK)) return false;
         BidEntityPK that = (BidEntityPK) o;
-
-        if (productId != that.productId) return false;
-        if (userId != that.userId) return false;
-
-        return true;
+        return Objects.equals(product, that.product) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        int result = productId;
-        result = 31 * result + userId;
-        return result;
+        return Objects.hash(product, user);
     }
 }

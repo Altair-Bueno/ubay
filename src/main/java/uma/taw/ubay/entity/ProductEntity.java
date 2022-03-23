@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product", schema = "public")
@@ -30,12 +31,12 @@ public class ProductEntity {
     @Basic
     @Column(name = "publish_date", nullable = false)
     private Timestamp publishDate;
-    @Basic
-    @Column(name = "vendor_id", nullable = false)
-    private int vendorId;
-    @Basic
-    @Column(name = "category_id", nullable = false)
-    private int categoryId;
+    @ManyToOne
+    @JoinColumn(name = "vendor_id", nullable = false)
+    private ClientEntity vendor;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
 
     public int getId() {
         return id;
@@ -93,61 +94,32 @@ public class ProductEntity {
         this.publishDate = publishDate;
     }
 
-    public int getVendorId() {
-        return vendorId;
+    public ClientEntity getVendor() {
+        return vendor;
     }
 
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
+    public void setVendor(ClientEntity vendor) {
+        this.vendor = vendor;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof ProductEntity)) return false;
         ProductEntity that = (ProductEntity) o;
-
-        if (id != that.id) return false;
-        if (Double.compare(that.outPrice, outPrice) != 0) return false;
-        if (vendorId != that.vendorId) return false;
-        if (categoryId != that.categoryId) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null)
-            return false;
-        if (description != null ? !description.equals(that.description) : that.description != null)
-            return false;
-        if (images != null ? !images.equals(that.images) : that.images != null)
-            return false;
-        if (closeDate != null ? !closeDate.equals(that.closeDate) : that.closeDate != null)
-            return false;
-        if (publishDate != null ? !publishDate.equals(that.publishDate) : that.publishDate != null)
-            return false;
-
-        return true;
+        return id == that.id && Double.compare(that.outPrice, outPrice) == 0 && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(images, that.images) && Objects.equals(closeDate, that.closeDate) && Objects.equals(publishDate, that.publishDate) && Objects.equals(vendor, that.vendor) && Objects.equals(category, that.category);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        temp = Double.doubleToLongBits(outPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (images != null ? images.hashCode() : 0);
-        result = 31 * result + (closeDate != null ? closeDate.hashCode() : 0);
-        result = 31 * result + (publishDate != null ? publishDate.hashCode() : 0);
-        result = 31 * result + vendorId;
-        result = 31 * result + categoryId;
-        return result;
+        return Objects.hash(id, title, description, outPrice, images, closeDate, publishDate, vendor, category);
     }
 }
