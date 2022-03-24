@@ -4,7 +4,15 @@ A web auction platform using Jakarta EE servlets
 
 ## Running Ubay
 
-You can run the server by running `docker-compose up -d` from your command line.
+You can run the deployment server using Docker compose.
+
+```shell
+git clone https://github.com/Altair-Bueno/ubay.git
+docker compose up -d
+# To stop the server
+docker compose down
+```
+
 Ubay will be available on `0.0.0.0:8080/ubay-1.0-SNAPSHOT/`
 
 ## Building the Docker image
@@ -30,8 +38,22 @@ The following software is required:
 
 #### Using Docker
 
-```bash
-docker run -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=UBAY -v ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql postgres
+You can use the following Docker compose file to create a development database
+```yml
+version: '3.1'
+services:
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: UBAY
+    volumes:
+      - ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres-data-dev:/var/lib/postgresql/data
+volumes:
+  postgres-data-dev:
 ```
 
 #### Manual

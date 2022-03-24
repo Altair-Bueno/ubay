@@ -5,7 +5,12 @@
              version="3.0">
     <persistence-unit name="default">
         <jta-data-source>jdbc/ubay</jta-data-source>
-        <class>uma.taw.ubay.entity.ExampleEntity</class>
+        <class>uma.taw.ubay.entity.BidEntity</class>
+        <class>uma.taw.ubay.entity.CategoryEntity</class>
+        <class>uma.taw.ubay.entity.ProductEntity</class>
+        <class>uma.taw.ubay.entity.UserFavouritesEntity</class>
+        <class>uma.taw.ubay.entity.ClientEntity</class>
+        <class>uma.taw.ubay.entity.LoginCredentialsEntity</class>
         <properties>
             <property name="toplink.jdbc.url"
                       value="jdbc:postgresql://localhost:5432/UBAY"/>

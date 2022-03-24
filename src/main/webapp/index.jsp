@@ -8,6 +8,10 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="example">See the example</a>
+<form action="newUser">
+    <label>Username: <input name = "username" type="text"></label>
+    <label>Password: <input name = "password" type="text"></label>
+    <input type="submit">
+</form>
 </body>
 </html>

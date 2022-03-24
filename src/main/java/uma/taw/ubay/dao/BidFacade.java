@@ -3,15 +3,16 @@ package uma.taw.ubay.dao;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import uma.taw.ubay.entity.ExampleEntity;
+import uma.taw.ubay.entity.BidEntity;
 
 @Stateless
-public class ExampleFacade extends AbstractFacade<ExampleEntity>{
+public class BidFacade extends AbstractFacade<BidEntity> {
+
     @PersistenceContext(unitName = "default")
     private EntityManager em;
 
-    public ExampleFacade() {
-        super(ExampleEntity.class);
+    public BidFacade() {
+        super(BidEntity.class);
     }
 
     @Override
