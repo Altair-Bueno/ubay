@@ -12,11 +12,11 @@ create table client
 (
     id          serial primary key,
     name        varchar(50)  not null,
-    last_name  varchar(50)  not null,
+    last_name   varchar(50)  not null,
     address     varchar(100) not null,
     city        varchar(100) not null,
-    birth_date date         not null,
-    gender      varchar(10) not null
+    birth_date  date         not null,
+    gender      varchar(10)  not null
 );
 
 alter table client
@@ -26,6 +26,7 @@ create table login_credentials
 (
     username varchar(20) not null primary key,
     password varchar(20) not null,
+    kind     varchar(10) not null,
     user_id  integer
         constraint user_fk
             references client (id)

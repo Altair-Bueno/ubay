@@ -26,9 +26,9 @@ public class ClientEntity {
     @Basic
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
-    @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false, length = 10)
-    private String gender;
+    private GenderEnum gender;
 
     public int getId() {
         return id;
@@ -78,11 +78,11 @@ public class ClientEntity {
         this.birthDate = birthDate;
     }
 
-    public String getGender() {
+    public GenderEnum getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(GenderEnum gender) {
         this.gender = gender;
     }
 

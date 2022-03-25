@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
+import uma.taw.ubay.entity.KindEnum;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class NewUser extends HttpServlet {
         System.out.println("Password: " + password);
         entity.setUsername(username);
         entity.setPassword(password);
+        entity.setKind(KindEnum.admin);
         facade.create(entity);
         response.sendRedirect("listCredentials");
     }
