@@ -12,11 +12,35 @@
     </resource-ref>
     <filter>
         <filter-name>AuthFilter</filter-name>
-        <filter-class>uma.taw.ubay.auth.AuthFilter</filter-class>
+        <filter-class>uma.taw.ubay.filter.AuthFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>uma.taw.ubay.filter.RoleFilter</filter-class>
+        <init-param>
+            <param-name>role</param-name>
+            <param-value>admin</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
-        <url-pattern>/listCredentials</url-pattern>
+        <url-pattern>/product/*</url-pattern>
+        <url-pattern>/client/*</url-pattern>
+        <url-pattern>/vendor/*</url-pattern>
+        <url-pattern>/categories/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/categories/new</url-pattern>
+        <url-pattern>/categories/update</url-pattern>
+        <url-pattern>/categories/delete</url-pattern>
+        <url-pattern>/client</url-pattern>
+        <url-pattern>/client/new</url-pattern>
+        <url-pattern>/client/update</url-pattern>
+        <url-pattern>/client/delete</url-pattern>
     </filter-mapping>
 </web-app>
