@@ -1,4 +1,5 @@
 <%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
+<%@ page import="uma.taw.ubay.SessionKeys" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -8,7 +9,7 @@
 <body>
 <h1><%= "Hello World!" %></h1>
 <%
-    LoginCredentialsEntity entity = (LoginCredentialsEntity) session.getAttribute("login");
+    LoginCredentialsEntity entity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
     if (entity != null) {
 %>
     <h1><%=entity.getUsername()%></h1>

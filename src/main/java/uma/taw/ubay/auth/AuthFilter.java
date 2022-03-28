@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class AuthFilter extends HttpFilter {
 
+    // warning: Probably dangerous redirect
     private final static String LOGIN_PAGE = "auth/login";
 
     @Override
