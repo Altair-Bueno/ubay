@@ -7,9 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import uma.taw.ubay.RequestKeys;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.auth.Auth;
+import uma.taw.ubay.auth.AuthKeys;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
 
@@ -21,15 +20,15 @@ public class Login extends HttpServlet {
     LoginCredentialsFacade facade;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter(Auth.USERNAME_PARAMETER);
-        String password = req.getParameter(Auth.PASSWORD_PARAMETER);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String username = req.getParameter(AuthKeys.USERNAME_PARAMETER);
+        String password = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
 
         if (
                 username == null
                 || password == null
-                || !password.matches(Auth.PASSWORD_REGEX)
-                || !username.matches(Auth.USERNAME_REGEX)
+                || !password.matches(AuthKeys.PASSWORD_REGEX)
+                || !username.matches(AuthKeys.USERNAME_REGEX)
         ) {
             resp.setStatus(400);
             return;
@@ -42,15 +41,15 @@ public class Login extends HttpServlet {
         if (matches) {
             HttpSession session = req.getSession(); // fixme: Safari rejects this setting
             session.setAttribute(SessionKeys.LOGIN_CREDENTIALS,entity);
-            resp.sendRedirect(Auth.INDEX_REDIRECT);
+            resp.sendRedirect(AuthKeys.INDEX_REDIRECT);
         } else {
-            req.setAttribute(RequestKeys.ERROR,Auth.ERROR_MESSAGE);
-            req.getRequestDispatcher(Auth.LOGIN_REDIRECT).forward(req,resp);
+            // 401 - Unauthorised
+            resp.sendError(401,AuthKeys.ERROR_MESSAGE);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(Auth.LOGIN_REDIRECT).forward(req,resp);
+        req.getRequestDispatcher(AuthKeys.LOGIN_REDIRECT).forward(req,resp);
     }
 }
