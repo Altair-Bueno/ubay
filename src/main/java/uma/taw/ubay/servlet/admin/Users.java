@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.entity.ClientEntity;
+import uma.taw.ubay.entity.GenderEnum;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,13 +27,31 @@ public class Users extends HttpServlet {
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String search = request.getParameter("search");
+        String filter = request.getParameter("filterBy");
+        String deleteOn = request.getParameter("delete");
+        String updateOn = request.getParameter("update");
+        String userID = request.getParameter("userID");
         List<ClientEntity> clientEntityList = facade.findAll();
         request.setAttribute("users-list",clientEntityList);
-        if(search != null){
-            request.setAttribute("search-user", facade.filterByName(search));
-        }
+        try{
+            if(!filter.equals("--") && search != null){
+                switch(filter){
+                    case "Name" : request.setAttribute("search-user", facade.filterByName(search)); break;
+                    case "Address" : request.setAttribute("search-user", facade.filterByAddress(search)); break;
+                    case "Gender" : request.setAttribute("search-user", facade.filterByGender(GenderEnum.valueOf(search))); break;
+                    case "City" : request.setAttribute("search-user", facade.filterByCity(search)); break;
+                    case "ID" : request.setAttribute("search-user", facade.filterByID(search)); break;
+                }
+            } else {
+                request.setAttribute("search-user", clientEntityList);
+            }
 
-        request.getRequestDispatcher("users.jsp")
-                .forward(request,response);
+            if(deleteOn.equals("on") && userID != null){
+                facade.deleteUserByID(userID);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        request.getRequestDispatcher("users.jsp").forward(request,response);
     }
 }
