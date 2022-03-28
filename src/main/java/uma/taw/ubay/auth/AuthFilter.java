@@ -18,9 +18,9 @@ public class AuthFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-        HttpSession session = req.getSession();
-        Object entity = session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-        if (entity == null) {
+        HttpSession session = req.getSession(false);
+        if (session == null ||
+                session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) == null) {
             res.sendRedirect(LOGIN_PAGE);
         } else {
             chain.doFilter(req, res);
