@@ -1,4 +1,4 @@
-<%@ page import="uma.taw.ubay.auth.AuthKeys" %>
+<%@ page import="uma.taw.ubay.AuthKeys" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>

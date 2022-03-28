@@ -1,4 +1,4 @@
-package uma.taw.ubay.auth;
+package uma.taw.ubay.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,6 +10,11 @@ import uma.taw.ubay.SessionKeys;
 
 import java.io.IOException;
 
+/**
+ * A HttpFilter that checks if the request has an active session on this server.
+ * If the client doesn't have a session, the filter will redirect to the login
+ * page
+ */
 public class AuthFilter extends HttpFilter {
 
     // warning: Probably dangerous redirect

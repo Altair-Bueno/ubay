@@ -7,12 +7,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.auth.AuthKeys;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
 
 import java.io.IOException;
+
+/**
+ * Servlet in charge of creating a new user session with the received username
+ * and password. If the login fails, the client will receive a 401
+ * (Unauthorised) response
+ */
 
 @WebServlet("/auth/login")
 public class Login extends HttpServlet {

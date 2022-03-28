@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.auth.AuthKeys;
+import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.entity.ClientEntity;
@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+/**
+ * Servlet in charge of creating a new user session with the received username
+ * and password
+ */
 @WebServlet("/auth/register")
 public class Register extends HttpServlet {
     @EJB

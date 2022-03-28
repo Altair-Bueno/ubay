@@ -1,4 +1,4 @@
-<%@ page import="uma.taw.ubay.auth.AuthKeys" %>
+<%@ page import="uma.taw.ubay.AuthKeys" %>
 <%@ page import="uma.taw.ubay.entity.GenderEnum" %><%--
   Created by IntelliJ IDEA.
   User: compux72

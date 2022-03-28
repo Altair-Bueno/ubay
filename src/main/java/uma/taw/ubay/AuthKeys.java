@@ -1,5 +1,8 @@
-package uma.taw.ubay.auth;
+package uma.taw.ubay;
 
+/**
+ * Multiple constant values shared between auth related servlets
+ */
 public class AuthKeys {
     // From https://stackoverflow.com/a/1223146
     public final static String USERNAME_REGEX = "^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$";
