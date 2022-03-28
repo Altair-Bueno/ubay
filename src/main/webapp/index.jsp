@@ -1,5 +1,7 @@
 <%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
 <%@ page import="uma.taw.ubay.SessionKeys" %>
+<%@ page import="java.util.List" %>
+<%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
