@@ -30,6 +30,19 @@ public class ClientEntity {
     @Column(name = "gender", nullable = false, length = 10)
     private GenderEnum gender;
 
+    public ClientEntity() {
+
+    }
+    public ClientEntity(String name, String lastName, String address, String city, Date birthDate, GenderEnum gender) {
+        super();
+        this.name = name;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.birthDate = birthDate;
+        this.gender = gender;
+    }
+
     public int getId() {
         return id;
     }

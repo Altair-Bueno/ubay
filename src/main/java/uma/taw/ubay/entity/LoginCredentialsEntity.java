@@ -21,6 +21,16 @@ public class LoginCredentialsEntity {
     @JoinColumn(name = "user_id", nullable = true)
     private ClientEntity user;
 
+    public LoginCredentialsEntity() {}
+
+    public LoginCredentialsEntity(String username, String password, KindEnum kind, ClientEntity user) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.kind = kind;
+        this.user = user;
+    }
+
     public String getUsername() {
         return username;
     }
