@@ -47,7 +47,7 @@ public class Login extends HttpServlet {
         if (matches) {
             HttpSession session = req.getSession(); // fixme: Safari rejects this setting
             session.setAttribute(SessionKeys.LOGIN_CREDENTIALS,entity);
-            resp.sendRedirect(AuthKeys.INDEX_REDIRECT);
+            resp.sendRedirect(req.getContextPath() + AuthKeys.INDEX_REDIRECT);
         } else {
             // 401 - Unauthorised
             resp.sendError(401,AuthKeys.ERROR_MESSAGE);
@@ -56,6 +56,6 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(AuthKeys.LOGIN_REDIRECT).forward(req,resp);
+        req.getRequestDispatcher("login.jsp").forward(req,resp);
     }
 }
