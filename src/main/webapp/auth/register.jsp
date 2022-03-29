@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>Register</h1>
-<form method="post">
+<form method="post" action="${pageContext.request.contextPath}/auth/register">
     <label>Username:
         <input
                 name="<%=AuthKeys.USERNAME_PARAMETER%>" type="text"

@@ -8,7 +8,7 @@
 <body>
 <h1>Login</h1>
 <br/>
-<form method="post">
+<form method="post" action="${pageContext.request.contextPath}/auth/login">
     <label>Username:
         <input
                 name="<%=AuthKeys.USERNAME_PARAMETER%>" type="text"
