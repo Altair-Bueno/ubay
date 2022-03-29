@@ -64,7 +64,7 @@ public class Register extends HttpServlet {
             clientFacade.create(client);
             loginCredentialsFacade.create(login);
 
-            resp.sendRedirect(AuthKeys.LOGIN_REDIRECT);
+            resp.sendRedirect(req.getContextPath() + AuthKeys.LOGIN_REDIRECT);
         } catch (IllegalArgumentException e) {
             resp.sendError(400, e.getMessage());
         }
@@ -72,6 +72,6 @@ public class Register extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(AuthKeys.REGISTER_REDIRECT).forward(req, resp);
+        req.getRequestDispatcher("register.jsp").forward(req, resp);
     }
 }
