@@ -18,7 +18,7 @@ import java.io.IOException;
 public class AuthFilter extends HttpFilter {
 
     // warning: Probably dangerous redirect
-    private final static String LOGIN_PAGE = "auth/login";
+    private final static String LOGIN_PAGE = "/auth/login";
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
@@ -26,7 +26,7 @@ public class AuthFilter extends HttpFilter {
         HttpSession session = req.getSession(false);
         if (session == null ||
                 session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) == null) {
-            res.sendRedirect(LOGIN_PAGE);
+            res.sendRedirect(req.getContextPath() + LOGIN_PAGE);
         } else {
             chain.doFilter(req, res);
         }
