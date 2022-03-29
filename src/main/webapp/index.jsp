@@ -12,9 +12,13 @@
     if (entity != null) {
 %>
     <h1>Hello <%=entity.getUsername()%></h1>
-    <form method="post" action="auth/signoff">
-        <input type="submit" value="Sign of">
+    <form method="get" action="product/">
+        <input type="submit" value="Productos">
     </form>
+    <form method="post" action="auth/signoff">
+        <input type="submit" value="Sign off">
+    </form>
+
 <%
     } else {
 %>

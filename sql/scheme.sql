@@ -41,7 +41,7 @@ create table product
     title         varchar(50)      not null,
     description   varchar(250)     not null,
     out_price    double precision not null,
-    images        varchar(100)[]   not null,
+    images        varchar(100)   not null,
     close_date   date,
     publish_date timestamp        not null,
     vendor_id   integer not null
