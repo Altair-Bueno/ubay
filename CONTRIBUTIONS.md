@@ -10,11 +10,12 @@
   - [Login](src/main/java/uma/taw/ubay/servlet/auth/Login.java)
   - [Register](src/main/java/uma/taw/ubay/servlet/auth/Register.java)
 - Docker
-  - Docker compose file
-  - Dockerfile for Ubay
+  - [Docker compose](docker-compose.yml)
+  - [Ubay's Dockerfile](Dockerfile)
 - Other
-  - Github actions workflow
+  - Github actions workflows
   - Project setup
+  - [Instructions](README.md)
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 
