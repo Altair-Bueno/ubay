@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + AuthKeys.INDEX_REDIRECT);
         } else {
             // 401 - Unauthorised
-            resp.sendError(401,AuthKeys.ERROR_MESSAGE);
+            resp.sendError(401,"Bad username or password");
         }
     }
 

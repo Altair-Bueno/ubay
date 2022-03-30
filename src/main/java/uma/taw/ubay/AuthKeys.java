@@ -8,8 +8,6 @@ public class AuthKeys {
     public final static String USERNAME_REGEX = "^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$";
     public final static String PASSWORD_REGEX = ".{8,}";
 
-    public final static String ERROR_MESSAGE = "Bad username or password";
-
     public final static String INDEX_REDIRECT = "/";
     public final static String LOGIN_REDIRECT = "/auth/login.jsp";
 
@@ -21,4 +19,5 @@ public class AuthKeys {
     public static final String CITY_PARAMETER = "city";
     public static final String BIRTH_PARAMETER = "birth";
     public static final String GENDER_PARAMETER = "gender";
+    public static final String NEW_PASSWORD_PARAMETER = "new_password";
 }
