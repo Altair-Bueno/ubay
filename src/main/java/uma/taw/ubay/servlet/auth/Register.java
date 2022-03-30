@@ -34,6 +34,7 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter(AuthKeys.USERNAME_PARAMETER);
         String password = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
+        String repeatPassword = req.getParameter(AuthKeys.REPEAT_PASSWORD_PARAMETER);
 
         String name = req.getParameter(AuthKeys.NAME_PARAMETER);
         String lastName = req.getParameter(AuthKeys.LAST_NAME_PARAMETER);
@@ -44,7 +45,7 @@ public class Register extends HttpServlet {
 
         try {
             boolean anyNull = Stream.of(
-                            username, password,
+                            username, password, repeatPassword,
                             name, lastName,
                             address, city,
                             birthDateParameter, genderParameter
@@ -55,6 +56,8 @@ public class Register extends HttpServlet {
                 throw new IllegalArgumentException("Username invalid format");
             if (!password.matches(AuthKeys.PASSWORD_REGEX))
                 throw new IllegalArgumentException("Password invalid format");
+            if (!password.equals(repeatPassword))
+                throw new IllegalArgumentException("Passwords don't match");
 
             java.sql.Date birthDate = java.sql.Date.valueOf(birthDateParameter);
             GenderEnum gender = GenderEnum.valueOf(genderParameter);

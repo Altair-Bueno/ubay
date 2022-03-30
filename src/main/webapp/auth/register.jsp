@@ -24,6 +24,11 @@
                 name="<%=AuthKeys.PASSWORD_PARAMETER%>" type="password"
                 pattern="<%=AuthKeys.PASSWORD_REGEX%>" required></label>
     <br/>
+    <label>Repeat password:
+        <input
+            name="<%=AuthKeys.REPEAT_PASSWORD_PARAMETER%>" type="password"
+            pattern="<%=AuthKeys.PASSWORD_REGEX%>" required></label>
+    <br/>
     <label>First Name:
         <input
                 name="<%=AuthKeys.NAME_PARAMETER%>" type="text" required>
