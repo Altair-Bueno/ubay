@@ -30,6 +30,7 @@
         <url-pattern>/vendor/*</url-pattern>
         <url-pattern>/categories/*</url-pattern>
         <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/auth/changePassword</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
