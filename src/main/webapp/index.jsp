@@ -24,6 +24,7 @@
 %>
     <a href="auth/login">login</a>
     <a href="auth/register">Register</a>
+    <a href="admin/users">admin/users</a>
 <%
     }
 %>

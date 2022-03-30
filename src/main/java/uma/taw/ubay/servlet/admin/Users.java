@@ -29,7 +29,6 @@ public class Users extends HttpServlet {
         String search = request.getParameter("search");
         String filter = request.getParameter("filterBy");
         String deleteOn = request.getParameter("delete");
-        String updateOn = request.getParameter("update");
         String userID = request.getParameter("userID");
         List<ClientEntity> clientEntityList = facade.findAll();
         request.setAttribute("users-list",clientEntityList);
@@ -44,10 +43,6 @@ public class Users extends HttpServlet {
                 }
             } else {
                 request.setAttribute("search-user", clientEntityList);
-            }
-
-            if(deleteOn.equals("on") && userID != null){
-                facade.deleteUserByID(userID);
             }
         } catch (Exception e){
             e.printStackTrace();

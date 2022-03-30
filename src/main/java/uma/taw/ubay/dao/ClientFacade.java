@@ -87,10 +87,4 @@ public class ClientFacade extends AbstractFacade<ClientEntity> {
         }
         return res;
     }
-
-    //Como linkeo si el botón de delete está presionado para que se ejecute esto? TODO
-    public void deleteUserByID(String ID){
-        em.createQuery("DELETE FROM ClientEntity WHERE id = :ID")
-                .executeUpdate();
-    }
 }

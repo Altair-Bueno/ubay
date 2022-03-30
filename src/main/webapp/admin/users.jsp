@@ -1,6 +1,7 @@
 <%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.LinkedList" %><%--
+<%@ page import="java.util.LinkedList" %>
+<%@ page import="java.util.Collections" %><%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 28/3/22
@@ -28,6 +29,13 @@
                 <option>Gender</option>
                 <option>City</option>
             </select>
+        </label> <br>
+        Order:
+        <label for="order">
+            <select id="order" name="order">
+                <option>Ascending</option>
+                <option>Descending</option>
+            </select>
         </label>
         <label for="Search user"></label><input type="text" name="search" id="Search user"/>
         <input type="submit"/>
@@ -42,10 +50,15 @@
             <th>Address</th>
             <th>City</th>
             <th>Birth Date</th>
+            <th>Delete user</th>
+            <th>Modify user</th>
         </tr>
 
     <%
         List<ClientEntity> searchClient = (List)request.getAttribute("search-user");
+
+
+
         if(searchClient != null){
             for(ClientEntity c : searchClient){
 
@@ -58,6 +71,8 @@
         <td><%=c.getAddress()%></td>
         <td><%=c.getCity()%></td>
         <td><%=c.getBirthDate()%></td>
+        <td><a href="deleteUser?id=<%=c.getId()%>">Delete user</a></td>
+        <td><a href="modifyUser?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modify user</a></td>
     </tr>
     <%
             }
@@ -67,7 +82,7 @@
 
     &nbsp;
     &nbsp;
-
+<%--
     <form>
         <label for="userID">ID:</label><input type="text" name="userID" id="userID">
         <label for="userName">Name:</label><input type="text" name="userName" id="userName">
@@ -76,16 +91,6 @@
         <label for="userAddress">Address:</label><input type="text" name="userAddress" id="userAddress">
         <label for="userCity">City:</label><input type="text" name="userCity" id="userCity">
         <label for="userBirthDate">Birth date:</label><input type="text" name="userBirthDate" id="userBirthDate"><br>
-
-        <p>
-            <input type="radio" name="delete"> Delete selected user <br>
-            <input type="radio" name="update"> Update selected user data
-        </p>
-
-        <p>
-            <input type="submit" value="Submit changes">
-        </p>
-
     </form>
 
     <script>
@@ -104,6 +109,8 @@
             };
         }
     </script>
+
+    --%>
 
 <%--
 <h2>Create new user: </h2>
