@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
@@ -57,9 +58,10 @@ public class Register extends HttpServlet {
 
             java.sql.Date birthDate = java.sql.Date.valueOf(birthDateParameter);
             GenderEnum gender = GenderEnum.valueOf(genderParameter);
+            String hashedPassword = BCrypt.hashpw(password,BCrypt.gensalt(11));
 
             ClientEntity client = new ClientEntity(name, lastName, address, city, birthDate, gender);
-            LoginCredentialsEntity login = new LoginCredentialsEntity(username, password, KindEnum.client, client);
+            LoginCredentialsEntity login = new LoginCredentialsEntity(username, hashedPassword, KindEnum.client, client);
 
             clientFacade.create(client);
             loginCredentialsFacade.create(login);

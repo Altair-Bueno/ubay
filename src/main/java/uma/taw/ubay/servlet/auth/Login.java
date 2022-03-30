@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
@@ -42,7 +43,7 @@ public class Login extends HttpServlet {
 
         LoginCredentialsEntity entity = facade.find(username);
         boolean matches = entity != null &&
-                entity.getPassword().equals(password);
+                BCrypt.checkpw(password,entity.getPassword());
 
         if (matches) {
             HttpSession session = req.getSession(); // fixme: Safari rejects this setting

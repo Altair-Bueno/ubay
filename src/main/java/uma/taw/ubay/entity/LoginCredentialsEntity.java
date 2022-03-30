@@ -12,7 +12,7 @@ public class LoginCredentialsEntity {
     @Column(name = "username", nullable = false, length = 20)
     private String username;
     @Basic
-    @Column(name = "password", nullable = false, length = 20)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
     @Enumerated(EnumType.STRING)
     @Column(name = "kind",nullable = false)

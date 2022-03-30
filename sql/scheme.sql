@@ -25,7 +25,7 @@ alter table client
 create table login_credentials
 (
     username varchar(20) not null primary key,
-    password varchar(20) not null,
+    password varchar(60) not null,
     kind     varchar(10) not null,
     user_id  integer
         constraint user_fk
