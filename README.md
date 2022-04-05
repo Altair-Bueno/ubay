@@ -8,6 +8,7 @@ You can run the deployment server using Docker compose.
 
 ```shell
 git clone https://github.com/Altair-Bueno/ubay.git
+cd ubay
 docker compose up -d
 # To stop the server
 docker compose down
