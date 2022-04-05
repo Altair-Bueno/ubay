@@ -25,12 +25,12 @@ public class BidFacade extends AbstractFacade<BidEntity> {
     }
 
     public Stream<BidEntity> getBidsByClient(ClientEntity client) {
-        Query query = em.createQuery("select bid from BidEntity bid where bid.user.id = :client",BidEntity.class);
+        Query query = em.createQuery("select bid from BidEntity bid where bid.user.id = :client order by bid.publishDate asc",BidEntity.class);
         query.setParameter("client",client.getId());
         return query.getResultStream();
     }
     public Stream<BidEntity> getBidsByVendor(ClientEntity vendor) {
-        Query query = em.createQuery("select bid from BidEntity bid, ProductEntity product where product.vendor.id = :vendor and bid.product.id = product.id");
+        Query query = em.createQuery("select bid from BidEntity bid, ProductEntity product where product.vendor.id = :vendor and bid.product.id = product.id order by bid.publishDate asc ");
         query.setParameter("vendor",vendor.getId());
         return query.getResultStream();
     }
