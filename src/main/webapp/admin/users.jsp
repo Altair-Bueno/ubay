@@ -29,7 +29,8 @@
                 <option>Gender</option>
                 <option>City</option>
             </select>
-        </label> <br>
+        </label>
+
         Order:
         <label for="order">
             <select id="order" name="order">
@@ -37,6 +38,7 @@
                 <option>Descending</option>
             </select>
         </label>
+
         <label for="Search user"></label><input type="text" name="search" id="Search user"/>
         <input type="submit"/>
     </form>
@@ -56,8 +58,6 @@
 
     <%
         List<ClientEntity> searchClient = (List)request.getAttribute("search-user");
-
-
 
         if(searchClient != null){
             for(ClientEntity c : searchClient){
