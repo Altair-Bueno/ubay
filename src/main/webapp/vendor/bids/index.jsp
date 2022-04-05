@@ -11,8 +11,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    Stream<BidEntity> rawStream = (Stream<BidEntity>) request.getAttribute(VendorKeys.BIDS_BY_VENDOR);
-    List<BidEntity> bidsList = rawStream.collect(Collectors.toList());
+    List<BidEntity> bidsList = (List<BidEntity>) request.getAttribute(VendorKeys.BIDS_BY_VENDOR);
 %>
 <html>
 <head>
