@@ -37,7 +37,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         Root<ProductEntity> productTable = query.from(ProductEntity.class);
         query.select(bidTable)
                 .where(builder.equal(productTable.get("id"), productTable.get("id")))
-                .where(productTable.get("vendor").in(vendor))
+                .where(builder.equal(productTable.get("vendor"), vendor))
                 .orderBy(builder.desc(bidTable.get("publishDate")));
 
         return em.createQuery(query).getResultStream();
