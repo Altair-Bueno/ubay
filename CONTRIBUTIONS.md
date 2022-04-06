@@ -21,6 +21,7 @@
 
 
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
+- DB Desing
 - Admin page
   - [/admin/deleteUser](src/main/java/uma/taw/ubay/servlet/admin/DeleteUser.java)
   - [/admin/modifyUser](src/main/java/uma/taw/ubay/servlet/admin/ModifyUser.java)
