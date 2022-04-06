@@ -12,11 +12,24 @@ public class LoginCredentialsEntity {
     @Column(name = "username", nullable = false, length = 20)
     private String username;
     @Basic
-    @Column(name = "password", nullable = false, length = 20)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "kind",nullable = false)
+    private KindEnum kind;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = true)
     private ClientEntity user;
+
+    public LoginCredentialsEntity() {}
+
+    public LoginCredentialsEntity(String username, String password, KindEnum kind, ClientEntity user) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.kind = kind;
+        this.user = user;
+    }
 
     public String getUsername() {
         return username;
@@ -34,6 +47,14 @@ public class LoginCredentialsEntity {
         this.password = password;
     }
 
+    public KindEnum getKind() {
+        return kind;
+    }
+
+    public void setKind(KindEnum kind) {
+        this.kind = kind;
+    }
+
     public ClientEntity getUser() {
         return user;
     }
@@ -46,12 +67,12 @@ public class LoginCredentialsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof LoginCredentialsEntity)) return false;
-        LoginCredentialsEntity that = (LoginCredentialsEntity) o;
-        return Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(user, that.user);
+        LoginCredentialsEntity entity = (LoginCredentialsEntity) o;
+        return Objects.equals(username, entity.username) && Objects.equals(password, entity.password) && kind == entity.kind && Objects.equals(user, entity.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, user);
+        return Objects.hash(username, password, kind, user);
     }
 }

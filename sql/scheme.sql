@@ -12,11 +12,11 @@ create table client
 (
     id          serial primary key,
     name        varchar(50)  not null,
-    last_name  varchar(50)  not null,
+    last_name   varchar(50)  not null,
     address     varchar(100) not null,
     city        varchar(100) not null,
-    birth_date date         not null,
-    gender      varchar(10) not null
+    birth_date  date         not null,
+    gender      varchar(10)  not null
 );
 
 alter table client
@@ -25,7 +25,8 @@ alter table client
 create table login_credentials
 (
     username varchar(20) not null primary key,
-    password varchar(20) not null,
+    password varchar(60) not null,
+    kind     varchar(10) not null,
     user_id  integer
         constraint user_fk
             references client (id)
@@ -40,7 +41,7 @@ create table product
     title         varchar(50)      not null,
     description   varchar(250)     not null,
     out_price    double precision not null,
-    images        varchar(100)[]   not null,
+    images        varchar(100)   not null,
     close_date   date,
     publish_date timestamp        not null,
     vendor_id   integer not null
