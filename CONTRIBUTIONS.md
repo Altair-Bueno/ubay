@@ -25,6 +25,6 @@
 - Admin functions on user page
   - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Delete.java)
   - [/users/modify](src/main/java/uma/taw/ubay/servlet/users/Modify.java)
-  - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Users.java)
+  - [/users/](src/main/java/uma/taw/ubay/servlet/users/Users.java)
 - User filters
   - [ClientFacade](src/main/java/uma/taw/ubay/dao/ClientFacade.java)
