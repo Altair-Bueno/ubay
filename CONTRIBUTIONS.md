@@ -6,9 +6,11 @@
 - JSP
   - [login.jsp](src/main/webapp/auth/login.jsp)
   - [register.jsp](src/main/webapp/auth/register.jsp)
+  - [vendor bids](src/main/webapp/vendor/bids/index.jsp)
 - Servlets
   - [Login](src/main/java/uma/taw/ubay/servlet/auth/Login.java)
   - [Register](src/main/java/uma/taw/ubay/servlet/auth/Register.java)
+  - [Bids](src/main/java/uma/taw/ubay/servlet/vendor/bids/Index.java)
 - Docker
   - [Docker compose](docker-compose.yml)
   - [Ubay's Dockerfile](Dockerfile)
@@ -16,6 +18,7 @@
   - Github actions workflows
   - Project setup
   - [Instructions](README.md)
+  - Database design
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 
