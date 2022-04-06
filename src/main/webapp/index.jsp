@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
     <title>JSP - Hello World</title>
 </head>
 <body>
@@ -14,7 +18,7 @@
 %>
     <h1>Hello <%=entity.getUsername()%></h1>
     <form method="get" action="product/">
-        <input type="submit" value="Productos">
+        <input type="submit" class="btn btn-primary" value="Productos">
     </form>
     <form method="post" action="auth/signoff">
         <input type="submit" value="Sign off">
@@ -24,7 +28,7 @@
     } else if(entity!= null && entity.getKind().equals(KindEnum.admin)){
 %>
     <h1>Hello <%=entity.getUsername()%></h1>
-    <form method="get" action="admin/users">
+    <form method="get" action="users">
         <input type="submit" value="Manage users">
     </form>
 
