@@ -28,18 +28,21 @@ public class Index extends HttpServlet {
         String endDateParameter = req.getParameter(VendorKeys.BID_END_DATE_PARAMETER);
         String productTitleParameter = req.getParameter(VendorKeys.BID_PRODUCT_TITLE_PARAMETER);
         String clientNameParameter = req.getParameter(VendorKeys.BID_CLIENT_NAME_PARAMETER);
+        String pageParameter = req.getParameter(VendorKeys.BID_PAGE_NUMBER_PARAMETER);
 
         try {
             Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
-            Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null: Date.valueOf(endDateParameter);
+            Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);
             String productTitle = "".equals(productTitleParameter) ? null : productTitleParameter;
             String clientName = "".equals(clientNameParameter) ? null : clientNameParameter;
+            int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
+            if (page < 0) throw new IllegalArgumentException("Negative page index");
 
-            List<BidEntity> bidList = facade.filterBids(loginCredentials.getUser(),startDate,endDate, productTitle,clientName);
+            List<BidEntity> bidList = facade.filterBids(loginCredentials.getUser(), page, startDate, endDate, productTitle, clientName);
             req.setAttribute(VendorKeys.BID_LIST, bidList);
-            req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req,resp);
+            req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req, resp);
         } catch (Exception e) {
-            resp.sendError(400,e.getMessage());
+            resp.sendError(400, e.getMessage());
         }
     }
 }

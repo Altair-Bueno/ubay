@@ -30,7 +30,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         return em;
     }
 
-    public List<BidEntity> filterBids(ClientEntity vendor, Date startDate, Date endDate, String productTitle, String clientName) {
+    public List<BidEntity> filterBids(ClientEntity vendor, int page, Date startDate, Date endDate, String productTitle, String clientName) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<BidEntity> query = builder.createQuery(BidEntity.class);
 
@@ -51,6 +51,9 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         query.select(bidTable)
                 .where(predicateList.toArray(new Predicate[0]))
                 .orderBy(builder.desc(bidTable.get("publishDate")));
-        return em.createQuery(query).getResultList();
+        return em.createQuery(query)
+                .setFirstResult(page * 10)
+                .setMaxResults(10)
+                .getResultList();
     }
 }

@@ -1,8 +1,8 @@
-<%@ page import="java.util.stream.Stream" %>
 <%@ page import="uma.taw.ubay.entity.BidEntity" %>
 <%@ page import="uma.taw.ubay.VendorKeys" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.stream.Collectors" %><%--
+<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
+<%--
   Created by IntelliJ IDEA.
   User: compux72
   Date: 5/4/22
@@ -16,11 +16,17 @@
     String endDate = request.getParameter(VendorKeys.BID_END_DATE_PARAMETER);
     String productTitle = request.getParameter(VendorKeys.BID_PRODUCT_TITLE_PARAMETER);
     String clientName = request.getParameter(VendorKeys.BID_CLIENT_NAME_PARAMETER);
+    String pageNumberParameter = request.getParameter(VendorKeys.BID_PAGE_NUMBER_PARAMETER);
 
     startDate = startDate == null ? "" : startDate;
     endDate = endDate == null ? "" : endDate;
     productTitle = productTitle == null ? "" : productTitle;
     clientName = clientName == null ? "" : clientName;
+    int pageNumber = 0;
+    try {
+        pageNumber = Integer.parseInt(pageNumberParameter);
+    } catch (Exception ignored) {
+    }
 %>
 <html>
 <head>
@@ -37,7 +43,7 @@
     </div>
     <div class="row">
 
-        <aside class="col-sm-12 col-md-4">
+        <aside class="col-sm-12 col-md-2">
             <form action="${pageContext.request.contextPath}/vendor/bids">
                 <div class="mb-3">
                     <label for="startDate" class="form-label">Start Date</label>
@@ -65,6 +71,12 @@
                            name="<%=VendorKeys.BID_CLIENT_NAME_PARAMETER%>"
                            value="<%=clientName%>">
                 </div>
+                <div class="mb-3 input-group">
+                    <label for="pageNumber" class="form-label">Page</label>
+                    <input type="number" id="pageNumber"
+                           name="<%=VendorKeys.BID_PAGE_NUMBER_PARAMETER%>"
+                           value="<%=pageNumber%>">
+                </div>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </form>
         </aside>
@@ -82,17 +94,27 @@
                 <tbody>
                 <%for (int i = 0; i < bidsList.size(); i++) {%>
                 <tr>
-                    <%BidEntity bid = bidsList.get(i);%>
-                    <th scope="row"><%=i%>
+                    <%
+                        BidEntity bid = bidsList.get(i);
+                        ProductEntity product = bid.getProduct();
+                    %>
+                    <th scope="row">
+                        <%=i + pageNumber%>
                     </th>
-                    <td><%=bid.getPublishDate()%>
+                    <td>
+                        <%=bid.getPublishDate()%>
                     </td>
-                    <td>$<%=bid.getAmount()%>
+                    <td>
+                        $<%=bid.getAmount()%>
                     </td>
                     <%--TODO replace placeholder with actual link--%>
-                    <td>LINK PLACEHOLDER: <%=bid.getProduct().getTitle()%>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/products?id=<%=product.getId()%>">
+                            <%=product.getTitle()%>
+                        </a>
                     </td>
-                    <td><%=bid.getUser().getName()%>
+                    <td>
+                        <%=bid.getUser().getName()%>
                     </td>
                 </tr>
                 <%}%>
