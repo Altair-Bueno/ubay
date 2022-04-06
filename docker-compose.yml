@@ -19,7 +19,7 @@ services:
   # UBAY: http://localhost:8080/ubay-1.0-SNAPSHOT
   glassfish:
     container_name: 'white-fish'
-    image: 'ghcr.io/altair-bueno/ubay:release'
+    image: 'ghcr.io/altair-bueno/ubay'
     #build: .
     ports:
       - '8080:8080'
