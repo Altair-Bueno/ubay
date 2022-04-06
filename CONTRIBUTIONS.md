@@ -22,7 +22,9 @@
 
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
 - DB Desing
-- Admin page
-  - [/admin/deleteUser](src/main/java/uma/taw/ubay/servlet/admin/DeleteUser.java)
-  - [/admin/modifyUser](src/main/java/uma/taw/ubay/servlet/admin/ModifyUser.java)
-  - [/admin/Users](src/main/java/uma/taw/ubay/servlet/admin/Users.java)
+- Admin functions on user page
+  - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Delete.java)
+  - [/users/modify](src/main/java/uma/taw/ubay/servlet/users/Modify.java)
+  - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Users.java)
+- User filters
+  - [ClientFacade](src/main/java/uma/taw/ubay/dao/ClientFacade.java)
