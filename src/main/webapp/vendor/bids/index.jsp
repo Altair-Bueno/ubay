@@ -24,30 +24,32 @@
 <body>
     <div class="container">
         <h1>Bids recived</h1>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Published on</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Product</th>
-                <th scope="col">Client name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%for (int i = 0;i<bidsList.size();i++) {%>
-            <tr>
-                <%BidEntity bid = bidsList.get(i);%>
-                <th scope="row"><%=i%></th>
-                    <td><%=bid.getPublishDate()%></td>
-                    <td>$<%=bid.getAmount()%></td>
-                    <%--TODO replace placeholder with actual link--%>
-                    <td>LINK PLACEHOLDER<%=bid.getProduct()%></td>
-                    <td><%=bid.getUser().getName()%></td>
-            </tr>
-            <%}%>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Published on</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Client name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%for (int i = 0;i<bidsList.size();i++) {%>
+                <tr>
+                    <%BidEntity bid = bidsList.get(i);%>
+                    <th scope="row"><%=i%></th>
+                        <td><%=bid.getPublishDate()%></td>
+                        <td>$<%=bid.getAmount()%></td>
+                        <%--TODO replace placeholder with actual link--%>
+                        <td>LINK PLACEHOLDER<%=bid.getProduct()%></td>
+                        <td><%=bid.getUser().getName()%></td>
+                </tr>
+                <%}%>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

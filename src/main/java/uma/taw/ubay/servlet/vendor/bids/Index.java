@@ -13,6 +13,7 @@ import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,9 +26,22 @@ public class Index extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginCredentialsEntity loginCredentials = (LoginCredentialsEntity) req.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-        Stream<BidEntity> bidsByClient = facade.getBidsByVendor(loginCredentials.getUser());
-        List<BidEntity> bidList = bidsByClient.collect(Collectors.toList());
-        req.setAttribute(VendorKeys.BIDS_BY_VENDOR, bidList);
-        req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req,resp);
+        String startDateParameter = req.getParameter("startDate");
+        String endDateParameter = req.getParameter("endDate");
+        // TODO complete filter
+        try {
+            Date startDate = null;
+            Date endDate = null;
+            Double minAmount = null;
+            Double maxAmount = null;
+            String productName = null;
+            String clientName = null;
+            Stream<BidEntity> bidsByClient = facade.filterBids(loginCredentials.getUser(),startDate,endDate,minAmount,maxAmount,productName,clientName);
+            List<BidEntity> bidList = bidsByClient.collect(Collectors.toList());
+            req.setAttribute(VendorKeys.BIDS_BY_VENDOR, bidList);
+            req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req,resp);
+        } catch (Exception e) {
+            resp.sendError(400,e.getMessage());
+        }
     }
 }
