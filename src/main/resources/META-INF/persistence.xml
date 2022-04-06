@@ -27,6 +27,10 @@
                       value="jdbc:postgresql://localhost:5432/UBAY"/>
             <property name="eclipselink.jdbc.driver"
                       value="org.postgresql.Driver"/>
+            <!-- Show sql statements on console-->
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+
         </properties>
         <!--<class></class>-->
         <!--<properties>
