@@ -28,6 +28,16 @@ public class BidEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private ClientEntity user;
 
+    public BidEntity() {
+    }
+
+    public BidEntity(Timestamp publishDate, double amount, ProductEntity product, ClientEntity user) {
+        this.publishDate = publishDate;
+        this.amount = amount;
+        this.product = product;
+        this.user = user;
+    }
+
     public Timestamp getPublishDate() {
         return publishDate;
     }
