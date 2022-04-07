@@ -99,7 +99,7 @@
                         ProductEntity product = bid.getProduct();
                     %>
                     <th scope="row">
-                        <%=i + pageNumber%>
+                        <%=i + pageNumber * 10%>
                     </th>
                     <td>
                         <%=bid.getPublishDate()%>
