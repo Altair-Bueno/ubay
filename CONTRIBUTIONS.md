@@ -13,6 +13,7 @@
   - [Register](src/main/java/uma/taw/ubay/servlet/auth/Register.java)
   - [Vendor Bids](src/main/java/uma/taw/ubay/servlet/vendor/bids/Index.java)
   - [User Bids](src/main/java/uma/taw/ubay/servlet/users/bids/Index.java)
+  - [Create a new bid](src/main/java/uma/taw/ubay/servlet/users/bids/New.java)
 - Docker
   - [Docker compose](docker-compose.yml)
   - [Ubay's Dockerfile](Dockerfile)
@@ -20,7 +21,7 @@
   - GitHub actions workflows
   - Project setup
   - [Instructions](README.md)
-  - Database design
+  - Database design & ORM
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 
