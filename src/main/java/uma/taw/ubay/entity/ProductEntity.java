@@ -110,6 +110,10 @@ public class ProductEntity {
         this.category = category;
     }
 
+    public boolean isCurrentlyAvailable() {
+        return this.getCloseDate() == null || this.getCloseDate().after(new java.util.Date());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
