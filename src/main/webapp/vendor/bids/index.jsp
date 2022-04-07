@@ -43,7 +43,7 @@
     </div>
     <div class="row">
 
-        <aside class="col-sm-12 col-md-2">
+        <aside class="col-md-12 col-lg-2">
             <form action="${pageContext.request.contextPath}/vendor/bids">
                 <div class="mb-3">
                     <label for="startDate" class="form-label">Start Date</label>
