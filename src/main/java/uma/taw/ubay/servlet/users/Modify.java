@@ -1,4 +1,4 @@
-package uma.taw.ubay.servlet.admin;
+package uma.taw.ubay.servlet.users;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -9,13 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.GenderEnum;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
 
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet("/admin/modifyUser")
-public class ModifyUser extends HttpServlet {
+@WebServlet("/users/modify")
+public class Modify extends HttpServlet {
     @EJB
     ClientFacade facadeClient;
 
@@ -43,6 +42,6 @@ public class ModifyUser extends HttpServlet {
 
         facadeClient.edit(client);
 
-        request.getRequestDispatcher("modifyUser.jsp").forward(request,response);
+        request.getRequestDispatcher("modify.jsp").forward(request,response);
     }
 }
