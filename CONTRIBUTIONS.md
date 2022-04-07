@@ -6,16 +6,18 @@
 - JSP
   - [login.jsp](src/main/webapp/auth/login.jsp)
   - [register.jsp](src/main/webapp/auth/register.jsp)
-  - [vendor bids](src/main/webapp/vendor/bids/index.jsp)
+  - [Vendor bids](src/main/webapp/vendor/bids/index.jsp)
+  - [User bids](src/main/webapp/vendor/bids/index.jsp)
 - Servlets
   - [Login](src/main/java/uma/taw/ubay/servlet/auth/Login.java)
   - [Register](src/main/java/uma/taw/ubay/servlet/auth/Register.java)
-  - [Bids](src/main/java/uma/taw/ubay/servlet/vendor/bids/Index.java)
+  - [Vendor Bids](src/main/java/uma/taw/ubay/servlet/vendor/bids/Index.java)
+  - [User Bids](src/main/java/uma/taw/ubay/servlet/users/bids/Index.java)
 - Docker
   - [Docker compose](docker-compose.yml)
   - [Ubay's Dockerfile](Dockerfile)
 - Other
-  - Github actions workflows
+  - GitHub actions workflows
   - Project setup
   - [Instructions](README.md)
   - Database design
