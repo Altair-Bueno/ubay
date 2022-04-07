@@ -6,9 +6,11 @@
 - JSP
   - [login.jsp](src/main/webapp/auth/login.jsp)
   - [register.jsp](src/main/webapp/auth/register.jsp)
+  - [vendor bids](src/main/webapp/vendor/bids/index.jsp)
 - Servlets
   - [Login](src/main/java/uma/taw/ubay/servlet/auth/Login.java)
   - [Register](src/main/java/uma/taw/ubay/servlet/auth/Register.java)
+  - [Bids](src/main/java/uma/taw/ubay/servlet/vendor/bids/Index.java)
 - Docker
   - [Docker compose](docker-compose.yml)
   - [Ubay's Dockerfile](Dockerfile)
@@ -16,13 +18,16 @@
   - Github actions workflows
   - Project setup
   - [Instructions](README.md)
+  - Database design
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 
 
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
-- DB Desing
-- Admin page
-  - [/admin/deleteUser](src/main/java/uma/taw/ubay/servlet/admin/DeleteUser.java)
-  - [/admin/modifyUser](src/main/java/uma/taw/ubay/servlet/admin/ModifyUser.java)
-  - [/admin/Users](src/main/java/uma/taw/ubay/servlet/admin/Users.java)
+- DB Design
+- Admin functions on user page
+  - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Delete.java)
+  - [/users/modify](src/main/java/uma/taw/ubay/servlet/users/Modify.java)
+  - [/users/](src/main/java/uma/taw/ubay/servlet/users/Users.java)
+- User filters
+  - [ClientFacade](src/main/java/uma/taw/ubay/dao/ClientFacade.java)

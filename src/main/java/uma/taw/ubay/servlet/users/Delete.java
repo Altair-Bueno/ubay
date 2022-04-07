@@ -1,4 +1,4 @@
-package uma.taw.ubay.servlet.admin;
+package uma.taw.ubay.servlet.users;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -13,8 +13,8 @@ import uma.taw.ubay.entity.LoginCredentialsEntity;
 
 import java.io.IOException;
 
-@WebServlet("/admin/deleteUser")
-public class DeleteUser extends HttpServlet {
+@WebServlet("/users/delete")
+public class Delete extends HttpServlet {
     @EJB
     ClientFacade facadeClient;
 
@@ -41,6 +41,6 @@ public class DeleteUser extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        request.getRequestDispatcher("deleteUser.jsp").forward(request,response);
+        request.getRequestDispatcher("delete.jsp").forward(request,response);
     }
 }

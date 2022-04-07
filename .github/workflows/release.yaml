@@ -2,7 +2,7 @@ name: Create a release image
 
 on:
   push:
-    branches: ['release']
+    branches: ['latest']
 
 env:
   REGISTRY: ghcr.io

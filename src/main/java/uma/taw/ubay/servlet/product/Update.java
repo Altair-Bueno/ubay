@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.CategoryFacade;
 import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.entity.CategoryEntity;
-import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
 
 import java.io.IOException;
@@ -38,11 +37,11 @@ public class Update extends HttpServlet {
 
         ProductEntity p = facade.find(Integer.parseInt(req.getParameter("id")));
 
-        if(estado == "Cerrado"){
+        if(estado.equals("Cerrado")){
             if(p.getCloseDate() == null){
                 p.setCloseDate(new Date(new java.util.Date().getTime()));
             }
-        } else if(estado == "Activo") {
+        } else if(estado.equals("Activo")) {
             if(p.getCloseDate() != null){
                 p.setCloseDate(null);
             }
@@ -52,6 +51,7 @@ public class Update extends HttpServlet {
         p.setCategory(cat);
         p.setOutPrice(precio);
 
+        facade.edit(p);
 
 
     }
