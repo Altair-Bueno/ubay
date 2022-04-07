@@ -93,4 +93,23 @@ public class BidFacade extends AbstractFacade<BidEntity> {
                 .setMaxResults(10)
                 .getResultList();
     }
+
+    public BidEntity getHighestBidByProduct(ProductEntity product) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<BidEntity> query = builder.createQuery(BidEntity.class);
+
+        // select bidTable
+        // from BidEntity bidTable
+        // where bidTable.product = :product
+        // having bidTable.amount = max(bidTable.amount)
+        Root<BidEntity> bidTable = query.from(BidEntity.class);
+        query
+                .select(bidTable)
+                .where(builder.equal(bidTable.get("product"), product))
+                .having(builder.equal(bidTable.get("amount"),builder.max(bidTable.get("amount"))));
+
+        List<BidEntity> resultList = em.createQuery(query)
+                .setMaxResults(1).getResultList();
+        return resultList == null || resultList.isEmpty() ? null : resultList.get(0);
+    }
 }
