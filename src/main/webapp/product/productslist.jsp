@@ -16,6 +16,15 @@
           crossorigin="anonymous">
     <title>Ubay | Productos</title>
 </head>
+<style>
+    tr{
+        cursor: pointer
+    }
+
+    tr:hover{
+        background-color: #F5F5F5;
+    }
+</style>
 <body>
 
     <%
@@ -23,30 +32,34 @@
 
     %>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">Titulo</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Descripcion</th>
-        </tr>
-        </thead>
-        <tbody>
-        <%
-            for(ProductEntity p : l){
-        %>
-        <tr>
-            <td><img src="<%=p.getImages()%>" class="img-thumbnail" alt="<%=p.getTitle()%>"></td>
-            <td><%=p.getTitle()%></td>
-            <td><%=p.getCloseDate() == null ? "Abierto" : "Cerrado"%></td>
-            <td><%=p.getDescription()%></td>
-        </tr>
-        <%
-            }
-        %>
-        </tbody>
-    </table>
+    <div class="mx-auto" style="width: 1500px;">
+        <table class="table table-bordered text-center">
+            <thead>
+            <tr>
+                <th scope="col">Imagen</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Descripcion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                for(ProductEntity p : l){
+            %>
+            <tr onclick="window.location='${pageContext.request.contextPath}/product/product?id=' + <%=p.getId()%>">
+                <td><img src="<%=p.getImages()%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
+                <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
+                <td class="align-middle"><%=p.getCloseDate() == null ? "Abierto" : "Cerrado"%></td>
+                <td class="align-middle"><%=p.getDescription()%></td>
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
+
+
 
 </body>
 </html>

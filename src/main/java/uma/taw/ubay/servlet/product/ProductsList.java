@@ -10,7 +10,7 @@ import uma.taw.ubay.dao.ProductFacade;
 
 import java.io.IOException;
 
-@WebServlet("/productslist/")
+@WebServlet("/product/productslist")
 public class ProductsList extends HttpServlet {
 
     @EJB

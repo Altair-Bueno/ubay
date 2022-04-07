@@ -26,7 +26,6 @@
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/product/*</url-pattern>
-        <url-pattern>/productslist/*</url-pattern>
         <url-pattern>/client/*</url-pattern>
         <url-pattern>/vendor/*</url-pattern>
         <url-pattern>/categories/*</url-pattern>
