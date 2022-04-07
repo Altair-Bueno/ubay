@@ -41,7 +41,7 @@ public class Index extends HttpServlet {
             List<BidEntity> bidList = facade.filterBids(loginCredentials.getUser(), page, startDate, endDate, productTitle, clientName);
             req.setAttribute(VendorKeys.BID_LIST, bidList);
             req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req, resp);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             resp.sendError(400, e.getMessage());
         }
     }
