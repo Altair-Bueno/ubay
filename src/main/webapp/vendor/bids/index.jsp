@@ -71,9 +71,9 @@
                            name="<%=VendorKeys.BID_CLIENT_NAME_PARAMETER%>"
                            value="<%=clientName%>">
                 </div>
-                <div class="mb-3 input-group">
+                <div class="mb-3">
                     <label for="pageNumber" class="form-label">Page</label>
-                    <input type="number" id="pageNumber"
+                    <input type="number" class = "form-control" id="pageNumber"
                            name="<%=VendorKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>

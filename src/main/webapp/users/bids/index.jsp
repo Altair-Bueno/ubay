@@ -39,7 +39,7 @@
 <body>
 <div class="container mt-4">
     <div class="row">
-        <h1>Bids received</h1>
+        <h1>My bids</h1>
     </div>
     <div class="row">
 
@@ -71,9 +71,9 @@
                            name="<%=UsersKeys.BID_VENDOR_NAME_PARAMETER%>"
                            value="<%=vendorName%>">
                 </div>
-                <div class="mb-3 input-group">
+                <div class="mb-3">
                     <label for="pageNumber" class="form-label">Page</label>
-                    <input type="number" id="pageNumber"
+                    <input type="number" class = "form-control" id="pageNumber"
                            name="<%=UsersKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>
