@@ -10,15 +10,15 @@ import uma.taw.ubay.dao.ProductFacade;
 
 import java.io.IOException;
 
-@WebServlet("/product")
-public class Product extends HttpServlet {
+@WebServlet("/productslist/")
+public class ProductsList extends HttpServlet {
+
     @EJB
     ProductFacade facade;
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer id = Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("product", facade.find(id));
-        req.getRequestDispatcher("product.jsp").forward(req,resp);
+        req.setAttribute("product-list", facade.findAll());
+        req.getRequestDispatcher("productslist.jsp").forward(req,resp);
     }
 
     @Override

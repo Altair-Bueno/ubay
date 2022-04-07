@@ -13,7 +13,8 @@
     if (entity != null && entity.getKind().equals(KindEnum.client)) {
 %>
     <h1>Hello <%=entity.getUsername()%></h1>
-    <form method="get" action="product/">
+    <h2>Your role: <%=entity.getKind()%></h2>
+    <form method="get" action="productslist/">
         <input type="submit" value="Productos">
     </form>
     <form method="post" action="auth/signoff">
@@ -24,6 +25,7 @@
     } else if(entity!= null && entity.getKind().equals(KindEnum.admin)){
 %>
     <h1>Hello <%=entity.getUsername()%></h1>
+    <h2>Your role: <%=entity.getKind()%></h2>
     <form method="get" action="admin/users">
         <input type="submit" value="Manage users">
     </form>
