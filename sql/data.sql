@@ -39,6 +39,8 @@ insert into client (name, last_name, address, city, birth_date, gender) values (
 insert into client (name, last_name, address, city, birth_date, gender) values ( 'Vivian', 'Attwill', '71 5th Drive', 'Mstsislaw', '2021-07-01', 'other');
 insert into client (name, last_name, address, city, birth_date, gender) values ( 'Marina', 'Stickney', '327 Artisan Street', 'Wąsosz', '2021-04-07', 'other');
 insert into client (name, last_name, address, city, birth_date, gender) values ( 'Waverly', 'Barstow', '275 Service Plaza', 'Póvoa', '2021-10-02', 'male');
+insert into client (name, last_name, address, city, birth_date, gender) values ('username','lastname','address', 'city','2022-02-19', 'other');
+
 
 -- password = BCrypt("password")
 insert into login_credentials (username, password, kind, user_id) values ('kbrimilcombe0', '$2a$10$dLIkjXzk4L9q8YQ8cudI4O.44OO2ii5Cu9F00AtjHx.31lP9TZpAG', 'client', 1);
@@ -71,6 +73,8 @@ insert into login_credentials (username, password, kind, user_id) values ('orenn
 insert into login_credentials (username, password, kind, user_id) values ('dadamikr', '$2a$10$dLIkjXzk4L9q8YQ8cudI4O.44OO2ii5Cu9F00AtjHx.31lP9TZpAG', 'client', 28);
 insert into login_credentials (username, password, kind, user_id) values ('asuscenss', '$2a$10$dLIkjXzk4L9q8YQ8cudI4O.44OO2ii5Cu9F00AtjHx.31lP9TZpAG', 'client', 29);
 insert into login_credentials (username, password, kind, user_id) values ('mbravingtont', '$2a$10$dLIkjXzk4L9q8YQ8cudI4O.44OO2ii5Cu9F00AtjHx.31lP9TZpAG', 'client', 30);
+insert into login_credentials (username, password, kind, user_id) VALUES ('username','$2a$10$dLIkjXzk4L9q8YQ8cudI4O.44OO2ii5Cu9F00AtjHx.31lP9TZpAG','client',31);
+
 
 insert into user_favourites (category_id, user_id) values (10, 1);
 insert into user_favourites (category_id, user_id) values (2, 2);
@@ -128,10 +132,10 @@ insert into product (title, description, out_price, images, close_date, publish_
 insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('Yi Yi', 'pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue', 22.2, 'http://dummyimage.com/117x100.png/ff4444/ffffff', '2020-06-12', '2021-10-21', 4, 4);
 insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('Who Is Killing the Great Chefs of Europe?', 'montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida', 21.91, 'http://dummyimage.com/200x100.png/ff4444/ffffff', '2020-09-26', '2021-10-29', 4, 8);
 insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('The Losers', 'sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at', 5.74, 'http://dummyimage.com/226x100.png/cc0000/ffffff', '2021-01-03', '2021-07-14', 30, 8);
-insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('Greedy', 'vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere', 57.26, 'http://dummyimage.com/220x100.png/5fa2dd/ffffff', '2020-10-08', '2022-02-22', 5, 9);
-insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('La Soufrière - Warten', 'eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus', 4.73, 'http://dummyimage.com/227x100.png/5fa2dd/ffffff', '2020-11-30', '2022-02-15', 13, 1);
-insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('War Horse', 'est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl', 56.07, 'http://dummyimage.com/205x100.png/dddddd/000000', '2020-05-28', '2022-01-15', 26, 8);
-insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('Raw Deal: A Question of Consent', 'lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc', 98.13, 'http://dummyimage.com/107x100.png/5fa2dd/ffffff', '2021-02-28', '2021-09-12', 4, 5);
+insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('Greedy', 'vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere', 57.26, 'http://dummyimage.com/220x100.png/5fa2dd/ffffff', null, '2022-02-22', 5, 9);
+insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('La Soufrière - Warten', 'eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus', 4.73, 'http://dummyimage.com/227x100.png/5fa2dd/ffffff', null, '2022-02-15', 13, 1);
+insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('War Horse', 'est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl', 56.07, 'http://dummyimage.com/205x100.png/dddddd/000000', null, '2022-01-15', 26, 8);
+insert into product (title, description, out_price, images, close_date, publish_date, vendor_id, category_id) values ('Raw Deal: A Question of Consent', 'lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc', 98.13, 'http://dummyimage.com/107x100.png/5fa2dd/ffffff', null, '2021-09-12', 4, 5);
 
 insert into bid (publish_date, amount, product_id, user_id) values ('2021-05-01 14:23:59', 37.57, 5, 26);
 insert into bid (publish_date, amount, product_id, user_id) values ('2021-07-06 02:20:12', 94.62, 16, 30);
