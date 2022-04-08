@@ -1,3 +1,5 @@
+-- Fake data for the Ubay marketplace
+
 insert into category (name, description) values ('Cardify', 'cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum');
 insert into category (name, description) values ('Tresom', 'cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus');
 insert into category (name, description) values ('Overhold', 'habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit');
