@@ -18,6 +18,11 @@ import java.util.Base64;
 public class MinioFacade {
 
     private static final String MINIO_BUCKET = "ubay";
+    private final MinioClient minioClient;
+
+    public MinioFacade() {
+        minioClient = getClient();
+    }
 
     private MinioClient getClient() {
         String url = System.getenv("MINIO_URL");
@@ -35,7 +40,6 @@ public class MinioFacade {
 
     public String uploadObject(InputStream inputStream) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         MessageDigest shaDigest = MessageDigest.getInstance("SHA-256");
-        MinioClient minioClient = getClient();
         byte [] inputStreamContent = inputStream.readAllBytes();
         byte[] digest = shaDigest.digest(inputStreamContent);
         String objectName = Base64.getEncoder().encodeToString(digest);
@@ -52,7 +56,6 @@ public class MinioFacade {
 
     public InputStream getObject(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         if (objectName == null) return null;
-        MinioClient minioClient = getClient();
         GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(MINIO_BUCKET).object(objectName).build();
         return minioClient.getObject(getObjectArgs);
     }
