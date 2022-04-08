@@ -50,6 +50,8 @@ public class Image extends HttpServlet {
             InputStream object = facade.getObject(req.getParameter("id"));
             ServletOutputStream outputStream = resp.getOutputStream();
             object.transferTo(outputStream);
+            object.close();
+            outputStream.close();
         } catch (Exception e) {
             throw new ServletException(e.getMessage(),e);
         }

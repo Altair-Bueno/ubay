@@ -52,6 +52,7 @@ public class MinioFacade {
                 .object(objectName)
                 .build();
         minioClient.putObject(uploadObjectArgs);
+        uploadStream.close();
         return objectName;
     }
 
