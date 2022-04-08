@@ -16,6 +16,8 @@ docker compose down
 
 Ubay will be available on `0.0.0.0:8080/ubay-1.0-SNAPSHOT/`
 
+---
+
 ## Building the Docker image
 
 To build the Docker image, you first need to install
@@ -31,6 +33,7 @@ docker build .
 The following software is required:
 
 - GlassFish server 6 or later
+- Minio object storage
 - Java JDK 11 or later
 - Maven
 - Docker
@@ -69,6 +72,23 @@ password: mysecretpassword
 database: UBAY
   scheme: sql/scheme.sql
 ```
+
+### Start the minio server bucket
+
+#### Using Docker
+
+1. Create a new Minio server by running the following command:
+
+```bash
+ docker run \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  minio/minio server /data --console-address ":9001"
+```
+
+2. Open <http://127.0.0.1:9001> on your browser
+3. Login using the default username and password (minioadmin/minioadmin)
+4. Create a new storage bucket called "ubay"
 
 ### Set up the GlassFish server
 
