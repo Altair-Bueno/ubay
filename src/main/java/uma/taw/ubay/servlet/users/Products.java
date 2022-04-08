@@ -1,4 +1,4 @@
-package uma.taw.ubay.servlet.admin;
+package uma.taw.ubay.servlet.users;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -6,14 +6,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.CategoryFacade;
-import uma.taw.ubay.entity.CategoryEntity;
-import java.io.IOException;
+import uma.taw.ubay.dao.ClientFacade;
+import uma.taw.ubay.dao.ProductFacade;
+import uma.taw.ubay.entity.ClientEntity;
+import uma.taw.ubay.entity.ProductEntity;
 
-@WebServlet("/admin/modifyCategory")
-public class ModifyCategory extends HttpServlet {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+@WebServlet("/users/products")
+public class Products extends HttpServlet {
     @EJB
-    CategoryFacade facade;
+    ClientFacade clientFacade;
+
+    @EJB
+    ProductFacade productFacade;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -23,16 +31,12 @@ public class ModifyCategory extends HttpServlet {
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
+        ClientEntity client = clientFacade.find(Integer.parseInt(id));
 
-        CategoryEntity category = facade.find(Integer.parseInt(id));
+        List<ProductEntity> uploadedProducts = productFacade.uploadedProducts(client);
+        request.setAttribute("uploaded-products-list", uploadedProducts);
 
-        category.setName(name);
-        category.setDescription(description);
-
-        facade.edit(category);
-
-        request.getRequestDispatcher("modifyCategory.jsp").forward(request,response);
+        request.getRequestDispatcher("products.jsp").forward(request,response);
     }
 }
+

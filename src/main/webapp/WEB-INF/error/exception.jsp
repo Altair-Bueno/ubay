@@ -21,7 +21,7 @@
 <body>
 <div class="page-wrap d-flex flex-row align-items-center">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center text-danger position-absolute top-50 start-50 translate-middle">
             <div class="col-md-12 text-center">
                 <span class="display-1 d-block"><%=exception.getLocalizedMessage()%></span>
                 <div class="mb-4 lead"><%=exception.getClass()%></div>
