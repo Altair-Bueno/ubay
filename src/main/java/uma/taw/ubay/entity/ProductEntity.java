@@ -32,10 +32,10 @@ public class ProductEntity {
     @Basic
     @Column(name = "publish_date", nullable = false)
     private Timestamp publishDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", nullable = false)
     private ClientEntity vendor;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 
