@@ -43,36 +43,32 @@ public class Register extends HttpServlet {
         String genderParameter = req.getParameter(AuthKeys.GENDER_PARAMETER);
         String birthDateParameter = req.getParameter(AuthKeys.BIRTH_PARAMETER);
 
-        try {
-            boolean anyNull = Stream.of(
-                            username, password, repeatPassword,
-                            name, lastName,
-                            address, city,
-                            birthDateParameter, genderParameter
-                    ).anyMatch(Objects::isNull);
-            if (anyNull)
-                throw new IllegalArgumentException("All fields are required");
-            if (!username.matches(AuthKeys.USERNAME_REGEX))
-                throw new IllegalArgumentException("Username invalid format");
-            if (!password.matches(AuthKeys.PASSWORD_REGEX))
-                throw new IllegalArgumentException("Password invalid format");
-            if (!password.equals(repeatPassword))
-                throw new IllegalArgumentException("Passwords don't match");
+        boolean anyNull = Stream.of(
+                        username, password, repeatPassword,
+                        name, lastName,
+                        address, city,
+                        birthDateParameter, genderParameter
+                ).anyMatch(Objects::isNull);
+        if (anyNull)
+            throw new IllegalArgumentException("All fields are required");
+        if (!username.matches(AuthKeys.USERNAME_REGEX))
+            throw new IllegalArgumentException("Username invalid format");
+        if (!password.matches(AuthKeys.PASSWORD_REGEX))
+            throw new IllegalArgumentException("Password invalid format");
+        if (!password.equals(repeatPassword))
+            throw new IllegalArgumentException("Passwords don't match");
 
-            java.sql.Date birthDate = java.sql.Date.valueOf(birthDateParameter);
-            GenderEnum gender = GenderEnum.valueOf(genderParameter);
-            String hashedPassword = BCrypt.hashpw(password,BCrypt.gensalt(11));
+        java.sql.Date birthDate = java.sql.Date.valueOf(birthDateParameter);
+        GenderEnum gender = GenderEnum.valueOf(genderParameter);
+        String hashedPassword = BCrypt.hashpw(password,BCrypt.gensalt(11));
 
-            ClientEntity client = new ClientEntity(name, lastName, address, city, birthDate, gender);
-            LoginCredentialsEntity login = new LoginCredentialsEntity(username, hashedPassword, KindEnum.client, client);
+        ClientEntity client = new ClientEntity(name, lastName, address, city, birthDate, gender);
+        LoginCredentialsEntity login = new LoginCredentialsEntity(username, hashedPassword, KindEnum.client, client);
 
-            clientFacade.create(client);
-            loginCredentialsFacade.create(login);
+        clientFacade.create(client);
+        loginCredentialsFacade.create(login);
 
-            resp.sendRedirect(req.getContextPath() + AuthKeys.LOGIN_REDIRECT);
-        } catch (IllegalArgumentException e) {
-            resp.sendError(400, e.getMessage());
-        }
+        resp.sendRedirect(req.getContextPath() + AuthKeys.LOGIN_REDIRECT);
     }
 
     @Override

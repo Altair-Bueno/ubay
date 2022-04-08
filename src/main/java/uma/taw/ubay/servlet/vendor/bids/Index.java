@@ -30,19 +30,16 @@ public class Index extends HttpServlet {
         String clientNameParameter = req.getParameter(VendorKeys.BID_CLIENT_NAME_PARAMETER);
         String pageParameter = req.getParameter(VendorKeys.BID_PAGE_NUMBER_PARAMETER);
 
-        try {
-            Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
-            Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);
-            String productTitle = "".equals(productTitleParameter) ? null : productTitleParameter;
-            String clientName = "".equals(clientNameParameter) ? null : clientNameParameter;
-            int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
-            if (page < 0) throw new IllegalArgumentException("Negative page index");
+        Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
+        Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);
+        String productTitle = "".equals(productTitleParameter) ? null : productTitleParameter;
+        String clientName = "".equals(clientNameParameter) ? null : clientNameParameter;
+        int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
+        if (page < 0) throw new IllegalArgumentException("Negative page index");
 
-            List<BidEntity> bidList = facade.getFilteredBidsFromVendor(loginCredentials.getUser(), page, startDate, endDate, productTitle, clientName);
-            req.setAttribute(VendorKeys.BID_LIST, bidList);
-            req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req, resp);
-        } catch (IllegalArgumentException e) {
-            resp.sendError(400, e.getMessage());
-        }
+        List<BidEntity> bidList = facade.getFilteredBidsFromVendor(loginCredentials.getUser(), page, startDate, endDate, productTitle, clientName);
+        req.setAttribute(VendorKeys.BID_LIST, bidList);
+        req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req, resp);
+
     }
 }

@@ -1,6 +1,6 @@
 # [Altair Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=Altair-Bueno)
 
-- Filtros
+- Filters
   - [AuthFilter](src/main/java/uma/taw/ubay/filter/AuthFilter.java)
   - [RoleFilter](src/main/java/uma/taw/ubay/filter/RoleFilter.java)
 - JSP
@@ -22,6 +22,7 @@
   - Project setup
   - [Instructions](README.md)
   - Database design & ORM
+  - Custom error pages
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 

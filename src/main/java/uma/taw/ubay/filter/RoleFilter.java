@@ -40,8 +40,7 @@ public class RoleFilter extends HttpFilter {
         if (role.stream().anyMatch(x->x.equals(sessionKind))) {
             chain.doFilter(req,res);
         } else {
-            // 401 - Unauthorised
-            res.sendError(401, "The role kind [" + sessionKind + "] is not allowed for this request");
+            throw new RuntimeException("The role kind [" + sessionKind + "] is not allowed for this request");
         }
     }
 }

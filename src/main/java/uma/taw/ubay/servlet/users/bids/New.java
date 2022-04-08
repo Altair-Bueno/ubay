@@ -33,25 +33,21 @@ public class New extends HttpServlet {
         String productIDParameter = req.getParameter(UsersKeys.BID_PRODUCT_ID_PARAMETER);
         Timestamp timestamp = new Timestamp(Instant.now().getEpochSecond());
 
-        try {
-            double amount = Double.parseDouble(amountParameter);
-            int productId = Integer.parseInt(productIDParameter);
-            ProductEntity product = productFacade.find(productId);
+        double amount = Double.parseDouble(amountParameter);
+        int productId = Integer.parseInt(productIDParameter);
+        ProductEntity product = productFacade.find(productId);
 
-            if (product == null) throw new IllegalArgumentException("The given product ID doesn't exist");
-            if (!product.isCurrentlyAvailable()) throw new IllegalArgumentException("The given product is no longer available");
-            if (product.getOutPrice() > amount) throw new IllegalArgumentException("The received amount is lower than the starting bid");
+        if (product == null) throw new IllegalArgumentException("The given product ID doesn't exist");
+        if (!product.isCurrentlyAvailable()) throw new IllegalArgumentException("The given product is no longer available");
+        if (product.getOutPrice() > amount) throw new IllegalArgumentException("The received amount is lower than the starting bid");
 
-            BidEntity highestBid = bidFacade.getHighestBidByProduct(product);
-            if (highestBid != null && highestBid.getAmount() >= amount)
-                throw new IllegalArgumentException("A higher bid exist. Current bid amount: " + highestBid.getAmount());
+        BidEntity highestBid = bidFacade.getHighestBidByProduct(product);
+        if (highestBid != null && highestBid.getAmount() >= amount)
+            throw new IllegalArgumentException("A higher bid exist. Current bid amount: " + highestBid.getAmount());
 
-            BidEntity bid = new BidEntity(timestamp,amount,product,credentials.getUser());
-            bidFacade.create(bid);
+        BidEntity bid = new BidEntity(timestamp,amount,product,credentials.getUser());
+        bidFacade.create(bid);
 
-            resp.sendRedirect(referer == null ? req.getContextPath() : referer);
-        }catch (IllegalArgumentException e) {
-            resp.sendError(400,e.getMessage());
-        }
+        resp.sendRedirect(referer == null ? req.getContextPath() : referer);
     }
 }

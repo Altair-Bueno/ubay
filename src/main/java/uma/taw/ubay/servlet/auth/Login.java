@@ -50,8 +50,7 @@ public class Login extends HttpServlet {
             session.setAttribute(SessionKeys.LOGIN_CREDENTIALS,entity);
             resp.sendRedirect(req.getContextPath() + AuthKeys.INDEX_REDIRECT);
         } else {
-            // 401 - Unauthorised
-            resp.sendError(401,"Bad username or password");
+            throw new RuntimeException("Bad username or password");
         }
     }
 

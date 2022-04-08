@@ -36,11 +36,10 @@ public class ChangePassword extends HttpServlet{
                 loginCredentials.setPassword(newHash);
                 facade.edit(loginCredentials);
             } else {
-                // Unauthorised
-                resp.sendError(401,"Old password doesn't match");
+                throw new RuntimeException("Old password doesn't match");
             }
         } else {
-            resp.sendError(400,"The passwords don't match");
+            throw new RuntimeException("The passwords don't match");
         }
     }
 
