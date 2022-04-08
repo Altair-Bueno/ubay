@@ -23,6 +23,7 @@
   - [Instructions](README.md)
   - Database design & ORM
   - Custom error pages
+  - Minio object storage configuration and facade
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 

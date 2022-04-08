@@ -15,6 +15,21 @@ services:
     volumes:
       - ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres-data:/var/lib/postgresql/data
+  minio:
+    container_name: 'green-bird'
+    image: minio/minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      # Admin console
+      - '127.0.0.1:9001:9001'
+      # Actual server
+      - '9000:9000'
+    volumes:
+      - minio-data:/data
+    entrypoint: sh
+    command: -c 'mkdir -p /data/ubay && /usr/bin/docker-entrypoint.sh server /data --console-address ":9001"'
   # Admin console: localhost:4848
   # UBAY: http://localhost:8080/ubay-1.0-SNAPSHOT
   glassfish:
@@ -24,5 +39,10 @@ services:
     ports:
       - '8080:8080'
       - '127.0.0.1:4848:4848'
+    environment:
+      MINIO_URL: http://minio:9000
+      MINIO_USERNAME: minioadmin
+      MINIO_PASSWORD: minioadmin
 volumes:
   postgres-data:
+  minio-data:
