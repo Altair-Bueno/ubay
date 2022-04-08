@@ -1,4 +1,4 @@
-package uma.taw.ubay.servlet.vendor.bids;
+package uma.taw.ubay.servlet.users.bids;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.VendorKeys;
+import uma.taw.ubay.UsersKeys;
 import uma.taw.ubay.dao.BidFacade;
 import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
@@ -16,30 +16,29 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
-@WebServlet("/vendor/bids")
+@WebServlet("/users/bids")
 public class Index extends HttpServlet {
     @EJB
     BidFacade facade;
-
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginCredentialsEntity loginCredentials = (LoginCredentialsEntity) req.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-        String startDateParameter = req.getParameter(VendorKeys.BID_START_DATE_PARAMETER);
-        String endDateParameter = req.getParameter(VendorKeys.BID_END_DATE_PARAMETER);
-        String productTitleParameter = req.getParameter(VendorKeys.BID_PRODUCT_TITLE_PARAMETER);
-        String clientNameParameter = req.getParameter(VendorKeys.BID_CLIENT_NAME_PARAMETER);
-        String pageParameter = req.getParameter(VendorKeys.BID_PAGE_NUMBER_PARAMETER);
+        String startDateParameter = req.getParameter(UsersKeys.BID_START_DATE_PARAMETER);
+        String endDateParameter = req.getParameter(UsersKeys.BID_END_DATE_PARAMETER);
+        String productTitleParameter = req.getParameter(UsersKeys.BID_PRODUCT_TITLE_PARAMETER);
+        String vendorNameParameter = req.getParameter(UsersKeys.BID_VENDOR_NAME_PARAMETER);
+        String pageParameter = req.getParameter(UsersKeys.BID_PAGE_NUMBER_PARAMETER);
 
         Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
         Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);
         String productTitle = "".equals(productTitleParameter) ? null : productTitleParameter;
-        String clientName = "".equals(clientNameParameter) ? null : clientNameParameter;
+        String vendorName = "".equals(vendorNameParameter) ? null : vendorNameParameter;
         int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
         if (page < 0) throw new IllegalArgumentException("Negative page index");
 
-        List<BidEntity> bidList = facade.getFilteredBidsFromVendor(loginCredentials.getUser(), page, startDate, endDate, productTitle, clientName);
-        req.setAttribute(VendorKeys.BID_LIST, bidList);
-        req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req, resp);
-
+        List<BidEntity> bidList = facade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName);
+        req.setAttribute(UsersKeys.BID_LIST, bidList);
+        req.getRequestDispatcher("/users/bids/index.jsp").forward(req, resp);
     }
 }

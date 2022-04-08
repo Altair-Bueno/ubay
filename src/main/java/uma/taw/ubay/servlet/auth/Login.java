@@ -46,12 +46,11 @@ public class Login extends HttpServlet {
                 BCrypt.checkpw(password,entity.getPassword());
 
         if (matches) {
-            HttpSession session = req.getSession(); // fixme: Safari rejects this setting
+            HttpSession session = req.getSession();
             session.setAttribute(SessionKeys.LOGIN_CREDENTIALS,entity);
             resp.sendRedirect(req.getContextPath() + AuthKeys.INDEX_REDIRECT);
         } else {
-            // 401 - Unauthorised
-            resp.sendError(401,"Bad username or password");
+            throw new RuntimeException("Bad username or password");
         }
     }
 

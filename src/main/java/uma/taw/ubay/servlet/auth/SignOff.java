@@ -19,10 +19,10 @@ public class SignOff extends HttpServlet {
         HttpSession session = req.getSession(false);
 
         if (session == null) {
-            resp.sendError(400,"The user is no longer log in");
+            throw new RuntimeException("The user is no longer log in");
         } else {
             session.invalidate();
-            resp.sendRedirect(referer);
+            resp.sendRedirect(referer == null ? req.getContextPath() : referer);
         }
     }
 }

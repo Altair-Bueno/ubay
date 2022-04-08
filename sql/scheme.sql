@@ -71,6 +71,7 @@ alter table login_credentials
 
 create table bid
 (
+    id           serial,
     publish_date timestamp not null ,
     amount        double precision not null,
     product_id    integer not null
@@ -79,7 +80,7 @@ create table bid
     user_id       integer not null
         constraint user_fk
             references client (id),
-    primary key (product_id, user_id)
+    primary key (id,product_id, user_id)
 );
 
 alter table bid

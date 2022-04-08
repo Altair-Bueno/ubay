@@ -32,6 +32,7 @@ public class RoleFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        // Caution: This might trigger Safari's cookie privacy policy
         HttpSession session = req.getSession();
         LoginCredentialsEntity credentialsEntity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
         KindEnum sessionKind = credentialsEntity.getKind();
@@ -39,8 +40,7 @@ public class RoleFilter extends HttpFilter {
         if (role.stream().anyMatch(x->x.equals(sessionKind))) {
             chain.doFilter(req,res);
         } else {
-            // 401 - Unauthorised
-            res.sendError(401, "The current user is not an administrator");
+            throw new RuntimeException("The role kind [" + sessionKind + "] is not allowed for this request");
         }
     }
 }

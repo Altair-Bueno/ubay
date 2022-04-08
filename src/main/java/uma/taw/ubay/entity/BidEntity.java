@@ -7,10 +7,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "bid", schema = "public")
+@IdClass(BidEntityPK.class)
 public class BidEntity {
-    @EmbeddedId
-    BidEntityPK key;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "bid_id_generator")
+    @SequenceGenerator(name = "bid_id_generator",sequenceName = "bid_id_seq",allocationSize = 1)
+    @Column(name = "id", nullable = false, updatable = false)
+    private int id;
     @Basic
     @Column(name = "publish_date", nullable = false)
     private Timestamp publishDate;
@@ -18,15 +21,25 @@ public class BidEntity {
     @Column(name = "amount", nullable = false, precision = 0)
     private double amount;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ManyToOne
-    @MapsId("product")
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ManyToOne
-    @MapsId("user")
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private ClientEntity user;
+
+    public BidEntity() {
+    }
+
+    public BidEntity(Timestamp publishDate, double amount, ProductEntity product, ClientEntity user) {
+        this.publishDate = publishDate;
+        this.amount = amount;
+        this.product = product;
+        this.user = user;
+    }
 
     public Timestamp getPublishDate() {
         return publishDate;
@@ -34,6 +47,14 @@ public class BidEntity {
 
     public void setPublishDate(Timestamp publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getAmount() {
@@ -60,24 +81,17 @@ public class BidEntity {
         this.user = user;
     }
 
-    public BidEntityPK getKey() {
-        return key;
-    }
-
-    public void setKey(BidEntityPK key) {
-        this.key = key;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof BidEntity)) return false;
         BidEntity bidEntity = (BidEntity) o;
-        return Double.compare(bidEntity.amount, amount) == 0 && Objects.equals(key, bidEntity.key) && Objects.equals(publishDate, bidEntity.publishDate) && Objects.equals(product, bidEntity.product) && Objects.equals(user, bidEntity.user);
+        return id == bidEntity.id && Double.compare(bidEntity.amount, amount) == 0 && Objects.equals(publishDate, bidEntity.publishDate) && Objects.equals(product, bidEntity.product) && Objects.equals(user, bidEntity.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, publishDate, amount, product, user);
+        return Objects.hash(id, publishDate, amount, product, user);
     }
 }

@@ -13,7 +13,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Ubay-Register</title>
+    <title>Ubay | Register</title>
 </head>
 <style>
     body {
@@ -76,7 +76,7 @@
         </select>
     </div>
     <div class="row-1">
-        <button type="submit" class="btn btn-primary col-6">Sign in</button>
+        <button type="submit" class="btn btn-primary col-6">Create an account</button>
     </div>
 </form>
 </main>

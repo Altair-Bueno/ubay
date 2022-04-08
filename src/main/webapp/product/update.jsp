@@ -1,5 +1,5 @@
 <%@ page import="uma.taw.ubay.entity.ProductEntity" %>
-<%@ page import="uma.taw.ubay.servlet.product.Product" %>
+<%@ page import="uma.taw.ubay.servlet.product.ProductsList" %>
 <%@ page import="uma.taw.ubay.dao.ProductFacade" %>
 <%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
 <%@ page import="java.util.List" %><%--
@@ -12,6 +12,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
     <title>Actualizar producto</title>
 </head>
 <body>
@@ -20,48 +24,82 @@
         List<CategoryEntity> cats = (List<CategoryEntity>) request.getAttribute("cats");
     %>
     <form method="post">
-        <div>
-            <h1>Título: </h1>
-            <textarea id="titulo" name="description" rows="4" cols="30"> <%=p.getTitle()%> </textarea>
+        <div class="d-flex flex-row m-auto" style="width: 1000px">
+
+            <%-- BLOQUE I - Imagen --%>
+            <div class="d-flex flex-column p-2">
+                <div class="p-2">
+                    <img src="<%=p.getImages()%>" style="height: auto; width: 500px;" />
+                </div>
+                <div class="form-group w-75 p-2">
+                    <label for="img">Cambiar foto (link): </label>
+                    <input type="text" id="img" class="form-control" name="imagen" value=<%=p.getImages()%>/>
+                </div>
+
+            </div>
+
+            <%-- BLOQUE II - Resto --%>
+            <div class="d-flex flex-column p-2">
+                <%-- Titulo --%>
+                <div class="form-group w-75 p-2">
+                    <label for="tit">Título: </label>
+                    <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>"/>
+                </div>
+
+                <%-- Estado --%>
+                <div class="p-2">
+                    <label>Estado:</label>
+                    <input type="radio" name="estado" value="Activo" <%=p.getCloseDate() == null ? "checked" : ""%>> Activo </input>
+                    <input type="radio" name="estado" value="Cerrado" <%=p.getCloseDate() == null ? "" : "checked"%>> Cerrado </input>
+                </div>
+
+                <%-- Descripcion --%>
+                <div class="p-2">
+                    <lable for="desc">Descripcion: </lable>
+                    <textarea id="desc" class="form-control" name="description" rows="4" cols="50"><%=p.getDescription()%></textarea>
+                </div>
+
+                <%-- Precio --%>
+                <div class="p-2">
+                    <label for="precio">Precio: </label>
+                    <input type="text" id="precio" class="form-control" name="precio" value="<%=p.getOutPrice()%>"/>
+                </div>
+
+                <%-- Categoria --%>
+                <div class="p-2">
+                    <label>Categoria: </label>
+
+                    <select name="categoria">
+                        <%
+                            for(CategoryEntity c : cats){
+
+                        %>
+                        <option value="<%=c.getId()%>" <%=p.getCategory().equals(c) ? "selected" : ""%> ><%=c.getName()%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                </div>
+
+                <%-- Submit --%>
+                <div class="p-2">
+                    <input type="hidden" name="id" id="id" value=<%=p.getId()%> />
+                    <div class="d-flex flex-row p-2">
+                        <div class="p-2">
+                            <input class="btn btn-primary p-2" type="submit" value="Confirmar">
+                        </div>
+                        <div class="p-2">
+                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="product?id=<%=p.getId()%>">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-        <div>
-            <img src=<%=p.getImages()%> />
-            <h2>Cambiar foto (link): </h2>
-            <input type="text" name="titulo" value=<%=p.getImages()%>/>
-        </div>
-
-        <div>
-            <h2>Estado:</h2>
-            <input type="radio" name="estado" value="Activo" <%=p.getCloseDate() == null ? "checked" : ""%>> Activo </input>
-            <input type="radio" name="estado" value="Cerrado" <%=p.getCloseDate() == null ? "" : "checked"%>> Cerrado </input>
-        </div>
-        <div>
-            <h2>Descripcion: </h2>
-            <textarea id="description" name="description" rows="4" cols="50"> <%=p.getDescription()%> </textarea>
-        </div>
-        <div>
-            <h2>Price: </h2>
-            <input type="text" name="precio" value=<%=p.getOutPrice()%>>
-        </div>
-        <div>
-            <h2>Categoria: </h2>
-            <select name="cat" id="categoria">
-                <option value="null">-</option>
-                <%
-                    for(CategoryEntity c : cats){
-
-                    %>
-                        <option value=<%=c.getId()%>><%=c.getName()%></option>
-                <%
-                    }
-                %>
-            </select>
-        </div>
-
-        <input hidden type="text" id="id" value=<%=p.getId()%> />
-        <input type="submit" value="Editar">
     </form>
+
+
 
 
 

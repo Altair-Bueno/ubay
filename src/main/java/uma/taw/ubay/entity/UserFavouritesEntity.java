@@ -11,13 +11,13 @@ public class UserFavouritesEntity {
     @EmbeddedId
     UserFavouritesEntityPK key;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("category")
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @MapsId("user")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private ClientEntity user;
 

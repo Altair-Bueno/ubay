@@ -9,7 +9,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "product", schema = "public")
 public class ProductEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "product_id_generator")
+    @SequenceGenerator(name = "product_id_generator",sequenceName = "product_id_seq",allocationSize = 1)
     @Id
     @Column(name = "id", nullable = false)
     private int id;
@@ -31,10 +32,10 @@ public class ProductEntity {
     @Basic
     @Column(name = "publish_date", nullable = false)
     private Timestamp publishDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", nullable = false)
     private ClientEntity vendor;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 
@@ -108,6 +109,10 @@ public class ProductEntity {
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    public boolean isCurrentlyAvailable() {
+        return this.getCloseDate() == null || this.getCloseDate().after(new java.util.Date());
     }
 
     @Override
