@@ -1,4 +1,4 @@
-package uma.taw.ubay.servlet.admin;
+package uma.taw.ubay.servlet.categories;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -8,13 +8,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.CategoryFacade;
 import uma.taw.ubay.entity.CategoryEntity;
-import java.io.IOException;
 
-@WebServlet("/admin/deleteCategory")
-public class DeleteCategory extends HttpServlet {
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet("/categories/")
+public class Categories extends HttpServlet {
     @EJB
     CategoryFacade facade;
-
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -23,15 +24,8 @@ public class DeleteCategory extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String id = request.getParameter("id");
-        if(id != null){
-            try{
-                CategoryEntity category = facade.find(Integer.parseInt(id));
-                facade.remove(category);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        request.getRequestDispatcher("deleteCategory.jsp").forward(request,response);
+        List<CategoryEntity> catList = facade.findAll();
+        request.setAttribute("category-list", catList);
+        request.getRequestDispatcher("categories.jsp").forward(request,response);
     }
 }

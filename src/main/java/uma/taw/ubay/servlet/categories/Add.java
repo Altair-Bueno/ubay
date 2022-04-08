@@ -1,4 +1,4 @@
-package uma.taw.ubay.servlet.admin;
+package uma.taw.ubay.servlet.categories;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -10,8 +10,8 @@ import uma.taw.ubay.dao.CategoryFacade;
 import uma.taw.ubay.entity.CategoryEntity;
 import java.io.IOException;
 
-@WebServlet("/admin/addCategory")
-public class AddCategory extends HttpServlet {
+@WebServlet("/categories/add")
+public class Add extends HttpServlet {
     @EJB
     CategoryFacade facade;
 
@@ -32,7 +32,7 @@ public class AddCategory extends HttpServlet {
             facade.create(category);
         }
 
-        request.getRequestDispatcher("addCategory.jsp").forward(request,response);
+        request.getRequestDispatcher("add.jsp").forward(request,response);
     }
 }
 

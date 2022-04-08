@@ -34,7 +34,7 @@
         <input type="submit" value="Manage users">
     </form>
 
-    <form method="get" action="admin/categories">
+    <form method="get" action="categories">
         <input type="submit" value="Manage categories">
     </form>
 
