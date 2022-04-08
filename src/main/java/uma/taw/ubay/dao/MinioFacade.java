@@ -3,6 +3,7 @@ package uma.taw.ubay.dao;
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import io.minio.errors.*;
 import jakarta.ejb.Stateless;
 
@@ -58,5 +59,14 @@ public class MinioFacade {
         if (objectName == null) return null;
         GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(MINIO_BUCKET).object(objectName).build();
         return minioClient.getObject(getObjectArgs);
+    }
+
+    public void removeObject(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        if (objectName == null) return;
+        RemoveObjectArgs removeObjectArgs = RemoveObjectArgs.builder()
+                .object(objectName)
+                .bucket(MINIO_BUCKET)
+                .build();
+        minioClient.removeObject(removeObjectArgs);
     }
 }
