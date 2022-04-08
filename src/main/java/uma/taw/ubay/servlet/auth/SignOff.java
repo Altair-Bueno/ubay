@@ -22,7 +22,7 @@ public class SignOff extends HttpServlet {
             resp.sendError(400,"The user is no longer log in");
         } else {
             session.invalidate();
-            resp.sendRedirect(referer);
+            resp.sendRedirect(referer == null ? req.getContextPath() : referer);
         }
     }
 }
