@@ -21,6 +21,7 @@ public class ChangePassword extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String referer = req.getHeader("Referer");
         String password = req.getParameter(AuthKeys.OLD_PASSWORD_PARAMETER);
         String newPassword = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
         String repeatPassword = req.getParameter(AuthKeys.REPEAT_PASSWORD_PARAMETER);
@@ -35,6 +36,7 @@ public class ChangePassword extends HttpServlet{
                 String newHash = BCrypt.hashpw(newPassword,BCrypt.gensalt(11));
                 loginCredentials.setPassword(newHash);
                 facade.edit(loginCredentials);
+                resp.sendRedirect(referer == null ? req.getContextPath() : referer);
             } else {
                 // Unauthorised
                 resp.sendError(401,"Old password doesn't match");
