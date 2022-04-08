@@ -107,9 +107,8 @@
                     <td>
                         $<%=bid.getAmount()%>
                     </td>
-                    <%--TODO replace placeholder with actual link--%>
                     <td>
-                        <a href="${pageContext.request.contextPath}/products?id=<%=product.getId()%>">
+                        <a href="${pageContext.request.contextPath}/product/product?id=<%=product.getId()%>">
                             <%=product.getTitle()%>
                         </a>
                     </td>
