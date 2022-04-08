@@ -39,6 +39,7 @@ public class New extends HttpServlet {
 
             if (product == null) throw new IllegalArgumentException("The given product ID doesn't exist");
             if (!product.isCurrentlyAvailable()) throw new IllegalArgumentException("The given product is no longer available");
+            if (product.getOutPrice() > amount) throw new IllegalArgumentException("The received amount is lower than the starting bid");
 
             BidEntity highestBid = bidFacade.getHighestBidByProduct(product);
             if (highestBid != null && highestBid.getAmount() >= amount)
