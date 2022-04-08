@@ -1,4 +1,4 @@
-package uma.taw.ubay.servlet.admin;
+package uma.taw.ubay.servlet.users;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/admin/")
-public class Admin extends HttpServlet {
+@WebServlet("/users/me")
+public class Me extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
 
@@ -16,7 +16,7 @@ public class Admin extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("admin.jsp").forward(request,response);
+        request.getRequestDispatcher("me.jsp").forward(request,response);
     }
 }
 
