@@ -28,6 +28,7 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String referer = req.getHeader("Referer");
         String username = req.getParameter(AuthKeys.USERNAME_PARAMETER);
         String password = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
 
@@ -48,7 +49,7 @@ public class Login extends HttpServlet {
         if (matches) {
             HttpSession session = req.getSession(); // fixme: Safari rejects this setting
             session.setAttribute(SessionKeys.LOGIN_CREDENTIALS,entity);
-            resp.sendRedirect(req.getContextPath() + AuthKeys.INDEX_REDIRECT);
+            resp.sendRedirect(referer == null ? req.getContextPath() : referer);
         } else {
             // 401 - Unauthorised
             resp.sendError(401,"Bad username or password");
