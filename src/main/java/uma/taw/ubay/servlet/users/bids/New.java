@@ -27,6 +27,7 @@ public class New extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String referer = req.getHeader("Referer");
         LoginCredentialsEntity credentials = (LoginCredentialsEntity) req.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS);
         String amountParameter = req.getParameter(UsersKeys.BID_AMOUNT_PARAMETER);
         String productIDParameter = req.getParameter(UsersKeys.BID_PRODUCT_ID_PARAMETER);
@@ -48,7 +49,7 @@ public class New extends HttpServlet {
             BidEntity bid = new BidEntity(timestamp,amount,product,credentials.getUser());
             bidFacade.create(bid);
 
-            req.getRequestDispatcher("/users/bids/index.jsp").forward(req, resp);
+            resp.sendRedirect(referer == null ? req.getContextPath() : referer);
         }catch (IllegalArgumentException e) {
             resp.sendError(400,e.getMessage());
         }
