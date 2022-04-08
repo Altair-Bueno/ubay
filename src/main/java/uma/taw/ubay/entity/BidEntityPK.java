@@ -1,6 +1,5 @@
 package uma.taw.ubay.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
@@ -8,11 +7,21 @@ import java.util.Objects;
 
 @Embeddable
 public class BidEntityPK implements Serializable {
-    @Column(name = "product_id", nullable = false)
+
+    private int id;
+    //@Column(name = "product_id", nullable = false)
     private int product;
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    //@Column(name = "user_id", nullable = false)
     private int user;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getProduct() {
         return product;
@@ -35,11 +44,11 @@ public class BidEntityPK implements Serializable {
         if (this == o) return true;
         if (!(o instanceof BidEntityPK)) return false;
         BidEntityPK that = (BidEntityPK) o;
-        return product == that.product && user == that.user;
+        return id == that.id && product == that.product && user == that.user;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product, user);
+        return Objects.hash(id, product, user);
     }
 }
