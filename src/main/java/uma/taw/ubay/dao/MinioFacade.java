@@ -29,8 +29,8 @@ public class MinioFacade {
         String url = System.getenv("MINIO_URL");
         String username = System.getenv("MINIO_USERNAME");
         String password = System.getenv("MINIO_PASSWORD");
-        username = username == null ? "":username;
-        password = password == null ? "":password;
+        username = username == null ? "minioadmin":username;
+        password = password == null ? "minioadmin":password;
         url = url == null ? "http://localhost:9000" : url;
         return MinioClient
                 .builder()
