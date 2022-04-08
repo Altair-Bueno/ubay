@@ -27,20 +27,22 @@
 
 <%
     } else if(entity!= null && entity.getKind().equals(KindEnum.admin)){
+        response.sendRedirect(request.getContextPath() + "/admin/");
 %>
-    <h1>Hello <%=entity.getUsername()%></h1>
+
+    <%--<h1>Hello <%=entity.getUsername()%></h1>
     <h2>Your role: <%=entity.getKind()%></h2>
     <form method="get" action="users">
         <input type="submit" value="Manage users">
     </form>
 
-    <form method="get" action="admin/categories">
+    <form method="get" action="categories">
         <input type="submit" value="Manage categories">
     </form>
 
     <form method="post" action="auth/signoff">
         <input type="submit" value="Sign off">
-    </form>
+    </form>--%>
 
 <%
     } else {
