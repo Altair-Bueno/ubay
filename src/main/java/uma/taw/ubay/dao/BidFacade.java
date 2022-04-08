@@ -106,7 +106,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         query
                 .select(bidTable)
                 .where(builder.equal(bidTable.get("product"), product))
-                .having(builder.equal(bidTable.get("amount"),builder.max(bidTable.get("amount"))));
+                .orderBy(builder.desc(bidTable.get("amount")));
 
         List<BidEntity> resultList = em.createQuery(query)
                 .setMaxResults(1).getResultList();
