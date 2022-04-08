@@ -77,7 +77,7 @@
             >
             <label for="floatingPassword">Password</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
     </form>
 </main>
 </body>

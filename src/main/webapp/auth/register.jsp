@@ -76,7 +76,7 @@
         </select>
     </div>
     <div class="row-1">
-        <button type="submit" class="btn btn-primary col-6">Sign in</button>
+        <button type="submit" class="btn btn-primary col-6">Create an account</button>
     </div>
 </form>
 </main>
