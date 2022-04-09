@@ -35,6 +35,19 @@ create table login_credentials
 alter table login_credentials
     owner to postgres;
 
+
+create table password_reset
+(
+    username varchar(20) not null
+        constraint login_credentials_fk
+            references login_credentials(username),
+    request_id varchar(20) not null,
+    primary key (username,request_id)
+);
+
+alter table password_reset
+    owner to postgres;
+
 create table product
 (
     id            serial primary key,
