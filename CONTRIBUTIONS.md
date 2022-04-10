@@ -8,12 +8,14 @@
   - [register.jsp](src/main/webapp/auth/register.jsp)
   - [Vendor bids](src/main/webapp/vendor/bids/index.jsp)
   - [User bids](src/main/webapp/vendor/bids/index.jsp)
+  - [resetPassword.jsp](src/main/webapp/auth/resetPassword.jsp)
 - Servlets
   - [Login](src/main/java/uma/taw/ubay/servlet/auth/Login.java)
   - [Register](src/main/java/uma/taw/ubay/servlet/auth/Register.java)
   - [Vendor Bids](src/main/java/uma/taw/ubay/servlet/vendor/bids/Index.java)
   - [User Bids](src/main/java/uma/taw/ubay/servlet/users/bids/Index.java)
   - [Create a new bid](src/main/java/uma/taw/ubay/servlet/users/bids/New.java)
+  - [Password reset](src/main/java/uma/taw/ubay/servlet/auth/ResetPassword.java)
 - Docker
   - [Docker compose](docker-compose.yml)
   - [Ubay's Dockerfile](Dockerfile)
