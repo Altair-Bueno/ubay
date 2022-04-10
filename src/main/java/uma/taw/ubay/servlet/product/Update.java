@@ -2,21 +2,33 @@ package uma.taw.ubay.servlet.product;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import uma.taw.ubay.dao.CategoryFacade;
+import uma.taw.ubay.dao.MinioFacade;
 import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ProductEntity;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 
 @WebServlet("/product/update")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10,      // 10 MB
+        maxRequestSize = 1024 * 1024 * 100   // 100 MB
+)
 public class Update extends HttpServlet {
+    @EJB
+    MinioFacade minioFacade;
+
     @EJB
     ProductFacade facade;
 
@@ -33,10 +45,19 @@ public class Update extends HttpServlet {
         String estado = req.getParameter("estado");
         String desc = req.getParameter("description");
         String titulo = req.getParameter("titulo");
-        String imagen = req.getParameter("imagen");
         Double precio = Double.parseDouble(req.getParameter("precio"));
         int categoria = Integer.parseInt(req.getParameter("categoria"));
         int id = Integer.parseInt(req.getParameter("id"));
+
+        Part file = req.getPart("img");
+        InputStream inputStream = file.getInputStream();
+        String img = "";
+
+        try {
+            img = minioFacade.uploadObject(inputStream);
+        } catch (Exception e) {
+            throw new ServletException(e.getStackTrace().toString());
+        }
 
         CategoryEntity cat = catfacade.find(categoria);
         ProductEntity p = facade.find(id);
@@ -51,7 +72,7 @@ public class Update extends HttpServlet {
             }
         }
 
-        p.setImages(imagen);
+        p.setImages(img);
         p.setTitle(titulo);
         p.setDescription(desc);
         p.setCategory(cat);

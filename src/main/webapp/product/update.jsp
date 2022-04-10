@@ -23,7 +23,7 @@
         ProductEntity p = (ProductEntity) request.getAttribute("product");
         List<CategoryEntity> cats = (List<CategoryEntity>) request.getAttribute("cats");
     %>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="d-flex flex-row m-auto" style="width: 1000px">
 
             <%-- BLOQUE I - Imagen --%>
@@ -31,9 +31,9 @@
                 <div class="p-2">
                     <img src="<%=p.getImages()%>" style="height: auto; width: 500px;" />
                 </div>
-                <div class="form-group w-75 p-2">
-                    <label for="img">Cambiar foto (link): </label>
-                    <input type="text" id="img" class="form-control" name="imagen" value=<%=p.getImages()%>/>
+                <div class="form-group mb-3 w-75 p-2">
+                    <label for="img" class="form-label">Cambiar imagen: </label>
+                    <input type="file" class="form-control" id="img" name="img" />
                 </div>
 
             </div>
@@ -55,7 +55,7 @@
 
                 <%-- Descripcion --%>
                 <div class="p-2">
-                    <lable for="desc">Descripcion: </lable>
+                    <label for="desc">Descripcion: </label>
                     <textarea id="desc" class="form-control" name="description" rows="4" cols="50"><%=p.getDescription()%></textarea>
                 </div>
 
@@ -83,7 +83,7 @@
 
                 <%-- Submit --%>
                 <div class="p-2">
-                    <input type="hidden" name="id" id="id" value=<%=p.getId()%> />
+                    <input type="hidden" name="id" id="id" value="<%=p.getId()%>" />
                     <div class="d-flex flex-row p-2">
                         <div class="p-2">
                             <input class="btn btn-primary p-2" type="submit" value="Confirmar">
@@ -98,10 +98,6 @@
         </div>
 
     </form>
-
-
-
-
 
 </body>
 </html>
