@@ -42,26 +42,35 @@ public class Update extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int categoria = Integer.parseInt(req.getParameter("categoria"));
+        int id = Integer.parseInt(req.getParameter("id"));
+        CategoryEntity cat = catfacade.find(categoria);
+        ProductEntity p = facade.find(id);
+
         String estado = req.getParameter("estado");
         String desc = req.getParameter("description");
         String titulo = req.getParameter("titulo");
         Double precio = Double.parseDouble(req.getParameter("precio"));
-        int categoria = Integer.parseInt(req.getParameter("categoria"));
-        int id = Integer.parseInt(req.getParameter("id"));
-
         Part file = req.getPart("img");
-        InputStream inputStream = file.getInputStream();
-        String img = "";
 
-        try {
-            img = minioFacade.uploadObject(inputStream);
-        } catch (Exception e) {
-            throw new ServletException(e.getStackTrace().toString());
+        // IMAGEN
+        if(!file.getSubmittedFileName().equals("")){
+            InputStream inputStream = file.getInputStream();
+            String img = "";
+
+            try {
+                img = minioFacade.uploadObject(inputStream);
+                if(!img.equals(p.getImages())){
+                    minioFacade.removeObject(p.getImages());
+                }
+            } catch (Exception e) {
+                throw new ServletException(e.getStackTrace().toString());
+            }
+
+            p.setImages(img);
         }
 
-        CategoryEntity cat = catfacade.find(categoria);
-        ProductEntity p = facade.find(id);
-
+        // ESTADO
         if(estado.equals("Cerrado")){
             if(p.getCloseDate() == null){
                 p.setCloseDate(new Date(new java.util.Date().getTime()));
@@ -72,7 +81,6 @@ public class Update extends HttpServlet {
             }
         }
 
-        p.setImages(img);
         p.setTitle(titulo);
         p.setDescription(desc);
         p.setCategory(cat);
@@ -80,9 +88,7 @@ public class Update extends HttpServlet {
 
         facade.edit(p);
 
-        req.getRequestDispatcher("/product/product?id=" + id).forward(req, resp);
-
-
+        req.getRequestDispatcher("/product/item?id=" + id).forward(req, resp);
     }
 
     @Override

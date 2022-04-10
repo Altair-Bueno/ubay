@@ -10,7 +10,7 @@ import uma.taw.ubay.dao.ProductFacade;
 
 import java.io.IOException;
 
-@WebServlet("/product/productslist")
+@WebServlet("/product")
 public class ProductsList extends HttpServlet {
 
     @EJB
@@ -18,7 +18,7 @@ public class ProductsList extends HttpServlet {
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("product-list", facade.findAll());
-        req.getRequestDispatcher("productslist.jsp").forward(req,resp);
+        req.getRequestDispatcher("product/index.jsp").forward(req,resp);
     }
 
     @Override

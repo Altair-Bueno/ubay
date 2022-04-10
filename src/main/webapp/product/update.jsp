@@ -2,7 +2,9 @@
 <%@ page import="uma.taw.ubay.servlet.product.ProductsList" %>
 <%@ page import="uma.taw.ubay.dao.ProductFacade" %>
 <%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 29/3/22
@@ -29,7 +31,7 @@
             <%-- BLOQUE I - Imagen --%>
             <div class="d-flex flex-column p-2">
                 <div class="p-2">
-                    <img src="<%=p.getImages()%>" style="height: auto; width: 500px;" />
+                    <img src="${pageContext.request.contextPath}/image?id=<%=URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8)%>" style="height: auto; width: 500px;" />
                 </div>
                 <div class="form-group mb-3 w-75 p-2">
                     <label for="img" class="form-label">Cambiar imagen: </label>
@@ -49,8 +51,8 @@
                 <%-- Estado --%>
                 <div class="p-2">
                     <label>Estado:</label>
-                    <input type="radio" name="estado" value="Activo" <%=p.getCloseDate() == null ? "checked" : ""%>> Activo </input>
-                    <input type="radio" name="estado" value="Cerrado" <%=p.getCloseDate() == null ? "" : "checked"%>> Cerrado </input>
+                    <input type="radio" name="estado" value="Activo" <%=p.isCurrentlyAvailable() ? "checked" : ""%>> Activo </input>
+                    <input type="radio" name="estado" value="Cerrado" <%=p.isCurrentlyAvailable() ? "" : "checked"%>> Cerrado </input>
                 </div>
 
                 <%-- Descripcion --%>
@@ -89,7 +91,7 @@
                             <input class="btn btn-primary p-2" type="submit" value="Confirmar">
                         </div>
                         <div class="p-2">
-                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="product?id=<%=p.getId()%>">
+                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="item?id=<%=p.getId()%>">
                         </div>
                     </div>
 

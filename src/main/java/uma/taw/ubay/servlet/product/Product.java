@@ -11,7 +11,7 @@ import uma.taw.ubay.entity.ProductEntity;
 
 import java.io.IOException;
 
-@WebServlet("/product/product")
+@WebServlet("/product/item")
 public class Product extends HttpServlet {
     @EJB
     ProductFacade facade;
@@ -20,7 +20,7 @@ public class Product extends HttpServlet {
         Integer id = Integer.parseInt(req.getParameter("id"));
         ProductEntity p = facade.find(id);
         req.setAttribute("product", p);
-        req.getRequestDispatcher("product.jsp").forward(req,resp);
+        req.getRequestDispatcher("item.jsp").forward(req,resp);
     }
 
     @Override

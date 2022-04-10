@@ -48,10 +48,10 @@
             <%
                 for(ProductEntity p : l){
             %>
-            <tr onclick="window.location='${pageContext.request.contextPath}/product/product?id=' + <%=p.getId()%>">
+            <tr onclick="window.location='${pageContext.request.contextPath}/product/item?id=' + <%=p.getId()%>">
                 <td><img src="${pageContext.request.contextPath}/image?id=<%=URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8)%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
                 <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
-                <td class="align-middle"><%=p.getCloseDate() == null ? "Abierto" : "Cerrado"%></td>
+                <td class="align-middle"><%=p.isCurrentlyAvailable() ? "Abierto" : "Cerrado"%></td>
                 <td class="align-middle"><%=p.getDescription()%></td>
             </tr>
             <%

@@ -18,7 +18,7 @@ public class ProductOwnership extends HttpFilter {
     @EJB
     ProductFacade facade;
 
-    private final static String PRODUCTS_LIST = "/product/productslist";
+    private final static String PRODUCTS_LIST = "/product";
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {

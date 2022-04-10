@@ -34,7 +34,7 @@
 
 <div class="d-flex flex-column" style="width: 1600px">
     <div class="p-2">
-        <form method="get" action="productslist">
+        <form method="get" action="${pageContext.request.contextPath}/product">
             <button type="submit" class="btn btn-labeled btn-light">
                 <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
             </button>
@@ -49,7 +49,7 @@
             <div class="p-2"><h1><%=p.getOutPrice()%> €</h1></div>
             <div class="p-2">
                 <h2>Estado: </h2>
-                <h4><%= p.getCloseDate() == null ? "Activo" : "Cerrado"%>
+                <h4><%= p.isCurrentlyAvailable() ? "Activo" : "Cerrado"%>
                 </h4>
             </div>
             <div class="p-2" style="height: 200px">
