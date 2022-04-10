@@ -1,6 +1,8 @@
 <%@ page import="uma.taw.ubay.entity.ProductEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.SessionKeys" %><%--
+<%@ page import="uma.taw.ubay.SessionKeys" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="java.net.URLEncoder" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 28/3/22
@@ -47,7 +49,7 @@
                 for(ProductEntity p : l){
             %>
             <tr onclick="window.location='${pageContext.request.contextPath}/product/product?id=' + <%=p.getId()%>">
-                <td><img src="<%=p.getImages()%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
+                <td><img src="${pageContext.request.contextPath}/image?id=<%=URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8)%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
                 <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
                 <td class="align-middle"><%=p.getCloseDate() == null ? "Abierto" : "Cerrado"%></td>
                 <td class="align-middle"><%=p.getDescription()%></td>

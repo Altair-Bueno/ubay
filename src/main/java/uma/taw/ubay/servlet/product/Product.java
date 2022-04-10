@@ -1,7 +1,6 @@
 package uma.taw.ubay.servlet.product;
 
 import jakarta.ejb.EJB;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

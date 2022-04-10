@@ -1,7 +1,9 @@
 <%@ page import="uma.taw.ubay.entity.ProductEntity" %>
 <%@ page import="uma.taw.ubay.SessionKeys" %>
 <%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
-<%@ page import="uma.taw.ubay.entity.ClientEntity" %><%--
+<%@ page import="uma.taw.ubay.entity.ClientEntity" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 6/4/22
@@ -39,7 +41,7 @@
         </form>
     </div>
     <div class="d-flex flex-row m-auto p-2">
-        <div class="p-2"><img src="${pageContext.request.contextPath}/image?id=<%=p.getImages()%>" class="rounded" alt="<%=p.getTitle()%>"
+        <div class="p-2"><img src="${pageContext.request.contextPath}/image?id=<%=URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8)%>" class="rounded" alt="<%=p.getTitle()%>"
                               style="height: 500px; width: 500px;"></div>
         <div class="d-flex flex-column p-2">
             <div class="p-2"><h1><%=p.getTitle()%>
