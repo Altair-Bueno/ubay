@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.dao.ProductFacade;
+import uma.taw.ubay.dao.ProductFavouritesFacade;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
 
@@ -21,7 +22,7 @@ public class Products extends HttpServlet {
     ClientFacade clientFacade;
 
     @EJB
-    ProductFacade productFacade;
+    ProductFavouritesFacade favouritesFacade;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -33,8 +34,8 @@ public class Products extends HttpServlet {
         String id = request.getParameter("id");
         ClientEntity client = clientFacade.find(Integer.parseInt(id));
 
-        List<ProductEntity> uploadedProducts = productFacade.uploadedProducts(client);
-        request.setAttribute("uploaded-products-list", uploadedProducts);
+        List<ProductEntity> favouriteProducts = favouritesFacade.getClientFavouriteProducts(client);
+        request.setAttribute("favourite-products-list", favouriteProducts);
 
         request.getRequestDispatcher("products.jsp").forward(request,response);
     }
