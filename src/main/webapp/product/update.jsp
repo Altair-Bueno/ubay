@@ -24,6 +24,7 @@
     <%
         ProductEntity p = (ProductEntity) request.getAttribute("product");
         List<CategoryEntity> cats = (List<CategoryEntity>) request.getAttribute("cats");
+        String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
     %>
     <form method="post" enctype="multipart/form-data">
         <div class="d-flex flex-row m-auto" style="width: 1000px">
@@ -31,7 +32,7 @@
             <%-- BLOQUE I - Imagen --%>
             <div class="d-flex flex-column p-2">
                 <div class="p-2">
-                    <img src="${pageContext.request.contextPath}/image?id=<%=URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8)%>" style="height: auto; width: 500px;" />
+                    <img src="<%=imgSrc%>" style="height: auto; width: 500px;" />
                 </div>
                 <div class="form-group mb-3 w-75 p-2">
                     <label for="img" class="form-label">Cambiar imagen: </label>

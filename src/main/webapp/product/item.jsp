@@ -28,20 +28,21 @@
 <%
     ClientEntity user = ((LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
     ProductEntity p = (ProductEntity) request.getAttribute("product");
+    String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
 %>
 
 <script>document.title = "Ubay | <%= p.getTitle()%>"</script>
 
 <div class="d-flex flex-column" style="width: 1600px">
     <div class="p-2">
-        <form method="get" action="${pageContext.request.contextPath}/product">
+        <form method="get" action="<%=request.getHeader("Referer")%>">
             <button type="submit" class="btn btn-labeled btn-light">
                 <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
             </button>
         </form>
     </div>
     <div class="d-flex flex-row m-auto p-2">
-        <div class="p-2"><img src="${pageContext.request.contextPath}/image?id=<%=URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8)%>" class="rounded" alt="<%=p.getTitle()%>"
+        <div class="p-2"><img src="<%=imgSrc%>" class="rounded" alt="<%=p.getTitle()%>"
                               style="height: 500px; width: 500px;"></div>
         <div class="d-flex flex-column p-2">
             <div class="p-2"><h1><%=p.getTitle()%>

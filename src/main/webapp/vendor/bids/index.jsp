@@ -108,7 +108,7 @@
                         $<%=bid.getAmount()%>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/product/product?id=<%=product.getId()%>">
+                        <a href="${pageContext.request.contextPath}/product/item?id=<%=product.getId()%>">
                             <%=product.getTitle()%>
                         </a>
                     </td>
