@@ -23,7 +23,7 @@
     <div class="col-6 position-absolute top-50 start-50 translate-middle">
         <form class="form" action="${pageContext.request.contextPath}/users/products?id=<%=id%>" method="get">
             <h1>Are you sure you want to add new favourite product?</h1>
-            <button type="submit" class="btn btn-danger mt-2">Submit</button>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
         </form>
     </div>
 

@@ -116,7 +116,6 @@
                 </tbody>
             </table>
             <br>
-            <a class="btn btn-primary m-2" href="add" role="button">Add new category</a>
         </div>
     </div>
 </div>
