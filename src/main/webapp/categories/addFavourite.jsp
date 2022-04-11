@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: jota
   Date: 11/4/22
-  Time: 14:58
+  Time: 16:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,21 +12,20 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Delete Favourite</title>
+    <title>Add favourite category</title>
 </head>
 <body>
+<a class="btn btn-primary m-2" href="../categories/" role="button">Go back</a>
 <div class="container">
-    <%
-        String id = request.getParameter("clientID");
-    %>
+    <div class="container">
+        <div class="col-6 position-absolute top-50 start-50 translate-middle">
+            <form class="form" action="../categories/" method="get">
+                <h1>Are you sure you want to add new favourite category?</h1>
+                <button type="submit" class="btn btn-danger mt-2">Submit</button>
+            </form>
 
-    <div class="col-6 position-absolute top-50 start-50 translate-middle">
-        <form class="form" action="${pageContext.request.contextPath}/users/products?id=<%=id%>" method="get">
-            <h1>Are you sure you want to delete favourite product?</h1>
-            <button type="submit" class="btn btn-danger mt-2">Submit</button>
-        </form>
+        </div>
     </div>
-
 </div>
 </body>
 </html>
