@@ -31,7 +31,10 @@
 
     <%
         List<ProductEntity> l = (List<ProductEntity>) request.getAttribute("product-list");
-
+        String pagAtt = request.getParameter("page");
+        int pagenum = pagAtt == null ? 1 : Integer.parseInt(pagAtt);
+        int tam = (int) request.getAttribute("product-tam");
+        int pagelimit = (int) Math.ceil((double) tam/10);
     %>
 
     <div class="mx-auto" style="width: 1500px;">
@@ -60,9 +63,27 @@
             %>
             </tbody>
         </table>
+        <form method="get" id="pagination">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <%
+                        for(int n = 1; n <= pagelimit; n++){
+                    %>
+                    <li class="page-item"><input type="submit" class="page-link" name="page" value="<%=n%>"></li>
+                    <%
+                        }
+                    %>
+                </ul>
+            </nav>
+
+        </form>
+
     </div>
-
-
-
 </body>
+<script>
+    let form = document.getElementById("pagination");
+    document.getElementById("your-id").addEventListener("click", function () {
+        form.submit();
+    });
+</script>
 </html>
