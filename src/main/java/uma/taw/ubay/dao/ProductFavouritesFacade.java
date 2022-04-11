@@ -34,4 +34,11 @@ public class ProductFavouritesFacade extends AbstractFacade<ProductFavouritesEnt
             return new ArrayList<>();
         }
     }
+
+    public ProductFavouritesEntity getTuple(ClientEntity client, ProductEntity product){
+        return em.createQuery("SELECT p FROM ProductFavouritesEntity p WHERE p.user = :user AND p.product = :product", ProductFavouritesEntity.class)
+                .setParameter("user", client)
+                .setParameter("product", product)
+                .getSingleResult();
+    }
 }

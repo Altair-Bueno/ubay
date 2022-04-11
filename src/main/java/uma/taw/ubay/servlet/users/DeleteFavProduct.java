@@ -11,18 +11,20 @@ import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.dao.ProductFavouritesFacade;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
+import uma.taw.ubay.entity.ProductFavouritesEntity;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet("/users/products")
-public class Products extends HttpServlet {
+@WebServlet("/users/deleteFavourite")
+public class DeleteFavProduct extends HttpServlet {
+    @EJB
+    ProductFavouritesFacade favouritesFacade;
+
     @EJB
     ClientFacade clientFacade;
 
     @EJB
-    ProductFavouritesFacade favouritesFacade;
+    ProductFacade productFacade;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -31,12 +33,16 @@ public class Products extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String id = request.getParameter("id");
-        ClientEntity client = clientFacade.find(Integer.parseInt(id));
+        String productID = request.getParameter("productID");
+        String clientID = request.getParameter("clientID");
 
-        List<ProductEntity> favouriteProducts = favouritesFacade.getClientFavouriteProducts(client);
-        request.setAttribute("favourite-products-list", favouriteProducts);
-        request.getRequestDispatcher("products.jsp").forward(request,response);
+        ProductEntity product = productFacade.find(Integer.parseInt(productID));
+        ClientEntity client = clientFacade.find(Integer.parseInt(clientID));
+
+        ProductFavouritesEntity fav = favouritesFacade.getTuple(client, product);
+        favouritesFacade.remove(fav);
+
+        request.getRequestDispatcher("deleteFavProduct.jsp").forward(request,response);
     }
 }
 
