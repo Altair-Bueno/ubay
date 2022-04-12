@@ -17,40 +17,29 @@
     if (entity != null && entity.getKind().equals(KindEnum.client)) {
 %>
     <%@include file="WEB-INF/components/navbar.jsp"%>
-    <h1>Hello <%=entity.getUsername()%></h1>
-    <h2>Your role: <%=entity.getKind()%></h2>
-    <form method="get" action="product">
-        <input type="submit" value="Productos">
-    </form>
-    <form method="post" action="auth/signoff">
-        <input type="submit" value="Sign off">
-    </form>
+    <div class="mx-auto mt-4 w-50 d-flex flex-column align-items-center">
+        <h1 class="display-1 p-2">Bienvenido a Ubay</h1>
+        <h1 class="display-4 p-2"><%=entity.getUsername()%></h1>
+        <button class="btn btn-primary p-2" onclick="window.location='${pageContext.request.contextPath}/product'">Ver lista de productos</button>
+    </div>
 
 <%
     } else if(entity!= null && entity.getKind().equals(KindEnum.admin)){
         response.sendRedirect(request.getContextPath() + "/admin/");
 %>
 
-    <%--<h1>Hello <%=entity.getUsername()%></h1>
-    <h2>Your role: <%=entity.getKind()%></h2>
-    <form method="get" action="users">
-        <input type="submit" value="Manage users">
-    </form>
-
-    <form method="get" action="categories">
-        <input type="submit" value="Manage categories">
-    </form>
-
-    <form method="post" action="auth/signoff">
-        <input type="submit" value="Sign off">
-    </form>--%>
 
 <%
     } else {
 %>
-    <a href="auth/login">login</a>
-    <a href="auth/register">Register</a>
-    <a href="admin/users">admin/users</a>
+    <div class="mx-auto mt-4 w-50 d-flex flex-column align-items-center">
+        <h1 class="display-1 p-2">Bienvenido a Ubay</h1>
+        <div class="d-flex flex-row align-items-center p-2">
+            <button class="btn btn-primary p-2 me-3" onclick="window.location='${pageContext.request.contextPath}/auth/login'">Iniciar sesión</button>
+            <button class="btn btn-secondary p-2" onclick="window.location='${pageContext.request.contextPath}/auth/register'">Registrarse</button>
+        </div>
+        <button class="btn btn-info p-2 ms-3" onclick="window.location='${pageContext.request.contextPath}/admin/users'">Acceso de Admin</button>
+    </div>
 <%
     }
 %>
