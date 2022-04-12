@@ -71,7 +71,7 @@
             %>
             </tbody>
         </table>
-        <form method="get" id="pagination">
+        <form method="get" action="${pageContext.request.contextPath}/product">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <%
@@ -88,10 +88,4 @@
 
     </div>
 </body>
-<script>
-    let form = document.getElementById("pagination");
-    document.getElementById("your-id").addEventListener("click", function () {
-        form.submit();
-    });
-</script>
 </html>
