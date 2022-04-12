@@ -5,10 +5,11 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.errors.*;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,23 +22,22 @@ import java.util.Base64;
 public class MinioFacade {
 
     private MinioClient minioClient;
-    @Resource(name = "bucket",lookup = "jndi/minio")
     private String bucket;
-    @Resource(name = "url",lookup = "jndi/minio")
     private String url;
-    @Resource(name = "username",lookup = "jndi/minio")
     private String username;
-    @Resource(name = "password",lookup = "jndi/minio")
     private String password;
 
-    @PostConstruct
-    public void _postConstruct() {
+    public MinioFacade() throws NamingException {
+        Context c = new InitialContext();
+        username = (String) c.lookup("minio/username");
+        password = ((String) c.lookup("minio/password"));
+        url = ((String) c.lookup("minio/url"));
+        bucket = (String) c.lookup("minio/bucket");
         minioClient =  MinioClient
                 .builder()
                 .endpoint(url)
                 .credentials(username, password)
                 .build();
-
     }
 
     public String uploadObject(InputStream inputStream) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
