@@ -72,7 +72,6 @@ public class New extends HttpServlet {
 
             try {
                 img = minioFacade.uploadObject(inputStream);
-                minioFacade.removeObject(p.getImages());
             } catch (Exception e) {
                 throw new ServletException(e.getStackTrace().toString());
             }
