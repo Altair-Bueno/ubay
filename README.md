@@ -125,6 +125,33 @@ JNDI name: jdbc/ubay
 pool name: postgresql
 ```
 
+#### Create the JNDI custom resources
+
+```yaml
+jndi:
+  custom resources:
+    - jndi name: minio/bucket
+      resource type: java.lang.String
+      factory class: org.glassfish.resources.custom.factory.PrimitivesAndStringFactory
+      properties:
+        value: ubay
+    - jndi name: minio/username
+      resource type: java.lang.String
+      factory class: org.glassfish.resources.custom.factory.PrimitivesAndStringFactory
+      properties:
+        value: minioadmin
+    - jndi name: minio/password
+      resource type: java.lang.String
+      factory class: org.glassfish.resources.custom.factory.PrimitivesAndStringFactory
+      properties:
+        value: minioadmin
+    - jndi name: minio/url
+      resource type: java.lang.String
+      factory class: org.glassfish.resources.custom.factory.PrimitivesAndStringFactory
+      properties:
+        value: http://localhost:9000
+```
+
 ### Deploying the application to GlassFish
 
 1. Compile the application to a `.war` package: `mvn compile package`

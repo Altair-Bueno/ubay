@@ -7,6 +7,9 @@ import io.minio.RemoveObjectArgs;
 import io.minio.errors.*;
 import jakarta.ejb.Stateless;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,21 +21,19 @@ import java.util.Base64;
 @Stateless
 public class MinioFacade {
 
-    private static final String MINIO_BUCKET = "ubay";
-    private final MinioClient minioClient;
+    private MinioClient minioClient;
+    private String bucket;
+    private String url;
+    private String username;
+    private String password;
 
-    public MinioFacade() {
-        minioClient = getClient();
-    }
-
-    private MinioClient getClient() {
-        String url = System.getenv("MINIO_URL");
-        String username = System.getenv("MINIO_USERNAME");
-        String password = System.getenv("MINIO_PASSWORD");
-        username = username == null ? "minioadmin":username;
-        password = password == null ? "minioadmin":password;
-        url = url == null ? "http://localhost:9000" : url;
-        return MinioClient
+    public MinioFacade() throws NamingException {
+        Context c = new InitialContext();
+        username = (String) c.lookup("minio/username");
+        password = ((String) c.lookup("minio/password"));
+        url = ((String) c.lookup("minio/url"));
+        bucket = (String) c.lookup("minio/bucket");
+        minioClient =  MinioClient
                 .builder()
                 .endpoint(url)
                 .credentials(username, password)
@@ -47,7 +48,7 @@ public class MinioFacade {
 
         InputStream uploadStream = new ByteArrayInputStream(inputStreamContent);
         PutObjectArgs uploadObjectArgs = PutObjectArgs.builder()
-                .bucket(MINIO_BUCKET)
+                .bucket(bucket)
                 .stream(uploadStream,uploadStream.available(),-1)
                 .object(objectName)
                 .build();
@@ -58,7 +59,7 @@ public class MinioFacade {
 
     public InputStream getObject(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         if (objectName == null) return null;
-        GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(MINIO_BUCKET).object(objectName).build();
+        GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(bucket).object(objectName).build();
         return minioClient.getObject(getObjectArgs);
     }
 
@@ -66,7 +67,7 @@ public class MinioFacade {
         if (objectName == null) return;
         RemoveObjectArgs removeObjectArgs = RemoveObjectArgs.builder()
                 .object(objectName)
-                .bucket(MINIO_BUCKET)
+                .bucket(bucket)
                 .build();
         minioClient.removeObject(removeObjectArgs);
     }
