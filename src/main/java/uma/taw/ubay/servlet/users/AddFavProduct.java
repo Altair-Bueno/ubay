@@ -39,7 +39,9 @@ public class AddFavProduct extends HttpServlet {
         ProductEntity product = productFacade.find(Integer.parseInt(productID));
         ClientEntity client = clientFacade.find(Integer.parseInt(clientID));
 
-        ProductFavouritesEntity fav = favouritesFacade.getTuple(client, product);
+        ProductFavouritesEntity fav = new ProductFavouritesEntity();
+        fav.setProduct(product);
+        fav.setUser(client);
         favouritesFacade.create(fav);
 
         request.getRequestDispatcher("addFavProduct.jsp").forward(request,response);

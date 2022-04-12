@@ -3,7 +3,9 @@
 <%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
 <%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.nio.charset.StandardCharsets" %><%--
+<%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="uma.taw.ubay.entity.ProductFavouritesEntity" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 6/4/22
@@ -32,6 +34,7 @@
 <%
     ClientEntity user = ((LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
     ProductEntity p = (ProductEntity) request.getAttribute("product");
+    List<ProductFavouritesEntity> productFavourites = (List<ProductFavouritesEntity>) request.getAttribute("pflist");
     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
 %>
 
@@ -107,6 +110,49 @@
                     </div>
                 </div>
             </div>
+
+            <%
+                } else {
+                    boolean found = false;
+                    int i = 0;
+                    while(!found && i<productFavourites.size()){
+                        ProductFavouritesEntity pf = productFavourites.get(i);
+                        if(user.equals(pf.getUser()) && p.equals(pf.getProduct())){
+                            found = true;
+                        }
+                        i++;
+                    }
+
+                    if(found){
+
+            %>
+
+            <form method="get" action="${pageContext.request.contextPath}/users/deleteFavourite">
+                <input type='hidden' name='productID' value="<%=p.getId()%>"/>
+                <input type='hidden' name='clientID' value="<%=user.getId()%>"/>
+                <button class="btn btn btn-outline-danger btn-labeled" type="submit">
+                    <span><i class="bi bi-star-fill"></i></span>Eliminar de favoritos
+                </button>
+            </form>
+
+            <%
+
+                    } else {
+            %>
+
+            <form method="get" action="${pageContext.request.contextPath}/users/addFavourite">
+                <input type='hidden' name='productID' value="<%=p.getId()%>"/>
+                <input type='hidden' name='clientID' value="<%=user.getId()%>"/>
+                <button class="btn btn btn-outline-warning btn-labeled" type="submit">
+                    <span><i class="bi bi-star-fill"></i></span>Añadir a favoritos
+                </button>
+            </form>
+
+            <%
+                    }
+            %>
+
+
 
             <%
                 }
