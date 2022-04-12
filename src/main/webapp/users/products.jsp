@@ -20,10 +20,10 @@
 <body>
 <a class="btn btn-primary m-2" href=".." role="button">Go home</a>
     <div class="container">
-        <h2>Uploaded products: </h2>
+        <h2>Favourite products:</h2>
         <div class="col">
             <%
-                List<ProductEntity> l = (List<ProductEntity>) request.getAttribute("uploaded-products-list");
+                List<ProductEntity> l = (List<ProductEntity>) request.getAttribute("favourite-products-list");
             %>
 
             <table class="table table-bordered text-center">
@@ -33,6 +33,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">State</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,6 +45,7 @@
                     <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
                     <td class="align-middle"><%=p.getCloseDate() == null ? "Abierto" : "Cerrado"%></td>
                     <td class="align-middle"><%=p.getDescription()%></td>
+                    <td class="align-middle"><a href="./deleteFavourite?productID=<%=p.getId()%>&clientID=<%=request.getParameter("id")%>">Delete</a></td>
                 </tr>
                 <%
                     }

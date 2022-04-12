@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
 
@@ -33,5 +34,19 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         Root<ProductEntity> productTable = query.from(ProductEntity.class);
         query.select(productTable).where(builder.equal(productTable.get("vendor"), client));
         return em.createQuery(query).getResultList();
+    }
+
+    public List<ProductEntity> getByPage(int page){
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
+
+        Root<ProductEntity> productTable = query.from(ProductEntity.class);
+
+        query.select(productTable)
+                .orderBy(builder.desc(productTable.get("id")));
+        return em.createQuery(query)
+                .setFirstResult(page * 10)
+                .setMaxResults(10)
+                .getResultList();
     }
 }

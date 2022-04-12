@@ -26,18 +26,4 @@ public class UserFavouritesFacade extends AbstractFacade<UserFavouritesEntity> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
-    /*
-
-    public List<ProductEntity> getClientFavouriteProducts(ClientEntity client){
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<UserFavouritesEntity> query = builder.createQuery(UserFavouritesEntity.class);
-        Root<UserFavouritesEntity> favouritesTable = query.from(UserFavouritesEntity.class);
-        query.select(favouritesTable).where(builder.equal(favouritesTable("vendor"), client));
-
-
-        return em.createQuery(query).getResultList();
-    }
-    
-     */
 }

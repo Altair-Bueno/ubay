@@ -35,6 +35,19 @@ create table login_credentials
 alter table login_credentials
     owner to postgres;
 
+
+create table password_reset
+(
+    username varchar(20) not null
+        constraint login_credentials_fk
+            references login_credentials(username),
+    request_id varchar(20) not null,
+    primary key (username,request_id)
+);
+
+alter table password_reset
+    owner to postgres;
+
 create table product
 (
     id            serial primary key,
@@ -66,7 +79,21 @@ create table user_favourites
     primary key (category_id, user_id)
 );
 
-alter table login_credentials
+alter table user_favourites
+    owner to postgres;
+
+create table product_favourites
+(
+    product_id integer not null
+        constraint product_id_fk
+            references product (id),
+    user_id     integer not null
+        constraint user_fk
+            references client (id),
+    primary key (product_id, user_id)
+);
+
+alter table product_favourites
     owner to postgres;
 
 create table bid

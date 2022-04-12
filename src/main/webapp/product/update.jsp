@@ -1,8 +1,10 @@
 <%@ page import="uma.taw.ubay.entity.ProductEntity" %>
-<%@ page import="uma.taw.ubay.servlet.product.ProductsList" %>
+<%@ page import="uma.taw.ubay.servlet.product.Index" %>
 <%@ page import="uma.taw.ubay.dao.ProductFacade" %>
 <%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 29/3/22
@@ -22,18 +24,19 @@
     <%
         ProductEntity p = (ProductEntity) request.getAttribute("product");
         List<CategoryEntity> cats = (List<CategoryEntity>) request.getAttribute("cats");
+        String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
     %>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="d-flex flex-row m-auto" style="width: 1000px">
 
             <%-- BLOQUE I - Imagen --%>
             <div class="d-flex flex-column p-2">
                 <div class="p-2">
-                    <img src="<%=p.getImages()%>" style="height: auto; width: 500px;" />
+                    <img src="<%=imgSrc%>" id="output" style="height: auto; width: 500px;" />
                 </div>
-                <div class="form-group w-75 p-2">
-                    <label for="img">Cambiar foto (link): </label>
-                    <input type="text" id="img" class="form-control" name="imagen" value=<%=p.getImages()%>/>
+                <div class="form-group mb-3 w-75 p-2">
+                    <label for="img" class="form-label">Cambiar imagen: </label>
+                    <input type="file" accept="image/*" onchange="loadFile(event)" class="form-control" id="img" name="img" />
                 </div>
 
             </div>
@@ -43,33 +46,33 @@
                 <%-- Titulo --%>
                 <div class="form-group w-75 p-2">
                     <label for="tit">Título: </label>
-                    <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>"/>
+                    <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>" required/>
                 </div>
 
                 <%-- Estado --%>
                 <div class="p-2">
                     <label>Estado:</label>
-                    <input type="radio" name="estado" value="Activo" <%=p.getCloseDate() == null ? "checked" : ""%>> Activo </input>
-                    <input type="radio" name="estado" value="Cerrado" <%=p.getCloseDate() == null ? "" : "checked"%>> Cerrado </input>
+                    <input type="radio" name="estado" value="Activo" <%=p.isCurrentlyAvailable() ? "checked" : ""%>> Activo </input>
+                    <input type="radio" name="estado" value="Cerrado" <%=p.isCurrentlyAvailable() ? "" : "checked"%>> Cerrado </input>
                 </div>
 
                 <%-- Descripcion --%>
                 <div class="p-2">
-                    <lable for="desc">Descripcion: </lable>
+                    <label for="desc">Descripcion: </label>
                     <textarea id="desc" class="form-control" name="description" rows="4" cols="50"><%=p.getDescription()%></textarea>
                 </div>
 
                 <%-- Precio --%>
                 <div class="p-2">
                     <label for="precio">Precio: </label>
-                    <input type="text" id="precio" class="form-control" name="precio" value="<%=p.getOutPrice()%>"/>
+                    <input type="number" id="precio" class="form-control" name="precio" value="<%=p.getOutPrice()%>" required/>
                 </div>
 
                 <%-- Categoria --%>
                 <div class="p-2">
                     <label>Categoria: </label>
 
-                    <select name="categoria">
+                    <select name="categoria" required>
                         <%
                             for(CategoryEntity c : cats){
 
@@ -83,13 +86,13 @@
 
                 <%-- Submit --%>
                 <div class="p-2">
-                    <input type="hidden" name="id" id="id" value=<%=p.getId()%> />
+                    <input type="hidden" name="id" id="id" value="<%=p.getId()%>" />
                     <div class="d-flex flex-row p-2">
                         <div class="p-2">
                             <input class="btn btn-primary p-2" type="submit" value="Confirmar">
                         </div>
                         <div class="p-2">
-                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="product?id=<%=p.getId()%>">
+                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="item?id=<%=p.getId()%>" formnovalidate>
                         </div>
                     </div>
 
@@ -99,9 +102,11 @@
 
     </form>
 
-
-
-
-
 </body>
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
 </html>

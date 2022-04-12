@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: jota
-  Date: 30/3/22
-  Time: 17:40
+  Date: 11/4/22
+  Time: 16:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,18 +12,20 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Delete user</title>
+    <title>Delete favourite category</title>
 </head>
 <body>
+<a class="btn btn-primary m-2" href="../categories/" role="button">Go back</a>
+<div class="container">
     <div class="container">
-            <div class="col-6 position-absolute top-50 start-50 translate-middle">
-                <form class="form" action="../users/" method="get">
-                    <h1>Are you sure you want to delete client with ID = <%=request.getParameter("id")%></h1>
-                    <button type="submit" class="btn btn-danger mt-2">Submit</button>
-                </form>
+        <div class="col-6 position-absolute top-50 start-50 translate-middle">
+            <form class="form" action="../categories/" method="get">
+                <h1>Are you sure you want to delete favourite category?</h1>
+                <button type="submit" class="btn btn-danger mt-2">Submit</button>
+            </form>
 
         </div>
     </div>
-
+</div>
 </body>
 </html>
