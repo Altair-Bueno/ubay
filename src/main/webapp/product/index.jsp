@@ -1,6 +1,5 @@
 <%@ page import="uma.taw.ubay.entity.ProductEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.SessionKeys" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="java.net.URLEncoder" %><%--
   Created by IntelliJ IDEA.
@@ -37,7 +36,16 @@
         int pagelimit = (int) Math.ceil((double) tam/10);
     %>
 
+
+
+
     <div class="mx-auto" style="width: 1500px;">
+        <form method="get" action="${pageContext.request.contextPath}/product/new">
+            <div class="py-3" style="width: max-content; float: left">
+                <button type="submit" class="btn btn-success">Nuevo producto</button>
+            </div>
+        </form>
+
         <table class="table table-bordered text-center">
             <thead>
             <tr>
@@ -69,7 +77,7 @@
                     <%
                         for(int n = 1; n <= pagelimit; n++){
                     %>
-                    <li class="page-item"><input type="submit" class="page-link" name="page" value="<%=n%>"></li>
+                    <li class="page-item"><input type="submit" class="page-link" aria-checked="<%=pagenum == n%>" name="page" value="<%=n%>"></li>
                     <%
                         }
                     %>

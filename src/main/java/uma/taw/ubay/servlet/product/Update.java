@@ -35,11 +35,6 @@ public class Update extends HttpServlet {
     @EJB
     CategoryFacade catfacade;
 
-    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-    }
-
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int categoria = Integer.parseInt(req.getParameter("categoria"));

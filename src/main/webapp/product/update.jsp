@@ -32,11 +32,11 @@
             <%-- BLOQUE I - Imagen --%>
             <div class="d-flex flex-column p-2">
                 <div class="p-2">
-                    <img src="<%=imgSrc%>" style="height: auto; width: 500px;" />
+                    <img src="<%=imgSrc%>" id="output" style="height: auto; width: 500px;" />
                 </div>
                 <div class="form-group mb-3 w-75 p-2">
                     <label for="img" class="form-label">Cambiar imagen: </label>
-                    <input type="file" class="form-control" id="img" name="img" />
+                    <input type="file" accept="image/*" onchange="loadFile(event)" class="form-control" id="img" name="img" />
                 </div>
 
             </div>
@@ -46,7 +46,7 @@
                 <%-- Titulo --%>
                 <div class="form-group w-75 p-2">
                     <label for="tit">Título: </label>
-                    <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>"/>
+                    <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>" required/>
                 </div>
 
                 <%-- Estado --%>
@@ -65,14 +65,14 @@
                 <%-- Precio --%>
                 <div class="p-2">
                     <label for="precio">Precio: </label>
-                    <input type="text" id="precio" class="form-control" name="precio" value="<%=p.getOutPrice()%>"/>
+                    <input type="number" id="precio" class="form-control" name="precio" value="<%=p.getOutPrice()%>" required/>
                 </div>
 
                 <%-- Categoria --%>
                 <div class="p-2">
                     <label>Categoria: </label>
 
-                    <select name="categoria">
+                    <select name="categoria" required>
                         <%
                             for(CategoryEntity c : cats){
 
@@ -92,7 +92,7 @@
                             <input class="btn btn-primary p-2" type="submit" value="Confirmar">
                         </div>
                         <div class="p-2">
-                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="item?id=<%=p.getId()%>">
+                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="item?id=<%=p.getId()%>" formnovalidate>
                         </div>
                     </div>
 
@@ -103,4 +103,10 @@
     </form>
 
 </body>
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
 </html>

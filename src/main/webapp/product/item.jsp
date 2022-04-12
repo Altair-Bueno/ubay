@@ -35,7 +35,7 @@
 
 <div class="d-flex flex-column" style="width: 1600px">
     <div class="p-2">
-        <form method="get" action="<%=request.getHeader("Referer")%>">
+        <form method="get" action="${pageContext.request.contextPath}/product">
             <button type="submit" class="btn btn-labeled btn-light">
                 <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
             </button>
