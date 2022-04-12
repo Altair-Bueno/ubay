@@ -5,6 +5,8 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.errors.*;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
 
 import java.io.ByteArrayInputStream;
@@ -18,25 +20,24 @@ import java.util.Base64;
 @Stateless
 public class MinioFacade {
 
-    private static final String MINIO_BUCKET = "ubay";
-    private final MinioClient minioClient;
+    private MinioClient minioClient;
+    @Resource(name = "bucket",lookup = "jndi/minio")
+    private String bucket;
+    @Resource(name = "url",lookup = "jndi/minio")
+    private String url;
+    @Resource(name = "username",lookup = "jndi/minio")
+    private String username;
+    @Resource(name = "password",lookup = "jndi/minio")
+    private String password;
 
-    public MinioFacade() {
-        minioClient = getClient();
-    }
-
-    private MinioClient getClient() {
-        String url = System.getenv("MINIO_URL");
-        String username = System.getenv("MINIO_USERNAME");
-        String password = System.getenv("MINIO_PASSWORD");
-        username = username == null ? "minioadmin":username;
-        password = password == null ? "minioadmin":password;
-        url = url == null ? "http://localhost:9000" : url;
-        return MinioClient
+    @PostConstruct
+    public void _postConstruct() {
+        minioClient =  MinioClient
                 .builder()
                 .endpoint(url)
                 .credentials(username, password)
                 .build();
+
     }
 
     public String uploadObject(InputStream inputStream) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
@@ -47,7 +48,7 @@ public class MinioFacade {
 
         InputStream uploadStream = new ByteArrayInputStream(inputStreamContent);
         PutObjectArgs uploadObjectArgs = PutObjectArgs.builder()
-                .bucket(MINIO_BUCKET)
+                .bucket(bucket)
                 .stream(uploadStream,uploadStream.available(),-1)
                 .object(objectName)
                 .build();
@@ -58,7 +59,7 @@ public class MinioFacade {
 
     public InputStream getObject(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         if (objectName == null) return null;
-        GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(MINIO_BUCKET).object(objectName).build();
+        GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket(bucket).object(objectName).build();
         return minioClient.getObject(getObjectArgs);
     }
 
@@ -66,7 +67,7 @@ public class MinioFacade {
         if (objectName == null) return;
         RemoveObjectArgs removeObjectArgs = RemoveObjectArgs.builder()
                 .object(objectName)
-                .bucket(MINIO_BUCKET)
+                .bucket(bucket)
                 .build();
         minioClient.removeObject(removeObjectArgs);
     }

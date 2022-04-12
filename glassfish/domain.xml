@@ -73,6 +73,11 @@
             <property name="user" value="postgres"></property>
         </jdbc-connection-pool>
         <jdbc-resource pool-name="postgresql" jndi-name="jdbc/ubay"></jdbc-resource>
+        <custom-resource factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory" res-type="java.lang.String" jndi-name="jndi/minio">
+            <property name="password" value="minioadmin"></property>
+            <property name="username" value="minioadmin"></property>
+            <property name="url" value="http://minio:9000"></property>
+        </custom-resource>
     </resources>
     <servers>
         <server config-ref="server-config" name="server">
@@ -86,6 +91,7 @@
             <resource-ref ref="jdbc/sample"></resource-ref>
             <resource-ref ref="jdbc/database"></resource-ref>
             <resource-ref ref="jdbc/ubay"></resource-ref>
+            <resource-ref ref="jndi/minio"></resource-ref>
         </server>
     </servers>
     <nodes>
