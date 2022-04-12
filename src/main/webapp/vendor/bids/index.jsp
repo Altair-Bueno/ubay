@@ -37,6 +37,8 @@
     <title>Ubay-Bids Received</title>
 </head>
 <body>
+<%@include file="../../WEB-INF/components/navbar.jsp"%>
+
 <div class="container mt-4">
     <div class="row">
         <h1>Bids received</h1>

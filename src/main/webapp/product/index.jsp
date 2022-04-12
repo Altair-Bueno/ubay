@@ -35,10 +35,7 @@
         int tam = (int) request.getAttribute("product-tam");
         int pagelimit = (int) Math.ceil((double) tam/10);
     %>
-
-
-
-
+    <%@include file="../WEB-INF/components/navbar.jsp"%>
     <div class="mx-auto" style="width: 1500px;">
         <form method="get" action="${pageContext.request.contextPath}/product/new">
             <div class="py-3" style="width: max-content; float: left">

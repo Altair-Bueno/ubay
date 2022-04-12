@@ -22,8 +22,7 @@
 
     <div class="col-6 position-absolute top-50 start-50 translate-middle">
         <form class="form" action="${pageContext.request.contextPath}/users/products" method="get">
-            <h1>Are you sure you want to add new favourite product?</h1>
-            <input type="text" name="id" value="<%=id%>" hidden>
+            <h1>¿Estás seguro de que quieres añadir este producto a favoritos?</h1>
             <button type="submit" class="btn btn-primary mt-2">Submit</button>
         </form>
     </div>

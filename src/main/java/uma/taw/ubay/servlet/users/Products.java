@@ -6,10 +6,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.eclipse.persistence.sessions.Session;
+import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.dao.ProductFavouritesFacade;
 import uma.taw.ubay.entity.ClientEntity;
+import uma.taw.ubay.entity.LoginCredentialsEntity;
 import uma.taw.ubay.entity.ProductEntity;
 
 import java.io.IOException;
@@ -31,8 +34,7 @@ public class Products extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String id = request.getParameter("id");
-        ClientEntity client = clientFacade.find(Integer.parseInt(id));
+        ClientEntity client = ((LoginCredentialsEntity) request.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
 
         List<ProductEntity> favouriteProducts = favouritesFacade.getClientFavouriteProducts(client);
         request.setAttribute("favourite-products-list", favouriteProducts);

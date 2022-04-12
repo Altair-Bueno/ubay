@@ -39,6 +39,7 @@
 %>
 
 <script>document.title = "Ubay | <%= p.getTitle()%>"</script>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 
 <div class="d-flex flex-column" style="width: 1600px">
     <div class="p-2">

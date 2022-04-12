@@ -1,7 +1,7 @@
 <%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
 <%@ page import="uma.taw.ubay.SessionKeys" %>
 <%@ page import="uma.taw.ubay.entity.KindEnum" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +16,7 @@
     LoginCredentialsEntity entity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
     if (entity != null && entity.getKind().equals(KindEnum.client)) {
 %>
+    <%@include file="WEB-INF/components/navbar.jsp"%>
     <h1>Hello <%=entity.getUsername()%></h1>
     <h2>Your role: <%=entity.getKind()%></h2>
     <form method="get" action="product">

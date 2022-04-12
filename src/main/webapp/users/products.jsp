@@ -18,6 +18,7 @@
     <title>My products</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 <a class="btn btn-primary m-2" href=".." role="button">Go home</a>
     <div class="container">
         <h2>Favourite products:</h2>

@@ -16,9 +16,13 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link disabled">Disabled</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/product">Productos</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/users/bids">Pujas</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/vendor/bids">Mis Pujas</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/users/products">Productos Favoritos</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/categories/">Categorias Favoritas</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/auth/signoff">Cerrar sesión</a>
+
             </div>
         </div>
     </div>
