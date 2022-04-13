@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import uma.taw.ubay.ProductKeys;
 import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
@@ -45,8 +46,8 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         query.select(productTable)
                 .orderBy(builder.desc(productTable.get("id")));
         return em.createQuery(query)
-                .setFirstResult(page * 10)
-                .setMaxResults(10)
+                .setFirstResult(page * ProductKeys.productsPerPageLimit)
+                .setMaxResults(ProductKeys.productsPerPageLimit)
                 .getResultList();
     }
 }

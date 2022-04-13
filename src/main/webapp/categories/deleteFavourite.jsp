@@ -15,11 +15,11 @@
     <title>Delete favourite category</title>
 </head>
 <body>
-<a class="btn btn-primary m-2" href="../categories/" role="button">Go back</a>
+<a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
 <div class="container">
     <div class="container">
         <div class="col-6 position-absolute top-50 start-50 translate-middle">
-            <form class="form" action="../categories/" method="get">
+            <form class="form" action="../categories" method="get">
                 <h1>Are you sure you want to delete favourite category?</h1>
                 <button type="submit" class="btn btn-danger mt-2">Submit</button>
             </form>

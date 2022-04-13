@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@WebServlet("/categories/")
+@WebServlet("/categories")
 public class Categories extends HttpServlet {
     @EJB
     CategoryFacade facade;

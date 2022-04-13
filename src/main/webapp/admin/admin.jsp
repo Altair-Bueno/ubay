@@ -19,7 +19,7 @@
     <div class="col position-absolute justify-content-center top-50 start-50 translate-middle">
         <h2 class="p-2">Hi, admin.</h2>
         <a class="btn btn-primary m-2" href="../users/" role="button">Manage users</a>
-        <a class="btn btn-primary m-2" href="../categories/" role="button">Manage categories</a>
+        <a class="btn btn-primary m-2" href="../categories" role="button">Manage categories</a>
         <a class="btn btn-primary m-2" href="../product/productslist" role="button">View all Ubay products</a>
         <form method="post" action="../auth/signoff">
             <input type="submit" class="btn btn-danger m-2" value="Sign off">

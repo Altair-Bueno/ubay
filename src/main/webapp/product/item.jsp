@@ -32,7 +32,8 @@
 </head>
 <body>
 <%
-    ClientEntity user = ((LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
+    Object itemsesion = session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
+    ClientEntity user = itemsesion == null ? null : ((LoginCredentialsEntity) itemsesion).getUser();
     ProductEntity p = (ProductEntity) request.getAttribute("product");
     List<ProductFavouritesEntity> productFavourites = (List<ProductFavouritesEntity>) request.getAttribute("pflist");
     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
@@ -75,7 +76,8 @@
         </div>
         <div class="p-4">
             <%
-                if (user.getId() == p.getVendor().getId()) {
+                if (user != null){
+                    if (user.getId() == p.getVendor().getId()) {
             %>
 
             <!-- EDITAR -->
@@ -113,18 +115,18 @@
             </div>
 
             <%
-                } else {
-                    boolean found = false;
-                    int i = 0;
-                    while(!found && i<productFavourites.size()){
-                        ProductFavouritesEntity pf = productFavourites.get(i);
-                        if(user.equals(pf.getUser()) && p.equals(pf.getProduct())){
-                            found = true;
+                    } else {
+                        boolean found = false;
+                        int i = 0;
+                        while(!found && i<productFavourites.size()){
+                            ProductFavouritesEntity pf = productFavourites.get(i);
+                            if(user.equals(pf.getUser()) && p.equals(pf.getProduct())){
+                                found = true;
+                            }
+                            i++;
                         }
-                        i++;
-                    }
 
-                    if(found){
+                        if(found){
 
             %>
 
@@ -138,7 +140,7 @@
 
             <%
 
-                    } else {
+                        } else {
             %>
 
             <form method="get" action="${pageContext.request.contextPath}/users/addFavourite">
@@ -150,12 +152,8 @@
             </form>
 
             <%
+                        }
                     }
-            %>
-
-
-
-            <%
                 }
             %>
         </div>

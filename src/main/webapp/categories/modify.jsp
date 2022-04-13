@@ -15,7 +15,7 @@
     <title>Modify category</title>
 </head>
 <body>
-<a class="btn btn-primary m-2" href="../categories/" role="button">Go back</a>
+<a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
     <div class="container">
         <h2>Data: </h2>
         <div class="row">
