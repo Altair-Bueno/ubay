@@ -2,6 +2,7 @@
 <%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.LinkedHashMap" %>
+<%@ page import="uma.taw.ubay.entity.KindEnum" %>
 <%--
   Created by IntelliJ IDEA.
   User: compux72
@@ -26,7 +27,17 @@
     Map<String, String> urls = new LinkedHashMap<>();
     urls.put("Inicio", request.getContextPath());
     urls.put("Productos", request.getContextPath() + "/product");
-    urls.put("Pujas", request.getContextPath() + "/users/bids");
+
+    if (navsesion == null) {
+
+    } else if (((LoginCredentialsEntity) navsesion).getKind().equals(KindEnum.client)) {
+        urls.put("Favoritos",request.getContextPath() + "/users/products");
+        urls.put("Pujas realizadas", request.getContextPath() + "/users/bids");
+        urls.put("Pujas recibidas",request.getContextPath() + "/vendor/bids");
+    } else if (((LoginCredentialsEntity) navsesion).getKind().equals(KindEnum.admin)) {
+        // TODO navbar should take care of all redirects. Admin links go here
+        urls.put("Administrar", request.getContextPath() + "/admin");
+    }
     urls.put("Categorias", request.getContextPath() + "/categories");
 %>
 
@@ -37,7 +48,6 @@
             <%
                 for(String url : urls.keySet()){
             %>
-            <script>console.log("CURRENT URL: <%=currenturl%> URL LISTA: <%=urls.get(url)%>" )</script>
             <li class="nav-item">
                 <a class="nav-link <%=urls.get(url).equals(currenturl) ? "active" : ""%>" aria-current="page" href="<%=urls.get(url)%>"><%=url%></a>
             </li>
@@ -59,9 +69,9 @@
                         if(navsesion != null){
                     %>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vendor/bids">Mis Pujas</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/products">Productos Favoritos</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/signoff">Cerrar sesión</a></li>
+                        <li><form method="post" action="${pageContext.request.contextPath}/auth/signoff">
+                                <input type="submit" class="dropdown-item" value="Cerrar sesión">
+                        </form></li>
                     </ul>
                     <%
                         } else {
@@ -69,7 +79,6 @@
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/login">Iniciar sesión</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/register">Registrarse</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/users">Admin</a></li>
                     </ul>
                     <%
                         }
