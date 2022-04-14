@@ -29,10 +29,9 @@
 
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
         <url-pattern>/users/*</url-pattern>
         <url-pattern>/vendor/*</url-pattern>
-        <url-pattern>/categories/*</url-pattern>
-        <url-pattern>/admin/*</url-pattern>
         <url-pattern>/auth/changePassword</url-pattern>
     </filter-mapping>
 
