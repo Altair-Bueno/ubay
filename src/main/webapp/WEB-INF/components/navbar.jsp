@@ -25,20 +25,19 @@
     String currenturl = currentURLObject == null ? request.getRequestURI() : currentURLObject.toString();
     if(currenturl.charAt(currenturl.length()-1) =='/') currenturl = currenturl.substring(0, currenturl.length()-1);
     Map<String, String> urls = new LinkedHashMap<>();
-    urls.put("Inicio", request.getContextPath());
-    urls.put("Productos", request.getContextPath() + "/product");
+    urls.put("Products", request.getContextPath() + "/product");
 
     if (navsesion == null) {
 
     } else if (((LoginCredentialsEntity) navsesion).getKind().equals(KindEnum.client)) {
-        urls.put("Favoritos",request.getContextPath() + "/users/products");
-        urls.put("Pujas realizadas", request.getContextPath() + "/users/bids");
-        urls.put("Pujas recibidas",request.getContextPath() + "/vendor/bids");
+        urls.put("Favourites",request.getContextPath() + "/users/products");
+        urls.put("My bids", request.getContextPath() + "/users/bids");
+        urls.put("Bids received",request.getContextPath() + "/vendor/bids");
     } else if (((LoginCredentialsEntity) navsesion).getKind().equals(KindEnum.admin)) {
         // TODO navbar should take care of all redirects. Admin links go here
-        urls.put("Administrar", request.getContextPath() + "/admin");
+        urls.put("Admin", request.getContextPath() + "/admin");
     }
-    urls.put("Categorias", request.getContextPath() + "/categories");
+    urls.put("Categories", request.getContextPath() + "/categories");
 %>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
@@ -70,15 +69,15 @@
                     %>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><form method="post" action="${pageContext.request.contextPath}/auth/signoff">
-                                <input type="submit" class="dropdown-item" value="Cerrar sesión">
+                                <input type="submit" class="dropdown-item" value="Sign off">
                         </form></li>
                     </ul>
                     <%
                         } else {
                     %>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/login">Iniciar sesión</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/register">Registrarse</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/login">Login</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/register">Register</a></li>
                     </ul>
                     <%
                         }
