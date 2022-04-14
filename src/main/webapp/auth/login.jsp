@@ -79,6 +79,11 @@
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
     </form>
+    <small>
+        <a class="link-primary" href="${pageContext.request.contextPath}/auth/register">
+            Create an account
+        </a>
+    </small>
 </main>
 </body>
 </html>

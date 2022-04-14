@@ -79,6 +79,11 @@
         <button type="submit" class="btn btn-primary col-6">Create an account</button>
     </div>
 </form>
+    <small>
+        <a class="link-primary" href="${pageContext.request.contextPath}/auth/login">
+            Already have an account?
+        </a>
+    </small>
 </main>
 </body>
 </html>
