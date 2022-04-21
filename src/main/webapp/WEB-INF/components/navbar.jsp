@@ -33,9 +33,6 @@
         urls.put("Favourites",request.getContextPath() + "/users/products");
         urls.put("My bids", request.getContextPath() + "/users/bids");
         urls.put("Bids received",request.getContextPath() + "/vendor/bids");
-    } else if (((LoginCredentialsEntity) navsesion).getKind().equals(KindEnum.admin)) {
-        // TODO navbar should take care of all redirects. Admin links go here
-        urls.put("Admin", request.getContextPath() + "/admin");
     }
     urls.put("Categories", request.getContextPath() + "/categories");
 %>
@@ -71,6 +68,15 @@
                         <li><form method="post" action="${pageContext.request.contextPath}/auth/signoff">
                                 <input type="submit" class="dropdown-item" value="Sign off">
                         </form></li>
+                        <%
+                            if(((LoginCredentialsEntity) navsesion).getKind().equals(KindEnum.admin)){
+                        %>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/">Manage users</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/categories/">Manage categories</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/productlist">View all ubay products</a></li>
+                        <%
+                            }
+                        %>
                     </ul>
                     <%
                         } else {
