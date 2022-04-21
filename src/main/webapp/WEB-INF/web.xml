@@ -51,6 +51,7 @@
         <url-pattern>/users/new</url-pattern>
         <url-pattern>/users/update</url-pattern>
         <url-pattern>/users/delete</url-pattern>
+        <url-pattern>/users/passwordChangeLink</url-pattern>
     </filter-mapping>
     
     <error-page>
