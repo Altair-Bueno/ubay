@@ -25,7 +25,7 @@ public class ChangePassword extends HttpServlet{
         String newPassword = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
         String repeatPassword = req.getParameter(AuthKeys.REPEAT_PASSWORD_PARAMETER);
 
-        if (repeatPassword.equals(newPassword)) {
+        if (repeatPassword.equals(newPassword) && password.matches(AuthKeys.PASSWORD_REGEX)) {
             LoginCredentialsEntity loginCredentials = (LoginCredentialsEntity) req.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS);
             loginCredentials = facade.find(loginCredentials.getUsername());
 
