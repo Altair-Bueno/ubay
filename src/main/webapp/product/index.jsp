@@ -1,7 +1,8 @@
 <%@ page import="uma.taw.ubay.entity.ProductEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
-<%@ page import="java.net.URLEncoder" %><%--
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="uma.taw.ubay.ProductKeys" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 28/3/22
@@ -17,6 +18,9 @@
           crossorigin="anonymous">
     <title>Ubay | Productos</title>
 </head>
+<%
+    if(session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) != null){
+%>
 <style>
     tr{
         cursor: pointer
@@ -26,6 +30,9 @@
         background-color: #F5F5F5;
     }
 </style>
+<%
+    }
+%>
 <body>
 
     <%
@@ -33,18 +40,23 @@
         String pagAtt = request.getParameter("page");
         int pagenum = pagAtt == null ? 1 : Integer.parseInt(pagAtt);
         int tam = (int) request.getAttribute("product-tam");
-        int pagelimit = (int) Math.ceil((double) tam/10);
+        int pagelimit = (int) Math.ceil((double) tam/ProductKeys.productsPerPageLimit);
     %>
-
-
-
-
+    <%@include file="../WEB-INF/components/navbar.jsp"%>
     <div class="mx-auto" style="width: 1500px;">
+        <%
+            if(session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) != null){
+        %>
+
         <form method="get" action="${pageContext.request.contextPath}/product/new">
             <div class="py-3" style="width: max-content; float: left">
                 <button type="submit" class="btn btn-success">Nuevo producto</button>
             </div>
         </form>
+
+        <%
+            }
+        %>
 
         <table class="table table-bordered text-center">
             <thead>
@@ -60,8 +72,19 @@
                 for(ProductEntity p : l){
                     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
             %>
+            <%
+                if(session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) == null){
+            %>
+            <tr>
+            <%
+                } else {
+            %>
             <tr onclick="window.location='${pageContext.request.contextPath}/product/item?id=' + <%=p.getId()%>">
-                <td><img src="<%=imgSrc%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
+            <%
+                }
+            %>
+
+            <td><img src="<%=imgSrc%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
                 <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
                 <td class="align-middle"><%=p.isCurrentlyAvailable() ? "Abierto" : "Cerrado"%></td>
                 <td class="align-middle"><%=p.getDescription()%></td>
@@ -71,27 +94,21 @@
             %>
             </tbody>
         </table>
-        <form method="get" id="pagination">
+        <form method="get" action="${pageContext.request.contextPath}/product">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <%
                         for(int n = 1; n <= pagelimit; n++){
                     %>
-                    <li class="page-item"><input type="submit" class="page-link" aria-checked="<%=pagenum == n%>" name="page" value="<%=n%>"></li>
+                    <li class="page-item <%=n == pagenum ? "active" : "" %>">
+                        <input type="submit" class="page-link" aria-checked="<%=pagenum == n%>" name="page" value="<%=n%>">
+                    </li>
                     <%
                         }
                     %>
                 </ul>
             </nav>
-
         </form>
-
     </div>
 </body>
-<script>
-    let form = document.getElementById("pagination");
-    document.getElementById("your-id").addEventListener("click", function () {
-        form.submit();
-    });
-</script>
 </html>

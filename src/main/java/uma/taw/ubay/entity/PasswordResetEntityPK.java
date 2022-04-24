@@ -10,7 +10,7 @@ import java.util.Objects;
 public class PasswordResetEntityPK implements Serializable {
     @Column(name = "username", nullable = false,length = 20)
     private String username;
-    @Column(name = "request_id", nullable = false, length = 20)
+    @Column(name = "request_id", nullable = false, length = 20, insertable = false,updatable = false)
     private String requestId;
 
     public PasswordResetEntityPK(){}

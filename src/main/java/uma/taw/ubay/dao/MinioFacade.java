@@ -28,6 +28,7 @@ public class MinioFacade {
     private String password;
 
     public MinioFacade() throws NamingException {
+        // From https://stackoverflow.com/questions/51038324/jndi-lookup-on-glassfish-4-1-1-custom-resources
         Context c = new InitialContext();
         username = (String) c.lookup("minio/username");
         password = ((String) c.lookup("minio/password"));

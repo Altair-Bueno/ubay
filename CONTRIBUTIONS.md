@@ -26,11 +26,12 @@
   - Database design & ORM
   - Custom error pages
   - Minio object storage configuration and facade
+  - Other minor changes
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 
-
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
+
 - DB Design
 - Admin functions on user page
   - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Delete.java)

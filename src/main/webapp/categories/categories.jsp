@@ -20,12 +20,11 @@
     <title>Categories</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 <%
     LoginCredentialsEntity entity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
     if (entity != null && entity.getKind().equals(KindEnum.admin)) {
 %>
-    <a class="btn btn-primary m-2" href=".." role="button">Go home</a>
-
     <div class="container">
         <h2>Categories: </h2>
         <div class="row">

@@ -21,7 +21,6 @@ public class Index extends HttpServlet {
         var page = req.getParameter("page");
         req.setAttribute("product-list", facade.getByPage(page == null ? 0 : Integer.parseInt(page) - 1));
         req.getRequestDispatcher("product/index.jsp").forward(req,resp);
-
     }
 
     @Override

@@ -72,6 +72,7 @@
                         <th>Birth Date</th>
                         <th>Delete user</th>
                         <th>Modify user</th>
+                        <th>Reset password</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -92,6 +93,7 @@
                         <td><%=c.getBirthDate()%></td>
                         <td><a href=delete?id=<%=c.getId()%>>Delete user</a></td>
                         <td><a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modify user</a></td>
+                        <td><a href="passwordChangeLink?id=<%=c.getId()%>">Reset password</a></td>
                     </tr>
                     <%
                             }
