@@ -68,7 +68,6 @@
 <%
     } else if(entity != null && entity.getKind().equals(KindEnum.client)){
 %>
-<a class="btn btn-primary m-2" href=".." role="button">Go home</a>
 
 <div class="container">
     <h2>Categories: </h2>
