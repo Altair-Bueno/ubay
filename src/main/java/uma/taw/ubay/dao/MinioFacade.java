@@ -5,11 +5,11 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.errors.*;
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Stateless;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,18 +27,23 @@ public class MinioFacade {
     private String username;
     private String password;
 
-    public MinioFacade() throws NamingException {
+    @PostConstruct
+    public void _postConstruct() {
         // From https://stackoverflow.com/questions/51038324/jndi-lookup-on-glassfish-4-1-1-custom-resources
-        Context c = new InitialContext();
-        username = (String) c.lookup("minio/username");
-        password = ((String) c.lookup("minio/password"));
-        url = ((String) c.lookup("minio/url"));
-        bucket = (String) c.lookup("minio/bucket");
-        minioClient =  MinioClient
-                .builder()
-                .endpoint(url)
-                .credentials(username, password)
-                .build();
+        try {
+            Context c = new InitialContext();
+            username = (String) c.lookup("minio/username");
+            password = ((String) c.lookup("minio/password"));
+            url = ((String) c.lookup("minio/url"));
+            bucket = (String) c.lookup("minio/bucket");
+            minioClient =  MinioClient
+                    .builder()
+                    .endpoint(url)
+                    .credentials(username, password)
+                    .build();
+        } catch (Exception e) {
+            minioClient = null;
+        }
     }
 
     public String uploadObject(InputStream inputStream) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
