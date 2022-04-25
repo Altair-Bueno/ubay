@@ -37,6 +37,7 @@ public class Products extends HttpServlet {
         ClientEntity client = ((LoginCredentialsEntity) request.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
 
         List<ProductEntity> favouriteProducts = favouritesFacade.getClientFavouriteProducts(client);
+        request.setAttribute("clientID", client.getId());
         request.setAttribute("favourite-products-list", favouriteProducts);
         request.getRequestDispatcher("products.jsp").forward(request,response);
     }

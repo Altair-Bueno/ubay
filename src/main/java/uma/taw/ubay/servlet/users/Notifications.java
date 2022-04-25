@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/users/notifications/")
+@WebServlet("/users/notifications")
 public class Notifications extends HttpServlet {
     @EJB
     ProductFacade productFacade;

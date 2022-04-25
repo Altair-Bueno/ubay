@@ -46,7 +46,17 @@
                     <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
                     <td class="align-middle"><%=p.getCloseDate() == null ? "Abierto" : "Cerrado"%></td>
                     <td class="align-middle"><%=p.getDescription()%></td>
-                    <td class="align-middle"><a href="./deleteFavourite?productID=<%=p.getId()%>&clientID=<%=request.getParameter("id")%>">Delete</a></td>
+
+                    <td class="align-middle">
+                        <form method="get" action="${pageContext.request.contextPath}/users/deleteFavourite">
+                            <input type='hidden' name='productID' value="<%=p.getId()%>"/>
+                            <input type='hidden' name='clientID' value="<%=request.getAttribute("clientID")%>"/>
+                            <button class="btn btn btn-outline-danger btn-labeled" type="submit">
+                                <span><i class="bi bi-star-fill"></i></span>Eliminar de favoritos
+                            </button>
+                        </form>
+                    </td>
+
                 </tr>
                 <%
                     }
