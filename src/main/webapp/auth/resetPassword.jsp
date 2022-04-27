@@ -54,7 +54,6 @@
 <main class="form-signin">
     <form method="post"
           action="${pageContext.request.contextPath}/auth/resetPassword">
-        <%--        <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">--%>
         <h1 class="h3 mb-3 fw-normal">Reset my password</h1>
         <div class="form-floating">
             <input
@@ -81,6 +80,7 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">Change
             password
         </button>
+        <!-- TODO replace hidden field with query parameter-->
         <input type="text"
                class="visually-hidden"
                name="<%=AuthKeys.USERNAME_PARAMETER%>"
