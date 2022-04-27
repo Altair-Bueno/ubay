@@ -5,10 +5,10 @@ import jakarta.ejb.Stateless;
 import lombok.NonNull;
 import uma.taw.ubay.dao.BidFacade;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
-import uma.taw.ubay.dto.auth.LoginDTO;
-import uma.taw.ubay.dto.vendor.BidDTO;
-import uma.taw.ubay.dto.vendor.ProductDTO;
-import uma.taw.ubay.dto.vendor.UserDTO;
+import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.vendor.bids.BidDTO;
+import uma.taw.ubay.dto.vendor.bids.ProductDTO;
+import uma.taw.ubay.dto.vendor.bids.UserDTO;
 import uma.taw.ubay.entity.BidEntity;
 
 import java.sql.Date;

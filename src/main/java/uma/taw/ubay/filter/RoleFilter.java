@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
-import uma.taw.ubay.dto.auth.LoginDTO;
+import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.entity.KindEnum;
 
 import java.io.IOException;

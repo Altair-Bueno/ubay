@@ -1,4 +1,4 @@
-package uma.taw.ubay.dto.auth;
+package uma.taw.ubay.dto;
 
 import lombok.Value;
 

@@ -6,7 +6,7 @@ import lombok.NonNull;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
-import uma.taw.ubay.dto.auth.LoginDTO;
+import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
 
 @Stateless

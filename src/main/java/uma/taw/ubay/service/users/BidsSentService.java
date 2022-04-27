@@ -4,7 +4,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import uma.taw.ubay.dao.BidFacade;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
-import uma.taw.ubay.dto.auth.LoginDTO;
+import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.users.bids.BidDTO;
 import uma.taw.ubay.dto.users.bids.ProductDTO;
 import uma.taw.ubay.dto.users.bids.VendorDTO;
