@@ -14,6 +14,7 @@ import uma.taw.ubay.entity.ProductEntity;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Stateless
 public class BidFacade extends AbstractFacade<BidEntity> {
@@ -30,7 +31,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         return em;
     }
 
-    public List<BidEntity> getFilteredBidsFromVendor(ClientEntity vendor, int page, Date startDate, Date endDate, String productTitle, String clientName) {
+    public Stream<BidEntity> getFilteredBidsFromVendor(ClientEntity vendor, int page, Date startDate, Date endDate, String productTitle, String clientName) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<BidEntity> query = builder.createQuery(BidEntity.class);
 
@@ -59,7 +60,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         return em.createQuery(query)
                 .setFirstResult(page * 10)
                 .setMaxResults(10)
-                .getResultList();
+                .getResultStream();
     }
 
     public List<BidEntity> getFilteredBidsFromUser(ClientEntity user, int page, Date startDate, Date endDate, String productTitle, String vendorName) {
