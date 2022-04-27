@@ -8,25 +8,29 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import uma.taw.ubay.SessionKeys;
+import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.dao.ProductFacade;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
+import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.entity.ProductEntity;
 
 import java.io.IOException;
 
 public class ProductOwnership extends HttpFilter {
     @EJB
-    ProductFacade facade;
+    ProductFacade productFacade;
+    @EJB
+    LoginCredentialsFacade loginCredentialsFacade;
 
     private final static String PRODUCTS_LIST = "/product";
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpSession session = req.getSession(false);
-        ProductEntity p = facade.find(Integer.parseInt(req.getParameter("id")));
-        LoginCredentialsEntity login = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
+        ProductEntity p = productFacade.find(Integer.parseInt(req.getParameter("id")));
+        var loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
+        var loginCredentialsEntity = loginCredentialsFacade.find(loginDTO.getUsername());
 
-        if(!p.getVendor().equals(login.getUser())){
+        if(!p.getVendor().equals(loginCredentialsEntity.getUser())){
             res.sendRedirect(req.getContextPath() + PRODUCTS_LIST);
         } else{
             chain.doFilter(req, res);
