@@ -10,7 +10,7 @@ import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.VendorKeys;
 import uma.taw.ubay.dto.auth.LoginDTO;
 import uma.taw.ubay.dto.vendor.BidDTO;
-import uma.taw.ubay.service.vendor.BidsService;
+import uma.taw.ubay.service.vendor.BidsReceivedService;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @WebServlet("/vendor/bids")
 public class Index extends HttpServlet {
     @EJB
-    BidsService service;
+    BidsReceivedService service;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginDTO loginDTO = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);

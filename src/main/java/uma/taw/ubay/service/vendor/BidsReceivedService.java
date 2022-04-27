@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Stateless
-public class BidsService {
+public class BidsReceivedService {
     @EJB
     BidFacade bidFacade;
     @EJB

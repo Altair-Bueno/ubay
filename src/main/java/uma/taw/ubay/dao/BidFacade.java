@@ -63,7 +63,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
                 .getResultStream();
     }
 
-    public List<BidEntity> getFilteredBidsFromUser(ClientEntity user, int page, Date startDate, Date endDate, String productTitle, String vendorName) {
+    public Stream<BidEntity> getFilteredBidsFromUser(ClientEntity user, int page, Date startDate, Date endDate, String productTitle, String vendorName) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<BidEntity> query = builder.createQuery(BidEntity.class);
 
@@ -92,7 +92,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         return em.createQuery(query)
                 .setFirstResult(page * 10)
                 .setMaxResults(10)
-                .getResultList();
+                .getResultStream();
     }
 
     public BidEntity getHighestBidByProduct(ProductEntity product) {
