@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
-import uma.taw.ubay.service.auth.LoginService;
+import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ import java.io.IOException;
 @WebServlet("/auth/login")
 public class Login extends HttpServlet {
     @EJB
-    LoginService service;
+    AuthService service;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

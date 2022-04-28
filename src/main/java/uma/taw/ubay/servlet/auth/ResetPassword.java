@@ -7,14 +7,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.AuthKeys;
-import uma.taw.ubay.service.auth.ResetPasswordService;
+import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 
 @WebServlet("/auth/resetPassword")
 public class ResetPassword extends HttpServlet {
     @EJB
-    ResetPasswordService service;
+    AuthService service;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String usernameParameter = req.getParameter(AuthKeys.USERNAME_PARAMETER);

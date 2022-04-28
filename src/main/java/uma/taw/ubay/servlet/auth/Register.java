@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.AuthKeys;
-import uma.taw.ubay.service.auth.RegisterService;
+import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ import java.io.IOException;
 @WebServlet("/auth/register")
 public class Register extends HttpServlet {
     @EJB
-    RegisterService service;
+    AuthService service;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String usernameParameter = req.getParameter(AuthKeys.USERNAME_PARAMETER);
