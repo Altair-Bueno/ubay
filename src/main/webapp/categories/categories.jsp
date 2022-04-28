@@ -66,7 +66,7 @@
     </div>
 
 <%
-    } else if(entity != null && entity.getKind().equals(KindEnum.client)){
+    } else if(entity == null || entity.getKind().equals(KindEnum.client)){
 %>
 
 <div class="container">
@@ -79,7 +79,11 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <% if(entity != null){ %>
                     <th>Favourite</th>
+                    <%}%>
+
+
                 </tr>
                 </thead>
                 <tbody>
@@ -93,20 +97,24 @@
                     <td><%=c.getName()%></td>
                     <td><%=c.getDescription()%></td>
                     <%
-                        ClientEntity client = entity.getUser();
-                        HashMap<ClientEntity, List<CategoryEntity>> favMap = (HashMap<ClientEntity, List<CategoryEntity>>) request.getAttribute("favMap");
-                        if(favMap.get(client).contains(c)){
+                            if(entity != null){
+                    %>
+                    <%
+                                ClientEntity client = entity.getUser();
+                                HashMap<ClientEntity, List<CategoryEntity>> favMap = (HashMap<ClientEntity, List<CategoryEntity>>) request.getAttribute("favMap");
+                                if(favMap.get(client).contains(c)){
                     %>
                     <td><a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=entity.getUser().getId()%>">Delete favourite</a></td>
                     <%
-                    }else{
+                                }else{
                     %>
                     <td><a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=entity.getUser().getId()%>">Add favourite</a></td>
                     <%
-                        }
+                                }
                     %>
                 </tr>
                 <%
+                            }
                         }
                     }
 

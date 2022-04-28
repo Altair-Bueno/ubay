@@ -5,7 +5,9 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="uma.taw.ubay.entity.ProductFavouritesEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="uma.taw.ubay.dao.ProductFavouritesFacade" %>
+<%@ page import="uma.taw.ubay.UsersKeys" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 6/4/22
@@ -35,7 +37,7 @@
     Object itemsesion = session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
     ClientEntity user = itemsesion == null ? null : ((LoginCredentialsEntity) itemsesion).getUser();
     ProductEntity p = (ProductEntity) request.getAttribute("product");
-    List<ProductFavouritesEntity> productFavourites = (List<ProductFavouritesEntity>) request.getAttribute("pflist");
+    boolean isFavourite = (boolean) request.getAttribute("isFavourite");
     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
 %>
 
@@ -67,10 +69,15 @@
                 <h6><%=p.getDescription()%>
                 </h6>
             </div>
-            <div class="p-2">
-                <form method="get" action="buy">
-                    <input type='hidden' name='id' id='id-compra' value="<%=p.getId()%>"/>
-                    <input class="btn btn-primary" type="submit" value="Comprar"/>
+            <div class="row align-items-center p-2">
+                <form method="post" action="${pageContext.request.contextPath}/users/bids/new">
+                    <div class="col-auto w-25">
+                        <input type="number" name="<%=UsersKeys.BID_AMOUNT_PARAMETER%>" class="form-control" placeholder="Cantidad a pujar..." required>
+                    </div>
+                    <div class="col-auto">
+                        <input type='hidden' name="<%=UsersKeys.BID_PRODUCT_ID_PARAMETER%>" id='id-compra' value="<%=p.getId()%>"/>
+                        <input class="btn btn-primary" type="submit" value="Pujar"/>
+                    </div>
                 </form>
             </div>
         </div>
@@ -86,6 +93,7 @@
                     <input type='hidden' name='id' value="<%=p.getId()%>"/>
                     <input class="btn btn-secondary btn-block me-2" type="submit" value="Editar">
                 </form>
+
                 <!-- BORRAR: Button trigger modal -->
                 <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#deleteModal" style="height: 38px">
                     Eliminar
@@ -116,18 +124,7 @@
 
             <%
                     } else {
-                        boolean found = false;
-                        int i = 0;
-                        while(!found && i<productFavourites.size()){
-                            ProductFavouritesEntity pf = productFavourites.get(i);
-                            if(user.equals(pf.getUser()) && p.equals(pf.getProduct())){
-                                found = true;
-                            }
-                            i++;
-                        }
-
-                        if(found){
-
+                        if(isFavourite){
             %>
 
             <form method="get" action="${pageContext.request.contextPath}/users/deleteFavourite">

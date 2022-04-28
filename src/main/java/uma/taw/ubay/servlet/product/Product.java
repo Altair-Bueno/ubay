@@ -21,15 +21,17 @@ public class Product extends HttpServlet {
     @EJB
     ProductFacade facade;
 
+
     @EJB
     ProductFavouritesFacade productFavouritesFacade;
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.parseInt(req.getParameter("id"));
         ProductEntity p = facade.find(id);
-        List<ProductFavouritesEntity> pflist = productFavouritesFacade.findAll();
+        var sesion = (LoginCredentialsEntity) req.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS);
+        List<ProductEntity> pflist = productFavouritesFacade.getClientFavouriteProducts(sesion.getUser());
         req.setAttribute("product", p);
-        req.setAttribute("pflist", pflist);
+        req.setAttribute("isFavourite", pflist.contains(p));
         req.getRequestDispatcher("item.jsp").forward(req,resp);
     }
 
