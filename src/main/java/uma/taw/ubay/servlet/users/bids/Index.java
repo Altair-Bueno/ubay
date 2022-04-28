@@ -9,14 +9,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.UsersKeys;
 import uma.taw.ubay.dto.LoginDTO;
-import uma.taw.ubay.service.users.BidsSentService;
+import uma.taw.ubay.service.BidService;
 
 import java.io.IOException;
 
 @WebServlet("/users/bids")
 public class Index extends HttpServlet {
     @EJB
-    BidsSentService service;
+    BidService service;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginDTO loginCredentials = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);
@@ -26,7 +26,7 @@ public class Index extends HttpServlet {
         String vendorNameParameter = req.getParameter(UsersKeys.BID_VENDOR_NAME_PARAMETER);
         String pageParameter = req.getParameter(UsersKeys.BID_PAGE_NUMBER_PARAMETER);
 
-        var bidList = service.getBids(loginCredentials, startDateParameter, endDateParameter, productTitleParameter, vendorNameParameter, pageParameter);
+        var bidList = service.getSentBids(loginCredentials, startDateParameter, endDateParameter, productTitleParameter, vendorNameParameter, pageParameter);
         req.setAttribute(UsersKeys.BID_LIST, bidList);
         req.getRequestDispatcher("/users/bids/index.jsp").forward(req, resp);
     }

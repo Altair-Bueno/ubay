@@ -1,6 +1,6 @@
 <%@ page import="uma.taw.ubay.UsersKeys" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.dto.users.bids.BidDTO" %>
+<%@ page import="uma.taw.ubay.dto.users.bids.SentBidsDTO" %>
 <%@ page import="uma.taw.ubay.dto.users.bids.ProductDTO" %>
 <%--
   Created by IntelliJ IDEA.
@@ -11,7 +11,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<BidDTO> bidsList = (List<BidDTO>) request.getAttribute(UsersKeys.BID_LIST);
+    List<SentBidsDTO> bidsList = (List<SentBidsDTO>) request.getAttribute(UsersKeys.BID_LIST);
     String startDate = request.getParameter(UsersKeys.BID_START_DATE_PARAMETER);
     String endDate = request.getParameter(UsersKeys.BID_END_DATE_PARAMETER);
     String productTitle = request.getParameter(UsersKeys.BID_PRODUCT_TITLE_PARAMETER);
@@ -97,7 +97,7 @@
                 <%for (int i = 0; i < bidsList.size(); i++) {%>
                 <tr>
                     <%
-                        BidDTO bid = bidsList.get(i);
+                        SentBidsDTO bid = bidsList.get(i);
                         ProductDTO product = bid.getProduct();
                     %>
                     <th scope="row">

@@ -1,13 +1,12 @@
-package uma.taw.ubay.dto.vendor.bids;
+package uma.taw.ubay.dto.users.bids;
 
 import lombok.Value;
 
 import java.sql.Timestamp;
 
 @Value
-public class BidDTO {
+public class SentBidsDTO {
     Timestamp publishDate;
     double amount;
     ProductDTO product;
-    UserDTO user;
 }
