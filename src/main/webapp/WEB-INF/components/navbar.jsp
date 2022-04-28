@@ -76,13 +76,13 @@
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vendor/bids">Pujas recibidas</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/notifications">Notificaciones</a></li>
 
-                    </ul>
                     <%
                             }
                     %>
-                    <li><form method="post" action="${pageContext.request.contextPath}/auth/signoff">
-                        <input type="submit" class="dropdown-item" value="Sign off">
-                    </form></li>
+                        <li><form method="post" action="${pageContext.request.contextPath}/auth/signoff">
+                            <input type="submit" class="dropdown-item" value="Sign off">
+                        </form></li>
+                    </ul>
 
                     <%
                         } else {

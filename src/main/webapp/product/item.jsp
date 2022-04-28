@@ -66,10 +66,15 @@ Created by IntelliJ IDEA.
                 <h6><%=p.getDescription()%>
                 </h6>
             </div>
-            <div class="p-2">
-                <form method="get" action="buy">
-                    <input type='hidden' name='id' id='id-compra' value="<%=p.getId()%>"/>
-                    <input class="btn btn-primary" type="submit" value="Comprar"/>
+            <div class="row align-items-center p-2">
+                <form method="post" action="${pageContext.request.contextPath}/users/bids/new">
+                    <div class="col-auto w-25">
+                        <input type="number" name="<%=UsersKeys.BID_AMOUNT_PARAMETER%>" class="form-control" placeholder="Cantidad a pujar..." required>
+                    </div>
+                    <div class="col-auto">
+                        <input type='hidden' name="<%=UsersKeys.BID_PRODUCT_ID_PARAMETER%>" id='id-compra' value="<%=p.getId()%>"/>
+                        <input class="btn btn-primary" type="submit" value="Pujar"/>
+                    </div>
                 </form>
             </div>
         </div>
