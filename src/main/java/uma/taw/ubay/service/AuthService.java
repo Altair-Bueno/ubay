@@ -55,7 +55,9 @@ public class AuthService {
         LoginCredentialsEntity entity = loginCredentialsFacade.find(username);
 
         if (entity != null && checkPasswordHash(password, entity.getPassword())) {
-            return new LoginDTO(username);
+            username = entity.getUsername();
+            var kind = entity.getKind();
+            return new LoginDTO(username,kind);
         } else {
             throw new RuntimeException("Invalid username or password");
         }
