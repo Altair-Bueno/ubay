@@ -34,7 +34,7 @@ public class AuthService {
         if (!newPassword.matches(AuthKeys.PASSWORD_REGEX))
             throw new RuntimeException("Password doesn't match the password regex");
 
-        LoginCredentialsEntity loginCredentials = loginCredentialsFacade.find(loginDTO.getUsername());
+        LoginCredentialsEntity loginCredentials = getCredentialsEntity(loginDTO);
         String oldHash = loginCredentials.getPassword();
 
         if (checkPasswordHash(oldPassword, oldHash)) {
@@ -106,6 +106,10 @@ public class AuthService {
         credentialsEntity.setPassword(hashedPassword);
         passwordResetFacade.remove(passwordResetEntity);
         loginCredentialsFacade.edit(credentialsEntity);
+    }
+
+    public LoginCredentialsEntity getCredentialsEntity(@NonNull LoginDTO loginDTO) {
+        return loginCredentialsFacade.find(loginDTO.getUsername());
     }
 
 }

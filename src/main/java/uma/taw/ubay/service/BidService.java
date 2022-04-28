@@ -4,7 +4,6 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import lombok.NonNull;
 import uma.taw.ubay.dao.BidFacade;
-import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.bids.*;
 import uma.taw.ubay.entity.BidEntity;
@@ -20,7 +19,7 @@ public class BidService {
     @EJB
     BidFacade bidFacade;
     @EJB
-    LoginCredentialsFacade loginCredentialsFacade;
+    AuthService authService;
 
     private SentBidsDTO entityBidToSentBid(BidEntity bidEntity) {
         ProductEntity product = bidEntity.getProduct();
@@ -54,7 +53,7 @@ public class BidService {
         int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
         if (page < 0) throw new IllegalArgumentException("Negative page index");
 
-        var userCredentials = loginCredentialsFacade.find(loginDTO.getUsername());
+        var userCredentials = authService.getCredentialsEntity(loginDTO);
         var vendor = userCredentials.getUser();
         Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromVendor(vendor, page, startDate, endDate, productTitle, clientName);
 
@@ -69,7 +68,7 @@ public class BidService {
         int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
         if (page < 0) throw new IllegalArgumentException("Negative page index");
 
-        var loginCredentials = loginCredentialsFacade.find(loginDTO.getUsername());
+        var loginCredentials = authService.getCredentialsEntity(loginDTO);
         Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName);
         return bidEntityStream.map(this::entityBidToSentBid).collect(Collectors.toList());
     }

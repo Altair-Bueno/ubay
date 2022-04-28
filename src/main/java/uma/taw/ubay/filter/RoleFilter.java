@@ -9,9 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.entity.KindEnum;
+import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class RoleFilter extends HttpFilter {
     @EJB
-    LoginCredentialsFacade loginCredentialsFacade;
+    AuthService authService;
 
     private List<KindEnum> role;
 
@@ -39,7 +39,7 @@ public class RoleFilter extends HttpFilter {
         // Caution: This might trigger Safari's cookie privacy policy
         HttpSession session = req.getSession();
         var loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
-        var loginCredentials= loginCredentialsFacade.find(loginDTO.getUsername());
+        var loginCredentials= authService.getCredentialsEntity(loginDTO);
         KindEnum sessionKind = loginCredentials.getKind();
 
         boolean matches = role.stream().anyMatch(x->x.equals(sessionKind));
