@@ -6,11 +6,7 @@ import lombok.NonNull;
 import uma.taw.ubay.dao.BidFacade;
 import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.dto.LoginDTO;
-import uma.taw.ubay.dto.users.bids.ProductDTO;
-import uma.taw.ubay.dto.users.bids.SentBidsDTO;
-import uma.taw.ubay.dto.users.bids.VendorDTO;
-import uma.taw.ubay.dto.vendor.bids.ReceivedBidsDTO;
-import uma.taw.ubay.dto.vendor.bids.UserDTO;
+import uma.taw.ubay.dto.bids.*;
 import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.ProductEntity;
 
@@ -40,10 +36,12 @@ public class BidService {
     }
 
     private ReceivedBidsDTO entityBidToReceivedBid(BidEntity bidEntity) {
+        var product = bidEntity.getProduct();
+        var vendor = product.getVendor();
         return new ReceivedBidsDTO(
                 bidEntity.getPublishDate(),
                 bidEntity.getAmount(),
-                new uma.taw.ubay.dto.vendor.bids.ProductDTO(bidEntity.getProduct().getId(), bidEntity.getProduct().getTitle()),
+                new ProductDTO(product.getId(), product.getTitle(), new VendorDTO(vendor.getName())),
                 new UserDTO(bidEntity.getUser().getName())
         );
     }
@@ -62,6 +60,7 @@ public class BidService {
 
         return bidEntityStream.map(this::entityBidToReceivedBid).collect(Collectors.toList());
     }
+
     public List<SentBidsDTO> getSentBids(@NonNull LoginDTO loginDTO, String startDateParameter, String endDateParameter, String productTitleParameter, String vendorNameParameter, String pageParameter) {
         Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
         Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);

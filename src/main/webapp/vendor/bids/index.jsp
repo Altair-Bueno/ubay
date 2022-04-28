@@ -1,7 +1,7 @@
 <%@ page import="uma.taw.ubay.VendorKeys" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.dto.vendor.bids.ReceivedBidsDTO" %>
-<%@ page import="uma.taw.ubay.dto.vendor.bids.ProductDTO" %>
+<%@ page import="uma.taw.ubay.dto.bids.ReceivedBidsDTO" %>
+<%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
 <%--
   Created by IntelliJ IDEA.
   User: compux72

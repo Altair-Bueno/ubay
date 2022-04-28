@@ -1,7 +1,7 @@
 <%@ page import="uma.taw.ubay.UsersKeys" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.dto.users.bids.SentBidsDTO" %>
-<%@ page import="uma.taw.ubay.dto.users.bids.ProductDTO" %>
+<%@ page import="uma.taw.ubay.dto.bids.SentBidsDTO" %>
+<%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
 <%--
   Created by IntelliJ IDEA.
   User: compux72

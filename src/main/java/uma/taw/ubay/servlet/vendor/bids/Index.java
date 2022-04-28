@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.VendorKeys;
 import uma.taw.ubay.dto.LoginDTO;
-import uma.taw.ubay.dto.vendor.bids.ReceivedBidsDTO;
+import uma.taw.ubay.dto.bids.ReceivedBidsDTO;
 import uma.taw.ubay.service.BidService;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package uma.taw.ubay.dto.users.bids;
+package uma.taw.ubay.dto.bids;
 
 import lombok.Value;
 

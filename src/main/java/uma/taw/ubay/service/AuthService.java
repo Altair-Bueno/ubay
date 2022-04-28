@@ -23,6 +23,7 @@ public class AuthService {
     private String getHashedPassword(@NonNull String newPassword) {
         return BCrypt.hashpw(newPassword, BCrypt.gensalt(11));
     }
+
     private boolean checkPasswordHash(@NonNull String oldPassword, @NonNull String oldHash) {
         return BCrypt.checkpw(oldPassword, oldHash);
     }
@@ -53,7 +54,7 @@ public class AuthService {
 
         LoginCredentialsEntity entity = loginCredentialsFacade.find(username);
 
-        if (entity != null && checkPasswordHash(password, entity.getPassword())){
+        if (entity != null && checkPasswordHash(password, entity.getPassword())) {
             return new LoginDTO(username);
         } else {
             throw new RuntimeException("Invalid username or password");
@@ -88,6 +89,7 @@ public class AuthService {
         clientFacade.create(client);
         loginCredentialsFacade.create(login);
     }
+
     public void resetPassword(@NonNull String username, @NonNull String requestID, @NonNull String newPassword, @NonNull String repeatPassword) {
         if (!newPassword.equals(repeatPassword))
             throw new IllegalArgumentException("Passwords don't match");
