@@ -12,6 +12,7 @@ import uma.taw.ubay.dto.users.bids.VendorDTO;
 import uma.taw.ubay.dto.vendor.bids.ReceivedBidsDTO;
 import uma.taw.ubay.dto.vendor.bids.UserDTO;
 import uma.taw.ubay.entity.BidEntity;
+import uma.taw.ubay.entity.ProductEntity;
 
 import java.sql.Date;
 import java.util.List;
@@ -26,13 +27,14 @@ public class BidService {
     LoginCredentialsFacade loginCredentialsFacade;
 
     private SentBidsDTO entityBidToSentBid(BidEntity bidEntity) {
+        ProductEntity product = bidEntity.getProduct();
         return new SentBidsDTO(
                 bidEntity.getPublishDate(),
                 bidEntity.getAmount(),
                 new ProductDTO(
-                        bidEntity.getId(),
-                        bidEntity.getProduct().getTitle(),
-                        new VendorDTO(bidEntity.getProduct().getVendor().getName())
+                        product.getId(),
+                        product.getTitle(),
+                        new VendorDTO(product.getVendor().getName())
                 )
         );
     }
