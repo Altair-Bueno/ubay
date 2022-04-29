@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.GenderEnum;
+import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -16,7 +17,7 @@ import java.sql.Date;
 @WebServlet("/users/modify")
 public class Modify extends HttpServlet {
     @EJB
-    ClientFacade facadeClient;
+    UsersService usersService;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -32,16 +33,10 @@ public class Modify extends HttpServlet {
         String address = request.getParameter("address");
         String city = request.getParameter("city");
         Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
-        ClientEntity client = facadeClient.find(Integer.parseInt(id));
-        client.setName(name);
-        client.setLastName(lastName);
-        client.setGender(gender);
-        client.setAddress(address);
-        client.setCity(city);
-        client.setBirthDate(birthDate);
 
-        facadeClient.edit(client);
+        usersService.modifyUser(id, name, lastName, gender, address, city, birthDate);
 
         request.getRequestDispatcher("modify.jsp").forward(request,response);
     }
+
 }

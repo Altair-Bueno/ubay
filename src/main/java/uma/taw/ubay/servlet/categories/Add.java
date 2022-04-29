@@ -8,12 +8,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.CategoryFacade;
 import uma.taw.ubay.entity.CategoryEntity;
+import uma.taw.ubay.service.categories.CategoriesService;
+
 import java.io.IOException;
 
 @WebServlet("/categories/add")
 public class Add extends HttpServlet {
     @EJB
-    CategoryFacade facade;
+    CategoriesService categoriesService;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -25,12 +27,7 @@ public class Add extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
 
-        if(name != null && description != null){
-            CategoryEntity category = new CategoryEntity();
-            category.setName(name);
-            category.setDescription(description);
-            facade.create(category);
-        }
+        categoriesService.addCategory(name, description);
 
         request.getRequestDispatcher("add.jsp").forward(request,response);
     }

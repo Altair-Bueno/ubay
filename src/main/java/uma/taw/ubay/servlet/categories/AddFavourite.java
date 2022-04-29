@@ -13,19 +13,14 @@ import uma.taw.ubay.dao.UserFavouritesFacade;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.UserFavouritesEntity;
+import uma.taw.ubay.service.categories.CategoriesService;
 
 import java.io.IOException;
 
 @WebServlet("/categories/addFavourite")
 public class AddFavourite extends HttpServlet {
     @EJB
-    CategoryFacade categoryFacade;
-
-    @EJB
-    ClientFacade clientFacade;
-
-    @EJB
-    UserFavouritesFacade favouritesFacade;
+    CategoriesService categoriesService;
 
 
     @Override
@@ -38,14 +33,10 @@ public class AddFavourite extends HttpServlet {
         String clientID = request.getParameter("clientID");
         String categoryID = request.getParameter("categoryID");
 
-        ClientEntity client = clientFacade.find(Integer.parseInt(clientID));
-        CategoryEntity category = categoryFacade.find(Integer.parseInt(categoryID));
-
-        UserFavouritesEntity favourite = new UserFavouritesEntity();
-        favourite.setCategory(category);
-        favourite.setUser(client);
-        favouritesFacade.create(favourite);
+        categoriesService.addFavouriteCategory(clientID, categoryID);
 
         request.getRequestDispatcher("addFavourite.jsp").forward(request,response);
     }
+
+
 }

@@ -6,25 +6,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.ClientFacade;
-import uma.taw.ubay.dao.ProductFacade;
-import uma.taw.ubay.dao.ProductFavouritesFacade;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.ProductEntity;
-import uma.taw.ubay.entity.ProductFavouritesEntity;
+import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
 
 @WebServlet("/users/addFavourite")
 public class AddFavProduct extends HttpServlet {
     @EJB
-    ProductFavouritesFacade favouritesFacade;
-
-    @EJB
-    ClientFacade clientFacade;
-
-    @EJB
-    ProductFacade productFacade;
+    UsersService usersService;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -36,15 +25,11 @@ public class AddFavProduct extends HttpServlet {
         String productID = request.getParameter("productID");
         String clientID = request.getParameter("clientID");
 
-        ProductEntity product = productFacade.find(Integer.parseInt(productID));
-        ClientEntity client = clientFacade.find(Integer.parseInt(clientID));
-
-        ProductFavouritesEntity fav = new ProductFavouritesEntity();
-        fav.setProduct(product);
-        fav.setUser(client);
-        favouritesFacade.create(fav);
+        usersService.addFavProduct(productID, clientID);
 
         request.getRequestDispatcher("addFavProduct.jsp").forward(request,response);
     }
+
+
 }
 

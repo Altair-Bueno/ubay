@@ -1,7 +1,6 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
-<%@ page import="uma.taw.ubay.SessionKeys" %><%--
+<%@ page import="uma.taw.ubay.SessionKeys" %>
+<%@ page import="uma.taw.ubay.dto.users.ProductDTO" %><%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 8/4/22
@@ -24,7 +23,7 @@
         <h2>Favourite products:</h2>
         <div class="col">
             <%
-                List<ProductEntity> l = (List<ProductEntity>) request.getAttribute("favourite-products-list");
+                List<ProductDTO> l = (List<ProductDTO>) request.getAttribute("favourite-products-list");
             %>
 
             <table class="table table-bordered text-center">
@@ -39,7 +38,7 @@
                 </thead>
                 <tbody>
                 <%
-                    for(ProductEntity p : l){
+                    for(ProductDTO p : l){
                 %>
                 <tr onclick="window.location='${pageContext.request.contextPath}/product/product?id=' + <%=p.getId()%>">
                     <td><img src="<%=p.getImages()%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>

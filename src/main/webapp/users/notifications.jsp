@@ -1,5 +1,5 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="uma.taw.ubay.dto.users.ProductDTO" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 24/4/22
@@ -14,14 +14,14 @@
 <body>
 
     <%
-        List<ProductEntity> notificaciones = (List<ProductEntity>) request.getAttribute("notifications");
+        List<ProductDTO> notificaciones = (List<ProductDTO>) request.getAttribute("notifications");
 
         if(notificaciones.size() == 0){
     %>
     <h1>0 notificaciones.</h1>
     <%
     } else {
-        for(ProductEntity p : notificaciones){
+        for(ProductDTO p : notificaciones){
     %>
     <h1><%=p.getTitle()%>: puja cerrada.</h1>
 

@@ -6,24 +6,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.CategoryFacade;
-import uma.taw.ubay.dao.UserFavouritesFacade;
-import uma.taw.ubay.entity.CategoryEntity;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.UserFavouritesEntity;
+import uma.taw.ubay.SessionKeys;
+import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.categories.CategoryDTO;
+import uma.taw.ubay.service.categories.CategoriesService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @WebServlet("/categories/")
 public class Categories extends HttpServlet {
     @EJB
-    CategoryFacade facade;
-
-    @EJB
-    UserFavouritesFacade favouritesFacade;
+    CategoriesService categoriesService;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -32,22 +26,15 @@ public class Categories extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<CategoryEntity> catList = facade.findAll();
-        HashMap<ClientEntity, List<CategoryEntity>> favMap = new HashMap<>();
+        var loginDTO = (LoginDTO) request.getSession().getAttribute(SessionKeys.LOGIN_DTO);
+        //Meterme en la BD, buscar por el usuario del LoginDTO y ahí buscar sus favs.
 
-        for(UserFavouritesEntity fav : favouritesFacade.findAll()){
-            if(favMap.get(fav.getUser()) != null){
-                List<CategoryEntity> list = favMap.get(fav.getUser());
-                list.add(fav.getCategory());
-                favMap.put(fav.getUser(),list);
-            } else {
-                List<CategoryEntity> list = new ArrayList<>();
-                list.add(fav.getCategory());
-                favMap.put(fav.getUser(),list);
-            }
-        }
-        request.setAttribute("favMap", favMap);
-        request.setAttribute("category-list", catList);
+        //List<CategoryDTO> categoryDTOList = categoriesService.categories();
+
+        //request.setAttribute("favMap", );
+        //request.setAttribute("category-list", categoryDTOList);
         request.getRequestDispatcher("categories.jsp").forward(request,response);
     }
+
+
 }

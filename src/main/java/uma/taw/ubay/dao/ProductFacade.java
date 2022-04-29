@@ -5,8 +5,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import uma.taw.ubay.ProductKeys;
+import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
 import uma.taw.ubay.entity.ProductFavouritesEntity;
@@ -74,7 +76,25 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         }
 
         return productosfavs;
+    }
 
+    public List<ProductEntity> filter(String name, CategoryEntity category){
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
+        Root<ProductEntity> productTable = query.from(ProductEntity.class);
+        List<Predicate> predicateList = new ArrayList<>();
+        query.select(productTable);
 
+        if(name != null){
+            predicateList.add(builder.like(productTable.get("title"), name + "%"));
+        }
+
+        if(category != null){
+            predicateList.add(builder.equal(productTable.get("category"), category));
+        }
+
+        query.select(productTable).where(predicateList.toArray(new Predicate[0]));
+
+        return em.createQuery(query).getResultList();
     }
 }

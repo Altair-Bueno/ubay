@@ -21,10 +21,8 @@
         String username = (String) request.getAttribute("username");
     %>
     <div class="col-6 position-absolute top-50 start-50 translate-middle">
-        <form class="form" action="${pageContext.request.contextPath}/auth/resetPassword?passwordChangeID=<%=URLEncoder.encode(passwordChangeID,StandardCharsets.UTF_8)%>&username=<%=URLEncoder.encode(username,StandardCharsets.UTF_8)%>" method="get">
-            <h1>¿Estás seguro de que quieres cambiar la contraseña?</h1>
-            <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
-        </form>
+        <h1>¿Estás seguro de que quieres cambiar la contraseña?</h1>
+        <a class="btn btn-primary mt-2" href="${pageContext.request.contextPath}/auth/resetPassword?passwordChangeID=<%=URLEncoder.encode(passwordChangeID,StandardCharsets.UTF_8)%>&username=<%=URLEncoder.encode(username,StandardCharsets.UTF_8)%>">Confirmar</a>
     </div>
 
 
