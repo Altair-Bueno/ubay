@@ -4,18 +4,23 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import lombok.NonNull;
 import uma.taw.ubay.dao.BidFacade;
+import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.bids.*;
 import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.ProductEntity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Stateless
 public class BidService {
+    @EJB
+    ProductFacade productFacade;
     @EJB
     BidFacade bidFacade;
     @EJB
@@ -71,5 +76,24 @@ public class BidService {
         var loginCredentials = authService.getCredentialsEntity(loginDTO);
         Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName);
         return bidEntityStream.map(this::entityBidToSentBid).collect(Collectors.toList());
+    }
+    public void createBid(@NonNull LoginDTO loginDTO, @NonNull String amountParameter, @NonNull String productIDParameter) {
+        var credentials = authService.getCredentialsEntity(loginDTO);
+        var timestamp = new Timestamp(Instant.now().getEpochSecond());
+
+        var amount = Double.parseDouble(amountParameter);
+        var productId = Integer.parseInt(productIDParameter);
+        var product = productFacade.find(productId);
+
+        if (product == null) throw new IllegalArgumentException("The given product ID doesn't exist");
+        if (!product.isCurrentlyAvailable()) throw new IllegalArgumentException("The given product is no longer available");
+        if (product.getOutPrice() > amount) throw new IllegalArgumentException("The received amount is lower than the starting bid");
+
+        var highestBid = bidFacade.getHighestBidByProduct(product);
+        if (highestBid != null && highestBid.getAmount() >= amount)
+            throw new IllegalArgumentException("A higher bid exist. Current bid amount: " + highestBid.getAmount());
+
+        var bid = new BidEntity(timestamp,amount,product, credentials.getUser());
+        bidFacade.create(bid);
     }
 }
