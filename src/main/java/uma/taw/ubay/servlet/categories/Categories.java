@@ -6,12 +6,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.NotNull;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.categories.CategoriesDTO;
 import uma.taw.ubay.dto.categories.CategoryDTO;
+import uma.taw.ubay.entity.ClientEntity;
+import uma.taw.ubay.entity.KindEnum;
 import uma.taw.ubay.service.categories.CategoriesService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/categories/")
@@ -27,14 +32,16 @@ public class Categories extends HttpServlet {
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         var loginDTO = (LoginDTO) request.getSession().getAttribute(SessionKeys.LOGIN_DTO);
-        //Meterme en la BD, buscar por el usuario del LoginDTO y ahí buscar sus favs.
 
-        //List<CategoryDTO> categoryDTOList = categoriesService.categories();
+        CategoriesDTO categoriesDTO = categoriesService.processCategories(loginDTO);
 
-        //request.setAttribute("favMap", );
-        //request.setAttribute("category-list", categoryDTOList);
+        request.setAttribute("user-fav-category-list", categoriesDTO.getUserFavouriteCategories());
+        request.setAttribute("category-list",  categoriesDTO.getCategoryList());
+        request.setAttribute("client-id", categoriesDTO.getUserID());
+
         request.getRequestDispatcher("categories.jsp").forward(request,response);
     }
+
 
 
 }
