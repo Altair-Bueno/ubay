@@ -4,7 +4,9 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="uma.taw.ubay.ProductKeys" %>
 <%@ page import="uma.taw.ubay.dao.CategoryFacade" %>
-<%@ page import="uma.taw.ubay.entity.CategoryEntity" %><%--
+<%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
+<%@ page import="uma.taw.ubay.dto.products.CategoryDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductDTO" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 28/3/22
@@ -38,8 +40,8 @@
 <body>
 
     <%
-        List<ProductEntity> l = (List<ProductEntity>) request.getAttribute("product-list");
-        List<CategoryEntity> categories = (List<CategoryEntity>) request.getAttribute("category-list");
+        List<ProductDTO> l = (List<ProductDTO>) request.getAttribute("product-list");
+        List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("category-list");
         String pagAtt = request.getParameter("page");
         int pagenum = pagAtt == null ? 1 : Integer.parseInt(pagAtt);
         int tam = (int) request.getAttribute("product-tam");
@@ -61,7 +63,7 @@
                         Categor&iacute;a: <select class="form-select" id="category" name="category">
                         <option selected value="--">--</option>
                         <%
-                            for(CategoryEntity cat : categories){
+                            for(CategoryDTO cat : categories){
                         %>
                             <option value="<%=cat.getId()%>"><%=cat.getName()%></option>
                         <%
@@ -95,7 +97,7 @@
                         </thead>
                         <tbody>
                         <%
-                            for(ProductEntity p : l){
+                            for(ProductDTO p : l){
                                 String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
                         %>
                         <%
@@ -112,7 +114,7 @@
 
                             <td><img src="<%=imgSrc%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
                             <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
-                            <td class="align-middle"><%=p.isCurrentlyAvailable() ? "Abierto" : "Cerrado"%></td>
+                            <td class="align-middle"><%=p.getCloseDate() == null ? "Abierto" : "Cerrado"%></td>
                             <td class="align-middle"><%=p.getDescription()%></td>
                         </tr>
                         <%

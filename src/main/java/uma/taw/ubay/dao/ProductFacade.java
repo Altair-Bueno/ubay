@@ -40,18 +40,27 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         return em.createQuery(query).getResultList();
     }
 
-    public List<ProductEntity> getByPage(int page){
+    public ProductTupleResult getByPage(int page){
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
+        List<ProductEntity> productEntities;
+        int actualSize = 0;
 
         Root<ProductEntity> productTable = query.from(ProductEntity.class);
 
         query.select(productTable)
                 .orderBy(builder.desc(productTable.get("id")));
-        return em.createQuery(query)
+
+        actualSize = em.createQuery(query)
+                .getResultList()
+                .size();
+
+        productEntities = em.createQuery(query)
                 .setFirstResult(page * ProductKeys.productsPerPageLimit)
                 .setMaxResults(ProductKeys.productsPerPageLimit)
                 .getResultList();
+
+        return new ProductTupleResult(productEntities, actualSize);
     }
 
     public List<ProductEntity> getNotifications(ClientEntity sesion){
@@ -78,12 +87,13 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         return productosfavs;
     }
 
-    public List<ProductEntity> filter(String name, CategoryEntity category){
+    public ProductTupleResult filterAndGetByPage(String name, CategoryEntity category, int page){
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
         Root<ProductEntity> productTable = query.from(ProductEntity.class);
         List<Predicate> predicateList = new ArrayList<>();
         query.select(productTable);
+        int actualSize = 0;
 
         if(name != null){
             predicateList.add(builder.like(productTable.get("title"), name + "%"));
@@ -95,6 +105,33 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
 
         query.select(productTable).where(predicateList.toArray(new Predicate[0]));
 
-        return em.createQuery(query).getResultList();
+        actualSize = em.createQuery(query)
+                .getResultList()
+                .size();
+
+        List<ProductEntity> productEntities = em.createQuery(query)
+                .setFirstResult(page * ProductKeys.productsPerPageLimit)
+                .setMaxResults(ProductKeys.productsPerPageLimit)
+                .getResultList();
+
+        return new ProductTupleResult(productEntities, actualSize);
+    }
+
+    public class ProductTupleResult{
+        private List<ProductEntity> productEntities;
+        private int actualSize = 0;
+
+        public ProductTupleResult(List<ProductEntity> pE, int aS){
+            productEntities = pE;
+            actualSize = aS;
+        }
+
+        public List<ProductEntity> getProductEntities() {
+            return productEntities;
+        }
+
+        public int getActualSize() {
+            return actualSize;
+        }
     }
 }

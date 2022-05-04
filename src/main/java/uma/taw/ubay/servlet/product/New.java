@@ -12,6 +12,9 @@ import uma.taw.ubay.dao.CategoryFacade;
 import uma.taw.ubay.dao.ClientFacade;
 import uma.taw.ubay.dao.MinioFacade;
 import uma.taw.ubay.dao.ProductFacade;
+import uma.taw.ubay.dto.products.CategoryDTO;
+import uma.taw.ubay.dto.products.ClientDTO;
+import uma.taw.ubay.dto.products.ProductDTO;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ProductEntity;
 

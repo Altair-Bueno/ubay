@@ -8,39 +8,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.dao.CategoryFacade;
 import uma.taw.ubay.dao.ProductFacade;
+import uma.taw.ubay.dto.products.*;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ProductEntity;
+import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/product")
 public class Index extends HttpServlet {
-    @EJB
-    ProductFacade facade;
 
     @EJB
-    CategoryFacade categoryFacade;
+    ProductService productService;
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("category-list", categoryFacade.findAll());
-        req.setAttribute("product-tam", facade.findAll().size());
-        var page = req.getParameter("page");
-        req.setAttribute("product-list", facade.getByPage(page == null ? 0 : Integer.parseInt(page) - 1));
-
-        // Filters:
         String productName = req.getParameter("name");
         String category = req.getParameter("category");
+        String page = req.getParameter("page");
 
-        if(productName != null || (category != null && !category.equals("--"))){
-            CategoryEntity cat = null;
-            if(!category.equals("--")){
-                cat = categoryFacade.searchById(category);
-            }
-            List<ProductEntity> productosFiltrados = facade.filter(productName, cat);
-            req.setAttribute("product-list", productosFiltrados);
-        }
+        ProductsDTO productDTOS = productService.getProductsList(productName, category, page);
+
+        req.setAttribute("category-list", productService.categories());
+        req.setAttribute("product-tam", productDTOS.getSize());
+        req.setAttribute("product-list", productDTOS.getProductsList());
+
         req.getRequestDispatcher("product/index.jsp").forward(req,resp);
     }
 

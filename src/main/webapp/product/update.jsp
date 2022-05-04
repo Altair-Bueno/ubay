@@ -4,7 +4,9 @@
 <%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.nio.charset.StandardCharsets" %><%--
+<%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.CategoryDTO" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 29/3/22
@@ -22,8 +24,8 @@
 </head>
 <body>
     <%
-        ProductEntity p = (ProductEntity) request.getAttribute("product");
-        List<CategoryEntity> cats = (List<CategoryEntity>) request.getAttribute("cats");
+        ProductDTO p = (ProductDTO) request.getAttribute("product");
+        List<CategoryDTO> cats = (List<CategoryDTO>) request.getAttribute("cats");
         String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
     %>
     <form method="post" enctype="multipart/form-data">
@@ -52,8 +54,8 @@
                 <%-- Estado --%>
                 <div class="p-2">
                     <label>Estado:</label>
-                    <input type="radio" name="estado" value="Activo" <%=p.isCurrentlyAvailable() ? "checked" : ""%>> Activo </input>
-                    <input type="radio" name="estado" value="Cerrado" <%=p.isCurrentlyAvailable() ? "" : "checked"%>> Cerrado </input>
+                    <input type="radio" name="estado" value="Activo" <%=p.getCloseDate() == null ? "checked" : ""%>> Activo </input>
+                    <input type="radio" name="estado" value="Cerrado" <%=p.getCloseDate() == null ? "" : "checked"%>> Cerrado </input>
                 </div>
 
                 <%-- Descripcion --%>
@@ -74,7 +76,7 @@
 
                     <select name="categoria" required>
                         <%
-                            for(CategoryEntity c : cats){
+                            for(CategoryDTO c : cats){
 
                         %>
                         <option value="<%=c.getId()%>" <%=p.getCategory().equals(c) ? "selected" : ""%> ><%=c.getName()%></option>
