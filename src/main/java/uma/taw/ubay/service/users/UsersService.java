@@ -5,6 +5,7 @@ import jakarta.ejb.Stateless;
 import org.jetbrains.annotations.NotNull;
 import uma.taw.ubay.dao.*;
 import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.notifications.BidsDTO;
 import uma.taw.ubay.dto.users.ClientDTO;
 import uma.taw.ubay.dto.users.PasswordChangeDTO;
 import uma.taw.ubay.dto.users.ProductDTO;
@@ -12,9 +13,7 @@ import uma.taw.ubay.entity.*;
 import uma.taw.ubay.service.AuthService;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -33,6 +32,9 @@ public class UsersService {
 
     @EJB
     AuthService authService;
+
+    @EJB
+    BidFacade bidFacade;
 
     @EJB
     PasswordResetFacade passwordResetFacade;
@@ -95,14 +97,36 @@ public class UsersService {
                 productEntity.getCloseDate());
     }
 
+    private uma.taw.ubay.dto.notifications.ProductDTO notificationsProductEntityToDTO(ProductEntity productEntity){
+        return new uma.taw.ubay.dto.notifications.ProductDTO(productEntity.getId(),
+                productEntity.getTitle(),
+                productEntity.getDescription(),
+                productEntity.getImages(),
+                productEntity.getCloseDate());
+    }
+
     public int getClientID(LoginDTO login){
         return authService.getCredentialsEntity(login).getUser().getId();
     }
 
-    public List<ProductDTO> getNotifications(LoginDTO login) {
-        List<ProductEntity> notifications = new ArrayList<>();
-        if(login != null) notifications = productFacade.getNotifications(authService.getCredentialsEntity(login).getUser());
-        return notifications.stream().map(this::productEntityToDTO).collect(Collectors.toList());
+    private BidsDTO bidEntityToDto(BidEntity bidEntity){
+        return new BidsDTO(bidEntity.getPublishDate(),
+                bidEntity.getAmount(),
+                notificationsProductEntityToDTO(bidEntity.getProduct())
+        );
+    }
+
+    public HashMap<BidsDTO, Boolean> getNotifications(LoginDTO login) {
+        var user = authService.getCredentialsEntity(login).getUser();
+        HashMap<BidsDTO, Boolean> notifications = new LinkedHashMap(); // Key: Bid; Value: Is the client the bid winner
+        List<BidEntity> closedBidsByClient = bidFacade.productsBiddedClosedProducts(user);
+
+        for(BidEntity b : closedBidsByClient){
+            BidsDTO bidDto = bidEntityToDto(b);
+            notifications.put(bidDto, bidFacade.isWinnerBid(user, b));
+        }
+
+        return notifications;
     }
 
     public List<ClientDTO> users(String id, String name, String lastName, String address, String city, String genderString) {

@@ -23,7 +23,8 @@ Created by IntelliJ IDEA.
 
     <%
         List<CategoryDTO> cats = (List<CategoryDTO>) request.getAttribute("cats");
-        ClientEntity user = ((LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO)).getUser();
+
+        ClientEntity user = ((LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO));
     %>
 
     <form method="post" enctype="multipart/form-data">

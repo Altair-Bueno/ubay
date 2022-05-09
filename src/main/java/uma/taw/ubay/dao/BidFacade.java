@@ -3,10 +3,7 @@ package uma.taw.ubay.dao;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
@@ -112,5 +109,34 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         List<BidEntity> resultList = em.createQuery(query)
                 .setMaxResults(1).getResultList();
         return resultList == null || resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    /*
+     * Returns a list containing the (closed) bids
+     * that have been made by the user given
+     * by parameter.
+     *
+     */
+    public List<BidEntity> productsBiddedClosedProducts(ClientEntity sesion){
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<BidEntity> query = builder.createQuery(BidEntity.class);
+        Root<BidEntity> bidTable = query.from(BidEntity.class);
+        Join<BidEntity, ProductEntity> join = bidTable.join("product", JoinType.INNER);
+
+        List<Predicate> predicateList = new ArrayList<>();
+        predicateList.add(builder.equal(bidTable.get("user"), sesion));
+        predicateList.add(builder.isNotNull(join.get("closeDate")));
+        predicateList.add(builder.lessThanOrEqualTo(join.get("closeDate"), new java.util.Date()));
+
+        query.select(bidTable)
+                .where(predicateList.toArray(new Predicate[0]))
+                .orderBy(builder.desc(join.get("closeDate")));
+
+        return em.createQuery(query)
+                .getResultList();
+    }
+
+    public boolean isWinnerBid(ClientEntity client, BidEntity bid){
+        return getHighestBidByProduct(bid.getProduct()).getUser().equals(client);
     }
 }
