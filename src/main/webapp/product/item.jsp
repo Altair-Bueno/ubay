@@ -5,6 +5,7 @@
 <%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
 <%@ page import="uma.taw.ubay.dto.products.LoginDTO" %>
 <%@ page import="uma.taw.ubay.dto.products.ClientDTO" %>
+<%--
 Created by IntelliJ IDEA.
   User: franm
   Date: 6/4/22
@@ -90,6 +91,7 @@ Created by IntelliJ IDEA.
                     <input type='hidden' name='id' value="<%=p.getId()%>"/>
                     <input class="btn btn-secondary btn-block me-2" type="submit" value="Editar">
                 </form>
+
                 <!-- BORRAR: Button trigger modal -->
                 <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#deleteModal" style="height: 38px">
                     Eliminar

@@ -80,7 +80,11 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <% if(entity != null){ %>
                     <th>Favourite</th>
+                    <%}%>
+
+
                 </tr>
                 </thead>
                 <tbody>
@@ -99,14 +103,15 @@
                     %>
                     <td><a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Delete favourite</a></td>
                     <%
-                    }else{
+                                }else{
                     %>
                     <td><a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Add favourite</a></td>
                     <%
-                        }
+                                }
                     %>
                 </tr>
                 <%
+                            }
                         }
                     }
 

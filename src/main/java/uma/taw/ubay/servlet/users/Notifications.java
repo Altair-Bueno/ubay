@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
+import uma.taw.ubay.dao.BidFacade;
 import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.notifications.BidsDTO;

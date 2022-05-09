@@ -134,4 +134,5 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
             return actualSize;
         }
     }
+
 }
