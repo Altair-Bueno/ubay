@@ -7,14 +7,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.dao.ProductFacade;
-import uma.taw.ubay.dao.ProductFavouritesFacade;
 import uma.taw.ubay.dto.products.LoginDTO;
 import uma.taw.ubay.dto.products.ProductDTO;
 import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/product/item")
 public class Product extends HttpServlet {

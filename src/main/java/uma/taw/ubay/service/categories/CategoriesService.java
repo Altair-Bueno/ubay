@@ -10,7 +10,6 @@ import uma.taw.ubay.dao.UserFavouritesFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.categories.CategoriesDTO;
 import uma.taw.ubay.dto.categories.CategoryDTO;
-import uma.taw.ubay.dto.users.ClientDTO;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.KindEnum;
@@ -18,7 +17,6 @@ import uma.taw.ubay.entity.UserFavouritesEntity;
 import uma.taw.ubay.service.AuthService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 

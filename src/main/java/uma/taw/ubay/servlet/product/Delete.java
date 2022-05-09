@@ -7,12 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.MinioFacade;
-import uma.taw.ubay.dao.ProductFacade;
-import uma.taw.ubay.dto.products.CategoryDTO;
-import uma.taw.ubay.dto.products.ClientDTO;
-import uma.taw.ubay.dto.products.ProductDTO;
-import uma.taw.ubay.entity.ProductEntity;
 import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;

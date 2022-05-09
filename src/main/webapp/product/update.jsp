@@ -1,7 +1,3 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
-<%@ page import="uma.taw.ubay.servlet.product.Index" %>
-<%@ page import="uma.taw.ubay.dao.ProductFacade" %>
-<%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>

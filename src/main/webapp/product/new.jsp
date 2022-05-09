@@ -1,11 +1,10 @@
-<%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="uma.taw.ubay.SessionKeys" %>
 <%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
 <%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page import="uma.taw.ubay.dto.products.CategoryDTO" %>
-<%@ page import="uma.taw.ubay.dto.products.ClientDTO" %><%--
-  Created by IntelliJ IDEA.
+<%@ page import="uma.taw.ubay.dto.LoginDTO" %>
+Created by IntelliJ IDEA.
   User: franm
   Date: 28/3/22
   Time: 19:44
@@ -24,7 +23,7 @@
 
     <%
         List<CategoryDTO> cats = (List<CategoryDTO>) request.getAttribute("cats");
-        ClientEntity user = ((LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
+        ClientEntity user = ((LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO)).getUser();
     %>
 
     <form method="post" enctype="multipart/form-data">

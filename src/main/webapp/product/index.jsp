@@ -1,10 +1,7 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="uma.taw.ubay.ProductKeys" %>
-<%@ page import="uma.taw.ubay.dao.CategoryFacade" %>
-<%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
 <%@ page import="uma.taw.ubay.dto.products.CategoryDTO" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductDTO" %><%--
   Created by IntelliJ IDEA.
@@ -50,7 +47,7 @@
     <%@include file="../WEB-INF/components/navbar.jsp"%>
     <div class="mx-auto" style="width: 1500px;">
         <%
-            if(session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) != null){
+            if(session.getAttribute(SessionKeys.LOGIN_DTO) != null){
         %>
 
     <div class="container">
@@ -60,7 +57,7 @@
                 <form>
                     <div class="form col">
                         Nombre del producto: <input type="text" class="form-control" id="name" name="name">
-                        Categor&iacute;a: <select class="form-select" id="category" name="category">
+                        Categoría: <select class="form-select" id="category" name="category">
                         <option selected value="--">--</option>
                         <%
                             for(CategoryDTO cat : categories){
@@ -101,7 +98,7 @@
                                 String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
                         %>
                         <%
-                            if(session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) == null){
+                            if(session.getAttribute(SessionKeys.LOGIN_DTO) == null){
                         %>
                         <tr>
                                 <%

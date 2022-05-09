@@ -6,16 +6,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.CategoryFacade;
-import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.dto.products.*;
-import uma.taw.ubay.entity.CategoryEntity;
-import uma.taw.ubay.entity.ProductEntity;
 import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/product")
 public class Index extends HttpServlet {
