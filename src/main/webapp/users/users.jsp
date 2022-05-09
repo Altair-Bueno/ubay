@@ -1,7 +1,7 @@
-<%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.LinkedList" %>
-<%@ page import="java.util.Collections" %><%--
+<%@ page import="java.util.Collections" %>
+<%@ page import="uma.taw.ubay.dto.users.ClientDTO" %><%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 28/3/22
@@ -77,10 +77,10 @@
                     </thead>
                     <tbody>
                     <%
-                        List<ClientEntity> searchClient = (List)request.getAttribute("search-user");
+                        List<ClientDTO> searchClient = (List)request.getAttribute("search-user");
 
                         if(searchClient != null){
-                            for(ClientEntity c : searchClient){
+                            for(ClientDTO c : searchClient){
 
                     %>
                     <tr>

@@ -1,5 +1,6 @@
 package uma.taw.ubay;
 
 public class SessionKeys {
-    public final static String LOGIN_CREDENTIALS = "login";
+    @Deprecated public final static String LOGIN_CREDENTIALS = "login";
+    public final static String LOGIN_DTO = "username";
 }

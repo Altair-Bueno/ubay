@@ -9,12 +9,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.UbayException;
 import uma.taw.ubay.dao.CategoryFacade;
 import uma.taw.ubay.entity.CategoryEntity;
+import uma.taw.ubay.service.categories.CategoriesService;
+
 import java.io.IOException;
 
 @WebServlet("/categories/delete")
 public class Delete extends HttpServlet {
     @EJB
-    CategoryFacade facade;
+    CategoriesService categoriesService;
 
 
     @Override
@@ -25,14 +27,11 @@ public class Delete extends HttpServlet {
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        if(id != null){
-            try{
-                CategoryEntity category = facade.find(Integer.parseInt(id));
-                facade.remove(category);
-            } catch (Exception e){
-                throw new UbayException("Cannot delete a category that is being used by a product.");
-            }
-        }
+
+        categoriesService.deleteCategory(id);
+
         request.getRequestDispatcher("delete.jsp").forward(request,response);
     }
+
+
 }

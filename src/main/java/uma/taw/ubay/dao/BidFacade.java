@@ -4,7 +4,6 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
-import jakarta.persistence.metamodel.SingularAttribute;
 import uma.taw.ubay.entity.BidEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
@@ -12,6 +11,7 @@ import uma.taw.ubay.entity.ProductEntity;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Stateless
 public class BidFacade extends AbstractFacade<BidEntity> {
@@ -28,8 +28,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         return em;
     }
 
-
-    public List<BidEntity> getFilteredBidsFromVendor(ClientEntity vendor, int page, Date startDate, Date endDate, String productTitle, String clientName) {
+    public Stream<BidEntity> getFilteredBidsFromVendor(ClientEntity vendor, int page, Date startDate, Date endDate, String productTitle, String clientName) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<BidEntity> query = builder.createQuery(BidEntity.class);
 
@@ -58,10 +57,10 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         return em.createQuery(query)
                 .setFirstResult(page * 10)
                 .setMaxResults(10)
-                .getResultList();
+                .getResultStream();
     }
 
-    public List<BidEntity> getFilteredBidsFromUser(ClientEntity user, int page, Date startDate, Date endDate, String productTitle, String vendorName) {
+    public Stream<BidEntity> getFilteredBidsFromUser(ClientEntity user, int page, Date startDate, Date endDate, String productTitle, String vendorName) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<BidEntity> query = builder.createQuery(BidEntity.class);
 
@@ -90,7 +89,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         return em.createQuery(query)
                 .setFirstResult(page * 10)
                 .setMaxResults(10)
-                .getResultList();
+                .getResultStream();
     }
 
     public BidEntity getHighestBidByProduct(ProductEntity product) {
@@ -130,7 +129,8 @@ public class BidFacade extends AbstractFacade<BidEntity> {
         predicateList.add(builder.lessThanOrEqualTo(join.get("closeDate"), new java.util.Date()));
 
         query.select(bidTable)
-                .where(predicateList.toArray(new Predicate[0]));
+                .where(predicateList.toArray(new Predicate[0]))
+                .orderBy(builder.desc(join.get("closeDate")));
 
         return em.createQuery(query)
                 .getResultList();

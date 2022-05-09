@@ -1,14 +1,12 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
 <%@ page import="uma.taw.ubay.SessionKeys" %>
-<%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
 <%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
-<%@ page import="uma.taw.ubay.entity.ProductFavouritesEntity" %>
-<%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.dao.ProductFavouritesFacade" %>
-<%@ page import="uma.taw.ubay.UsersKeys" %><%--
-  Created by IntelliJ IDEA.
+<%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.LoginDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ClientDTO" %>
+<%--
+Created by IntelliJ IDEA.
   User: franm
   Date: 6/4/22
   Time: 10:08
@@ -34,10 +32,10 @@
 </head>
 <body>
 <%
-    Object itemsesion = session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-    ClientEntity user = itemsesion == null ? null : ((LoginCredentialsEntity) itemsesion).getUser();
-    ProductEntity p = (ProductEntity) request.getAttribute("product");
-    boolean isFavourite = (boolean) request.getAttribute("isFavourite");
+    Object itemsesion = session.getAttribute(SessionKeys.LOGIN_DTO);
+    ClientDTO user = itemsesion == null ? null : ((LoginDTO) itemsesion).getUser();
+    ProductDTO p = (ProductDTO) request.getAttribute("product");
+    boolean isFav = (boolean) request.getAttribute("isFav");
     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
 %>
 
@@ -61,7 +59,7 @@
             <div class="p-2"><h1><%=p.getOutPrice()%> €</h1></div>
             <div class="p-2">
                 <h2>Estado: </h2>
-                <h4><%= p.isCurrentlyAvailable() ? "Activo" : "Cerrado"%>
+                <h4><%= p.getCloseDate() == null ? "Activo" : "Cerrado"%>
                 </h4>
             </div>
             <div class="p-2" style="height: 200px">
@@ -123,8 +121,8 @@
             </div>
 
             <%
-                    } else {
-                        if(isFavourite){
+                    } else if(isFav){
+
             %>
 
             <form method="get" action="${pageContext.request.contextPath}/users/deleteFavourite">
@@ -150,7 +148,6 @@
 
             <%
                         }
-                    }
                 }
             %>
         </div>

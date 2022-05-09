@@ -1,7 +1,7 @@
-<%@ page import="uma.taw.ubay.entity.BidEntity" %>
 <%@ page import="uma.taw.ubay.VendorKeys" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
+<%@ page import="uma.taw.ubay.dto.bids.ReceivedBidsDTO" %>
+<%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
 <%--
   Created by IntelliJ IDEA.
   User: compux72
@@ -11,7 +11,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<BidEntity> bidsList = (List<BidEntity>) request.getAttribute(VendorKeys.BID_LIST);
+    List<ReceivedBidsDTO> bidsList = (List<ReceivedBidsDTO>) request.getAttribute(VendorKeys.BID_LIST);
     String startDate = request.getParameter(VendorKeys.BID_START_DATE_PARAMETER);
     String endDate = request.getParameter(VendorKeys.BID_END_DATE_PARAMETER);
     String productTitle = request.getParameter(VendorKeys.BID_PRODUCT_TITLE_PARAMETER);
@@ -97,8 +97,8 @@
                 <%for (int i = 0; i < bidsList.size(); i++) {%>
                 <tr>
                     <%
-                        BidEntity bid = bidsList.get(i);
-                        ProductEntity product = bid.getProduct();
+                        ReceivedBidsDTO bid = bidsList.get(i);
+                        ProductDTO product = bid.getProduct();
                     %>
                     <th scope="row">
                         <%=1 + i + pageNumber * 10%>

@@ -5,6 +5,7 @@
 <%@ page import="uma.taw.ubay.entity.KindEnum" %>
 <%@ page import="uma.taw.ubay.dao.ProductFacade" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="uma.taw.ubay.dto.LoginDTO" %>
 <%--
   Created by IntelliJ IDEA.
   User: compux72
@@ -22,8 +23,8 @@
 
 <%
 
-    Object navsesion = session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-    String username = navsesion == null ? "Usuario nuevo" : ((LoginCredentialsEntity) navsesion).getUsername();
+    Object navsesion = session.getAttribute(SessionKeys.LOGIN_DTO);
+    String username = navsesion == null ? "Usuario nuevo" : ((LoginDTO) navsesion).getUsername();
     Object currentURLObject = request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI);
     String currenturl = currentURLObject == null ? request.getRequestURI() : currentURLObject.toString();
     if(currenturl.charAt(currenturl.length()-1) =='/') currenturl = currenturl.substring(0, currenturl.length()-1);
@@ -62,7 +63,7 @@
                     %>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDarkDropdownMenuLink">
                         <%
-                            if(((LoginCredentialsEntity) navsesion).getKind().equals(KindEnum.admin)){
+                            if(((LoginDTO) navsesion).getKind().equals(KindEnum.admin)){
                         %>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/">Manage users</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/categories/">Manage categories</a></li>

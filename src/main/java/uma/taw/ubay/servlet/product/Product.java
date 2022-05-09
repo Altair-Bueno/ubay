@@ -7,31 +7,27 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.dao.ProductFacade;
-import uma.taw.ubay.dao.ProductFavouritesFacade;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
-import uma.taw.ubay.entity.ProductEntity;
-import uma.taw.ubay.entity.ProductFavouritesEntity;
+import uma.taw.ubay.dto.products.LoginDTO;
+import uma.taw.ubay.dto.products.ProductDTO;
+import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/product/item")
 public class Product extends HttpServlet {
     @EJB
-    ProductFacade facade;
-
-
-    @EJB
-    ProductFavouritesFacade productFavouritesFacade;
+    ProductService productService;
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var loginDTO = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);
+
         Integer id = Integer.parseInt(req.getParameter("id"));
-        ProductEntity p = facade.find(id);
-        var sesion = (LoginCredentialsEntity) req.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-        List<ProductEntity> pflist = productFavouritesFacade.getClientFavouriteProducts(sesion.getUser());
-        req.setAttribute("product", p);
-        req.setAttribute("isFavourite", pflist.contains(p));
+        ProductDTO productDTO = productService.findProduct(id);
+        boolean isUserFav = productService.isProductUserFavourite(loginDTO, id);
+
+
+        req.setAttribute("product", productDTO);
+        req.setAttribute("isFav", isUserFav);
         req.getRequestDispatcher("item.jsp").forward(req,resp);
     }
 

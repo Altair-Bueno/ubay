@@ -1,8 +1,9 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
+<%@ page import="java.util.*" %>
+<%@ page import="uma.taw.ubay.dto.notifications.BidsDTO" %>
+<%@ page import="uma.taw.ubay.dto.notifications.ProductDTO" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
-<%@ page import="uma.taw.ubay.entity.BidEntity" %>
-<%@ page import="java.util.*" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 24/4/22
@@ -21,7 +22,7 @@
 <body>
     <%@include file="../WEB-INF/components/navbar.jsp"%>
     <%
-        HashMap<BidEntity, Boolean> notificaciones = (HashMap<BidEntity, Boolean>) request.getAttribute("notifications");
+        HashMap<BidsDTO, Boolean> notificaciones = (HashMap<BidsDTO, Boolean>) request.getAttribute("notifications");
 
         if(notificaciones.size() == 0){
     %>
@@ -44,8 +45,8 @@
         </thead>
         <tbody>
         <%
-            for(BidEntity b : notificaciones.keySet()){
-                ProductEntity p = b.getProduct();
+            for(BidsDTO b : notificaciones.keySet()){
+                ProductDTO p = b.getProduct();
                 String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
         %>
 

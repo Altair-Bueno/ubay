@@ -3,7 +3,9 @@
 <%@ page import="uma.taw.ubay.dao.UserFavouritesFacade" %>
 <%@ page import="uma.taw.ubay.entity.*" %>
 <%@ page import="jakarta.ejb.EJB" %>
-<%@ page import="java.util.HashMap" %><%--
+<%@ page import="java.util.HashMap" %>
+<%@ page import="uma.taw.ubay.dto.categories.CategoryDTO" %>
+<%@ page import="uma.taw.ubay.dto.LoginDTO" %><%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 5/4/22
@@ -17,13 +19,12 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Categories</title>
 </head>
 <body>
 <%@include file="../WEB-INF/components/navbar.jsp"%>
 <%
-    LoginCredentialsEntity entity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-    if (entity != null && entity.getKind().equals(KindEnum.admin)) {
+    LoginDTO loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
+    if (loginDTO != null && loginDTO.getKind().equals(KindEnum.admin)) {
 %>
     <div class="container">
         <h2>Categories: </h2>
@@ -41,9 +42,9 @@
                     </thead>
                     <tbody>
                         <%
-        List<CategoryEntity> catList = (List)request.getAttribute("category-list");
+        List<CategoryDTO> catList = (List)request.getAttribute("category-list");
         if(catList != null){
-            for(CategoryEntity c : catList){
+            for(CategoryDTO c : catList){
     %>
                     <tr>
                         <td><%=c.getId()%></td>
@@ -66,7 +67,7 @@
     </div>
 
 <%
-    } else if(entity == null || entity.getKind().equals(KindEnum.client)){
+    } else if(loginDTO != null && loginDTO.getKind().equals(KindEnum.client)){
 %>
 
 <div class="container">
@@ -88,27 +89,23 @@
                 </thead>
                 <tbody>
                 <%
-                    List<CategoryEntity> catList = (List)request.getAttribute("category-list");
+                    List<CategoryDTO> catList = (List)request.getAttribute("category-list");
                     if(catList != null){
-                        for(CategoryEntity c : catList){
+                        for(CategoryDTO c : catList){
                 %>
                 <tr>
                     <td><%=c.getId()%></td>
                     <td><%=c.getName()%></td>
                     <td><%=c.getDescription()%></td>
                     <%
-                            if(entity != null){
+                        List<CategoryDTO> favouriteCategories = (List<CategoryDTO>) request.getAttribute("user-fav-category-list");
+                        if(favouriteCategories.contains(c)){
                     %>
-                    <%
-                                ClientEntity client = entity.getUser();
-                                HashMap<ClientEntity, List<CategoryEntity>> favMap = (HashMap<ClientEntity, List<CategoryEntity>>) request.getAttribute("favMap");
-                                if(favMap.get(client).contains(c)){
-                    %>
-                    <td><a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=entity.getUser().getId()%>">Delete favourite</a></td>
+                    <td><a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Delete favourite</a></td>
                     <%
                                 }else{
                     %>
-                    <td><a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=entity.getUser().getId()%>">Add favourite</a></td>
+                    <td><a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Add favourite</a></td>
                     <%
                                 }
                     %>
