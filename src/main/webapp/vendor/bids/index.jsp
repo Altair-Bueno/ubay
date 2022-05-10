@@ -79,6 +79,28 @@
                            name="<%=VendorKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>
+                <select
+                        class="form-select mb-3"
+                        name="<%=VendorKeys.ORDER_BY_PARAMETER%>"
+                >
+                    <%for (String orderBy: VendorKeys.ORDER_BY_LIST){%>
+                    <option <%=orderBy.equals(request.getParameter(VendorKeys.ORDER_BY_PARAMETER)) ? "selected":""%> value="<%=orderBy%>">
+                        <%=orderBy%>
+                    </option>
+                    <%}%>
+                </select>
+                <div class="form-check mb-3">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="flexCheckDefault"
+                            name="<%=VendorKeys.ASC_PARAMETER%>"
+                            <%=request.getParameter(VendorKeys.ASC_PARAMETER) == null ? "":"checked"%>
+                    >
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sort ascending
+                    </label>
+                </div>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </form>
         </aside>
