@@ -43,6 +43,42 @@
   - Other minor changes
 
 # [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
+- Filters
+  - [ProductOwnership](src/main/java/uma/taw/ubay/filter/ProductOwnership.java)
+- JSP
+  - [Navbar](src/main/webapp/WEB-INF/components/navbar.jsp)
+  - [index.jsp](src/main/webapp/product/index.jsp)
+  - [item.jsp](src/main/webapp/product/item.jsp)
+  - [new.jsp](src/main/webapp/product/new.jsp)
+  - [update.jsp](src/main/webapp/product/update.jsp)
+  - [notifications.jsp](src/main/webapp/users/notifications.jsp)
+- Servlets
+  - [/product (Web index)](src/main/java/uma/taw/ubay/servlet/product/Index.java)
+  - [/product/item](src/main/java/uma/taw/ubay/servlet/product/Product.java)
+  - [/product/new](src/main/java/uma/taw/ubay/servlet/product/New.java)
+  - [/product/delete](src/main/java/uma/taw/ubay/servlet/product/Delete.java)
+  - [/product/update](src/main/java/uma/taw/ubay/servlet/product/Update.java)
+  - [/users/notifications](src/main/java/uma/taw/ubay/servlet/users/Notifications.java)
+- Facades
+  - [ProductFacade](src/main/java/uma/taw/ubay/dao/ProductFacade.java)
+  - [ProductFavouritesFacade](src/main/java/uma/taw/ubay/dao/ProductFavouritesFacade.java)
+- Services
+  - [ProductService](src/main/java/uma/taw/ubay/service/products/ProductService.java)
+- Keyfiles
+  - [ProductKeys](src/main/java/uma/taw/ubay/UsersKeys.java)
+- DTO
+  - [ProductCategoryDTO](src/main/java/uma/taw/ubay/dto/products/ProductCategoryDTO.java)
+  - [ProductClientDTO](src/main/java/uma/taw/ubay/dto/products/ProductClientDTO.java)
+  - [ProductDTO](src/main/java/uma/taw/ubay/dto/products/ProductDTO.java)
+  - [ProductFavouritesDTO](src/main/java/uma/taw/ubay/dto/products/ProductFavouritesDTO.java)
+  - [ProductLoginDTO](src/main/java/uma/taw/ubay/dto/products/ProductLoginDTO.java)
+  - [ProductsDTO](src/main/java/uma/taw/ubay/dto/products/ProductsDTO.java)
+- Database
+  - [Database Scheme SQL](sql/scheme.sql)
+  - Database Design
+- Others
+  - Database design & ORM
+  - Minor/medium changes in many other files when needed (check github logs)
 
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
 
