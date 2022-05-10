@@ -17,8 +17,6 @@ import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.products.ProductCategoryDTO;
 import uma.taw.ubay.dto.products.ProductClientDTO;
 import uma.taw.ubay.dto.products.ProductDTO;
-import uma.taw.ubay.entity.CategoryEntity;
-import uma.taw.ubay.entity.ProductEntity;
 import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;

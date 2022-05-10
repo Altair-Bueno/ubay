@@ -1,6 +1,4 @@
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.LinkedList" %>
-<%@ page import="java.util.Collections" %>
 <%@ page import="uma.taw.ubay.dto.users.ClientDTO" %><%--
   Created by IntelliJ IDEA.
   User: jota

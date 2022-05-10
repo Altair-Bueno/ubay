@@ -1,8 +1,6 @@
-<%@ page import="uma.taw.ubay.SessionKeys" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
-<%@ page import="uma.taw.ubay.dto.products.ProductLoginDTO" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %>
 <%@ page import="uma.taw.ubay.UsersKeys" %>
 <%--
