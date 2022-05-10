@@ -17,6 +17,8 @@ import java.io.IOException;
  * Servlet in charge of creating a new user session with the received username
  * and password. If the login fails, the client will receive a 401
  * (Unauthorised) response
+ *
+ * @author Altair Bueno
  */
 
 @WebServlet("/auth/login")

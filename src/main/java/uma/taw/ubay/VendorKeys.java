@@ -1,5 +1,8 @@
 package uma.taw.ubay;
 
+/**
+ * @author Altair Bueno
+ */
 public class VendorKeys {
     public final static String BID_LIST = "bidsByVendor";
 

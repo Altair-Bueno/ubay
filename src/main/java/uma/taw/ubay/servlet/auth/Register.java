@@ -14,6 +14,8 @@ import java.io.IOException;
 /**
  * Servlet in charge of creating a new user session with the received username
  * and password
+ *
+ * @author Altair Bueno
  */
 @WebServlet("/auth/register")
 public class Register extends HttpServlet {

@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @author Altair Bueno
+ */
 @Stateless
 public class BidService {
     @EJB
@@ -77,6 +80,7 @@ public class BidService {
         Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName);
         return bidEntityStream.map(this::entityBidToSentBid).collect(Collectors.toList());
     }
+
     public void createBid(@NonNull LoginDTO loginDTO, @NonNull String amountParameter, @NonNull String productIDParameter) {
         var credentials = authService.getCredentialsEntity(loginDTO);
         var timestamp = new Timestamp(Instant.now().getEpochSecond());

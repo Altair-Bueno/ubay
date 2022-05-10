@@ -14,6 +14,8 @@ import java.io.IOException;
  * A HttpFilter that checks if the request has an active session on this server.
  * If the client doesn't have a session, the filter will redirect to the login
  * page
+ *
+ * @author Altair Bueno
  */
 public class AuthFilter extends HttpFilter {
     private final static String LOGIN_PAGE = "/auth/login";

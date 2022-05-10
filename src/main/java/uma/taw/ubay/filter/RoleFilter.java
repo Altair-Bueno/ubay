@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Altair Bueno
+ */
 public class RoleFilter extends HttpFilter {
     @EJB
     AuthService authService;
