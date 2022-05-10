@@ -31,8 +31,10 @@ public class Index extends HttpServlet {
         String productTitleParameter = req.getParameter(VendorKeys.BID_PRODUCT_TITLE_PARAMETER);
         String clientNameParameter = req.getParameter(VendorKeys.BID_CLIENT_NAME_PARAMETER);
         String pageParameter = req.getParameter(VendorKeys.BID_PAGE_NUMBER_PARAMETER);
+        var orderByParameter = req.getParameter(VendorKeys.ORDER_BY_PARAMETER);
+        var ascParameter = req.getParameter(VendorKeys.ASC_PARAMETER);
 
-        List<ReceivedBidsDTO> bidList = service.getReceivedBids(loginDTO, startDateParameter, endDateParameter, productTitleParameter, clientNameParameter, pageParameter);
+        List<ReceivedBidsDTO> bidList = service.getReceivedBids(loginDTO, startDateParameter, endDateParameter, productTitleParameter, clientNameParameter, pageParameter,orderByParameter,ascParameter);
         req.setAttribute(VendorKeys.BID_LIST, bidList);
         req.getRequestDispatcher("/vendor/bids/index.jsp").forward(req, resp);
     }
