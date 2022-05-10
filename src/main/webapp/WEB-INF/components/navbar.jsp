@@ -62,9 +62,8 @@
                         <%
                             if(((LoginDTO) navsesion).getKind().equals(KindEnum.admin)){
                         %>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/">Manage users</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/categories/">Manage categories</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/productlist">View all ubay products</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/">Administrar usuarios</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/categories/">Administrar categorias</a></li>
                         <%
                             } else {
                         %>
