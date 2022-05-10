@@ -13,6 +13,6 @@ public class ProductDTO {
     String images;
     Date closeDate;
     Date publishDate;
-    ClientDTO vendor;
-    CategoryDTO category;
+    ProductClientDTO vendor;
+    ProductCategoryDTO category;
 }

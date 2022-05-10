@@ -3,6 +3,7 @@ package uma.taw.ubay.dto.products;
 import lombok.Value;
 
 @Value
-public class ClientDTO {
+public class ProductCategoryDTO {
     int id;
+    String name;
 }

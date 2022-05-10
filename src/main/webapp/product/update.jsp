@@ -2,7 +2,7 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
-<%@ page import="uma.taw.ubay.dto.products.CategoryDTO" %><%--
+<%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 29/3/22
@@ -21,7 +21,7 @@
 <body>
     <%
         ProductDTO p = (ProductDTO) request.getAttribute("product");
-        List<CategoryDTO> cats = (List<CategoryDTO>) request.getAttribute("cats");
+        List<ProductCategoryDTO> cats = (List<ProductCategoryDTO>) request.getAttribute("cats");
         String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
     %>
     <form method="post" enctype="multipart/form-data">
@@ -72,7 +72,7 @@
 
                     <select name="categoria" required>
                         <%
-                            for(CategoryDTO c : cats){
+                            for(ProductCategoryDTO c : cats){
 
                         %>
                         <option value="<%=c.getId()%>" <%=p.getCategory().equals(c) ? "selected" : ""%> ><%=c.getName()%></option>

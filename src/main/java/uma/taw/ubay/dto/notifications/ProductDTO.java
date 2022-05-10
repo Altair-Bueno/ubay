@@ -1,8 +1,6 @@
 package uma.taw.ubay.dto.notifications;
 
 import lombok.Value;
-import uma.taw.ubay.dto.products.CategoryDTO;
-import uma.taw.ubay.dto.products.ClientDTO;
 
 import java.sql.Date;
 

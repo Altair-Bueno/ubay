@@ -11,12 +11,14 @@ import uma.taw.ubay.dto.products.*;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
+import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,10 +40,14 @@ public class ProductService {
     @EJB
     MinioFacade minioFacade;
 
+    @EJB
+    AuthService authService;
+
 
     public ProductsDTO getProductsList(String productName, String category, String page){
         List<ProductDTO> productDTOS = new ArrayList<>();
         ProductFacade.ProductTupleResult ptr;
+        page = page.equals("") ? "1" : page;
         int tam = 0;
 
         // Filters:
@@ -50,7 +56,8 @@ public class ProductService {
         if(productName != null || (category != null && !category.equals("--"))){
             CategoryEntity cat = null;
             if(!category.equals("--")){
-                cat = categoryFacade.searchById(category);
+                int catId = Integer.parseInt(category);
+                cat = categoryFacade.searchById(catId);
             }
             ptr = productFacade.filterAndGetByPage(productName, cat, Integer.parseInt(page));
         } else {
@@ -66,8 +73,8 @@ public class ProductService {
     }
 
     @NotNull
-    public boolean isProductUserFavourite(LoginDTO login, int id){
-        ClientEntity user = clientFacade.find(login.getUser().getId());
+    public boolean isProductUserFavourite(ProductClientDTO client, int id){
+        ClientEntity user = clientFacade.find(client.getId());
 
         if(user != null){
             List<ProductEntity> products = productFavouritesFacade.getClientFavouriteProducts(user);
@@ -78,13 +85,38 @@ public class ProductService {
         return false;
     }
 
+    @NotNull
+    public ProductCategoryDTO findCategory(int id){
+        return categoryEntityToDTO(categoryFacade.find(id));
+    }
+
+    public ProductDTO createProduct(String title, String description, double outPrice, String images, java.util.Date publishDate, int vendorId, int categoryId){
+        ProductEntity p = new ProductEntity();
+        ClientEntity vendorEntity = clientFacade.find(vendorId);
+        CategoryEntity categoryEntity = categoryFacade.find(categoryId);
+
+        p.setTitle(title);
+        p.setDescription(description);
+        p.setOutPrice(outPrice);
+        p.setImages(images);
+        p.setCloseDate(null);
+        p.setPublishDate(new Timestamp(publishDate.getTime()));
+        p.setVendor(vendorEntity);
+        p.setCategory(categoryEntity);
+
+        productFacade.create(p);
+        p = productFacade.find(p.getId());
+
+        return productEntityToDTO(p);
+    }
+
     public ProductDTO findProduct(int id){
         return productEntityToDTO(productFacade.find(id));
     }
 
     @NotNull
-    public List<CategoryDTO> categories(){
-        return categoryFacade.findAll().stream().map(this::categoryEntityToDTO).collect(Collectors.toList());
+    public List<ProductCategoryDTO> categories(){
+        return categoryFacade.findAllSortedById().stream().map(this::categoryEntityToDTO).collect(Collectors.toList());
     }
 
     private ProductDTO productEntityToDTO(ProductEntity p){
@@ -100,6 +132,11 @@ public class ProductService {
                 categoryEntityToDTO(p.getCategory())
 
         );
+    }
+
+    public ProductClientDTO loginDTOtoClientDTO(uma.taw.ubay.dto.LoginDTO logindto){
+        ClientEntity cliente = authService.getCredentialsEntity(logindto).getUser();
+        return new ProductClientDTO(cliente.getId());
     }
 
     public void deleteProduct(int id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
@@ -153,12 +190,12 @@ public class ProductService {
         productFacade.edit(p);
     }
 
-    private ClientDTO clientEntityToDto(ClientEntity client){
-        return new ClientDTO(client.getId());
+    private ProductClientDTO clientEntityToDto(ClientEntity client){
+        return new ProductClientDTO(client.getId());
     }
 
-    private CategoryDTO categoryEntityToDTO(CategoryEntity category){
-        return new CategoryDTO(category.getId(), category.getName());
+    private ProductCategoryDTO categoryEntityToDTO(CategoryEntity category){
+        return new ProductCategoryDTO(category.getId(), category.getName());
     }
 
 

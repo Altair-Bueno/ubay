@@ -1,10 +1,7 @@
 <%@ page import="uma.taw.ubay.SessionKeys" %>
-<%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.LinkedHashMap" %>
 <%@ page import="uma.taw.ubay.entity.KindEnum" %>
-<%@ page import="uma.taw.ubay.dao.ProductFacade" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="uma.taw.ubay.dto.LoginDTO" %>
 <%--
   Created by IntelliJ IDEA.

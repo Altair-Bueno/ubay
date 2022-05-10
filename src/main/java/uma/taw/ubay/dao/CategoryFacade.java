@@ -9,6 +9,8 @@ import jakarta.persistence.criteria.Root;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ClientEntity;
 
+import java.util.List;
+
 @Stateless
 public class CategoryFacade extends AbstractFacade<CategoryEntity> {
 
@@ -24,12 +26,23 @@ public class CategoryFacade extends AbstractFacade<CategoryEntity> {
         return em;
     }
 
-    public CategoryEntity searchById(String id){
+    public CategoryEntity searchById(int id){
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<CategoryEntity> query = builder.createQuery(CategoryEntity.class);
         Root<CategoryEntity> categoryTable = query.from(CategoryEntity.class);
         query.select(categoryTable).where(builder.equal(categoryTable.get("id"), id));
         return em.createQuery(query).getSingleResult();
 
+    }
+
+    public List<CategoryEntity> findAllSortedById(){
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<CategoryEntity> query = builder.createQuery(CategoryEntity.class);
+        Root<CategoryEntity> categoryTable = query.from(CategoryEntity.class);
+        query
+                .select(categoryTable)
+                .orderBy(builder.asc(categoryTable.get("id")));
+
+        return em.createQuery(query).getResultList();
     }
 }

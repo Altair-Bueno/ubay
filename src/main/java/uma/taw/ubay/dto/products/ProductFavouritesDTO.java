@@ -5,5 +5,5 @@ import lombok.Value;
 @Value
 public class ProductFavouritesDTO {
     ProductDTO product;
-    ClientDTO user;
+    ProductClientDTO user;
 }

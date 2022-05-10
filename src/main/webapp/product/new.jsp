@@ -1,9 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.SessionKeys" %>
-<%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
-<%@ page import="uma.taw.ubay.entity.ClientEntity" %>
-<%@ page import="uma.taw.ubay.dto.products.CategoryDTO" %>
-<%@ page import="uma.taw.ubay.dto.LoginDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %>
+<%--
 Created by IntelliJ IDEA.
   User: franm
   Date: 28/3/22
@@ -22,9 +20,8 @@ Created by IntelliJ IDEA.
 <body>
 
     <%
-        List<CategoryDTO> cats = (List<CategoryDTO>) request.getAttribute("cats");
-
-        ClientEntity user = ((LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO));
+        List<ProductCategoryDTO> cats = (List<ProductCategoryDTO>) request.getAttribute("cats");
+        ProductClientDTO user = ((ProductClientDTO) request.getAttribute("user"));
     %>
 
     <form method="post" enctype="multipart/form-data">
@@ -67,7 +64,7 @@ Created by IntelliJ IDEA.
                     <label>Categoria: </label>
                     <select name="categoria" required>
                         <%
-                            for(CategoryDTO c : cats){
+                            for(ProductCategoryDTO c : cats){
                         %>
                         <option value="<%=c.getId()%>"><%=c.getName()%></option>
                         <%

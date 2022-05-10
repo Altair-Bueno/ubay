@@ -96,7 +96,7 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         int actualSize = 0;
 
         if(name != null){
-            predicateList.add(builder.like(productTable.get("title"), name + "%"));
+            predicateList.add(builder.like(productTable.get("title"), "%" + name + "%"));
         }
 
         if(category != null){

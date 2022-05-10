@@ -2,8 +2,9 @@
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="uma.taw.ubay.ProductKeys" %>
-<%@ page import="uma.taw.ubay.dto.products.CategoryDTO" %>
-<%@ page import="uma.taw.ubay.dto.products.ProductDTO" %><%--
+<%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %><%--
   Created by IntelliJ IDEA.
   User: franm
   Date: 28/3/22
@@ -38,18 +39,19 @@
 
     <%
         List<ProductDTO> l = (List<ProductDTO>) request.getAttribute("product-list");
-        List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("category-list");
+        List<ProductCategoryDTO> categories = (List<ProductCategoryDTO>) request.getAttribute("category-list");
         String pagAtt = request.getParameter("page");
+        Object nameParameter = request.getAttribute("nameFilter");
+        String nameFilter = (nameParameter == null ? "" : (String) nameParameter);
+        int categoryFilter = (int) request.getAttribute("categoryFilter");
+
         int pagenum = pagAtt == null ? 1 : Integer.parseInt(pagAtt);
         int tam = (int) request.getAttribute("product-tam");
+        boolean loggedIn = (boolean) request.getAttribute("user");
         int pagelimit = (int) Math.ceil((double) tam/ProductKeys.productsPerPageLimit);
     %>
     <%@include file="../WEB-INF/components/navbar.jsp"%>
     <div class="mx-auto" style="width: 1500px;">
-        <%
-            if(session.getAttribute(SessionKeys.LOGIN_DTO) != null){
-        %>
-
     <div class="container">
         <div class="row">
             <div class="col-3">
@@ -58,12 +60,14 @@
                     <div class="form col">
                         Nombre del producto: <input type="text" class="form-control" id="name" name="name">
                         Categoría: <select class="form-select" id="category" name="category">
-                        <option selected value="--">--</option>
+                        <option <%=categoryFilter == 0 ? "selected" : ""%>value="--">--</option>
                         <%
-                            for(CategoryDTO cat : categories){
+                            int i = 1;
+                            for(ProductCategoryDTO cat : categories){
                         %>
-                            <option value="<%=cat.getId()%>"><%=cat.getName()%></option>
+                            <option <%=categoryFilter == i ? "selected" : ""%> value="<%=cat.getId()%>"><%=cat.getName()%></option>
                         <%
+                                i++;
                             }
                         %>
                     </select>
@@ -73,15 +77,17 @@
             </div>
 
             <div class="col">
+                <%
+                    if(loggedIn){
+                %>
                     <form method="get" action="${pageContext.request.contextPath}/product/new">
                         <div class="py-3" style="width: max-content; float: left">
                             <button type="submit" class="btn btn-success">Subir producto</button>
                         </div>
                     </form>
-
-                    <%
-                        }
-                    %>
+                <%
+                    }
+                %>
 
                     <table class="table table-bordered text-center">
                         <thead>
@@ -97,17 +103,8 @@
                             for(ProductDTO p : l){
                                 String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
                         %>
-                        <%
-                            if(session.getAttribute(SessionKeys.LOGIN_DTO) == null){
-                        %>
                         <tr>
-                                <%
-                } else {
-            %>
                         <tr onclick="window.location='${pageContext.request.contextPath}/product/item?id=' + <%=p.getId()%>">
-                            <%
-                                }
-                            %>
 
                             <td><img src="<%=imgSrc%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
                             <td class="align-middle"><h3><%=p.getTitle()%></h3></td>
@@ -120,6 +117,20 @@
                         </tbody>
                     </table>
                     <form method="get" action="${pageContext.request.contextPath}/product">
+                        <%
+                            if(categoryFilter != 0){
+
+                        %>
+                        <input type="text" hidden name="category" value="<%=categoryFilter%>">
+                        <%
+                            }
+
+                            if(!nameFilter.equals("")){
+                        %>
+                        <input type="text" hidden name="name" value="<%=nameFilter%>">
+                        <%
+                            }
+                        %>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
                                 <%
