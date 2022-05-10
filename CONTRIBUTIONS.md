@@ -42,7 +42,7 @@
   - [Custom error pages](src/main/webapp/WEB-INF/error)
   - Other minor changes
 
-# [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
+# [Francisco Javier Hernández](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 - Filters
   - [ProductOwnership](src/main/java/uma/taw/ubay/filter/ProductOwnership.java)
 - JSP
@@ -82,7 +82,7 @@
 
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
 
-- DB Design
+- Database Design
 - Admin functions on user page
   - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Delete.java)
   - [/users/modify](src/main/java/uma/taw/ubay/servlet/users/Modify.java)
