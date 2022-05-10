@@ -4,7 +4,7 @@
 <%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
 <%--
   Created by IntelliJ IDEA.
-  User: compux72
+  User: Altair Bueno
   Date: 7/4/22
   Time: 19:54
   To change this template use File | Settings | File Templates.

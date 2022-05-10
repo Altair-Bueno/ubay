@@ -1,3 +1,4 @@
+# Author: Altair Bueno
 version: '3.1'
 services:
   # username: postgres

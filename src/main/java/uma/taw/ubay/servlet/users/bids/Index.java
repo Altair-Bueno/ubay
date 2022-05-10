@@ -13,10 +13,14 @@ import uma.taw.ubay.service.BidService;
 
 import java.io.IOException;
 
+/**
+ * @author Altair Bueno
+ */
 @WebServlet("/users/bids")
 public class Index extends HttpServlet {
     @EJB
     BidService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginDTO loginCredentials = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);

@@ -13,6 +13,9 @@ import uma.taw.ubay.service.BidService;
 
 import java.io.IOException;
 
+/**
+ * @author Altair Bueno
+ */
 @WebServlet("/users/bids/new")
 public class New extends HttpServlet {
     @EJB

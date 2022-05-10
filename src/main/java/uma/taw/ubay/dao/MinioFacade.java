@@ -18,6 +18,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+/**
+ * @author Altair Bueno
+ */
 @Stateless
 public class MinioFacade {
 

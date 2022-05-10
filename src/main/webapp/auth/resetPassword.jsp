@@ -1,6 +1,13 @@
 <%@ page import="uma.taw.ubay.AuthKeys" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: Altair Bueno
+  Date: 28/3/22
+  Time: 11:38
+  To change this template use File | Settings | File Templates.
+--%>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"

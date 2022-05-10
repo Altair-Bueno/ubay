@@ -13,10 +13,14 @@ import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 
+/**
+ * @author Altair Bueno
+ */
 @WebServlet("/auth/changePassword")
 public class ChangePassword extends HttpServlet{
     @EJB
     AuthService service;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String oldPasswordParameter = req.getParameter(AuthKeys.OLD_PASSWORD_PARAMETER);

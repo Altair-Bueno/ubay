@@ -10,6 +10,8 @@ import java.io.IOException;
 
 /**
  * Servlet in charge of invalidating the user current user session
+ *
+ * @author Altair Bueno
  */
 @WebServlet("/auth/signoff")
 public class SignOff extends HttpServlet {

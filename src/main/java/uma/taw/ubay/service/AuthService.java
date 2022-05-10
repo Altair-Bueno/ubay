@@ -11,6 +11,9 @@ import uma.taw.ubay.dao.PasswordResetFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.entity.*;
 
+/**
+ * @author Altair Bueno
+ */
 @Stateless
 public class AuthService {
     @EJB

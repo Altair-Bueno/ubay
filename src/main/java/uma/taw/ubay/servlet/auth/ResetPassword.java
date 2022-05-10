@@ -11,10 +11,14 @@ import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 
+/**
+ * @author Altair Bueno
+ */
 @WebServlet("/auth/resetPassword")
 public class ResetPassword extends HttpServlet {
     @EJB
     AuthService service;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String usernameParameter = req.getParameter(AuthKeys.USERNAME_PARAMETER);
