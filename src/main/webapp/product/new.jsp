@@ -24,6 +24,8 @@ Created by IntelliJ IDEA.
         ProductClientDTO user = ((ProductClientDTO) request.getAttribute("user"));
     %>
 
+    <%@include file="../WEB-INF/components/navbar.jsp"%>
+
     <form method="post" enctype="multipart/form-data">
         <div class="d-flex flex-row m-auto" style="width: 1000px">
 

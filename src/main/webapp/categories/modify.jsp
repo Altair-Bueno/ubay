@@ -15,6 +15,7 @@
     <title>Modify category</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 <a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
     <div class="container">
         <h2>Data: </h2>

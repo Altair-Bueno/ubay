@@ -18,6 +18,7 @@
     <title>Users</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 <div>
     <%--<form>
         <h3>User data:</h3>
@@ -34,8 +35,6 @@
         </select> <br/>
         <input type="submit"/>
     </form>--%>
-
-        <a class="btn btn-primary m-2" href=".." role="button">Go home</a>
 
     <div class="container">
         <h2>Search users: </h2>

@@ -24,6 +24,8 @@
         List<ProductCategoryDTO> cats = (List<ProductCategoryDTO>) request.getAttribute("cats");
         String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
     %>
+    <%@include file="../WEB-INF/components/navbar.jsp"%>
+
     <form method="post" enctype="multipart/form-data">
         <div class="d-flex flex-row m-auto" style="width: 1000px">
 
