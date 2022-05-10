@@ -13,4 +13,9 @@ public class UsersKeys {
     public static final String BID_VENDOR_NAME_PARAMETER = "vendorName";
     public static final String BID_AMOUNT_PARAMETER = "amount";
     public static final String BID_PRODUCT_ID_PARAMETER = "productID";
+    public static final String ASC_PARAMETER = "asc";
+    public static final String ORDER_BY_PARAMETER = "orderby";
+
+    public static final String[] ORDER_BY_LIST = new String[]{"publishDate","amount"};
+
 }

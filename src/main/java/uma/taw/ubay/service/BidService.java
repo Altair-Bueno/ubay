@@ -70,16 +70,18 @@ public class BidService {
         return bidEntityStream.map(this::entityBidToReceivedBid).collect(Collectors.toList());
     }
 
-    public List<SentBidsDTO> getSentBids(@NonNull LoginDTO loginDTO, String startDateParameter, String endDateParameter, String productTitleParameter, String vendorNameParameter, String pageParameter) {
+    public List<SentBidsDTO> getSentBids(@NonNull LoginDTO loginDTO, String startDateParameter, String endDateParameter, String productTitleParameter, String vendorNameParameter, String pageParameter,String orderByParameter,String ascParameter) {
         Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
         Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);
         String productTitle = "".equals(productTitleParameter) ? null : productTitleParameter;
         String vendorName = "".equals(vendorNameParameter) ? null : vendorNameParameter;
+        var orderBy = orderByParameter == null || orderByParameter.equals("") ? "publishDate":orderByParameter;
+        var asc = ascParameter != null;
         int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
         if (page < 0) throw new IllegalArgumentException("Negative page index");
 
         var loginCredentials = authService.getCredentialsEntity(loginDTO);
-        Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName);
+        Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName,orderBy,asc);
         return bidEntityStream.map(this::entityBidToSentBid).collect(Collectors.toList());
     }
 
