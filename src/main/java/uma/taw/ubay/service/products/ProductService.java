@@ -59,7 +59,7 @@ public class ProductService {
                 int catId = Integer.parseInt(category);
                 cat = categoryFacade.searchById(catId);
             }
-            ptr = productFacade.filterAndGetByPage(productName, cat, Integer.parseInt(page));
+            ptr = productFacade.filterAndGetByPage(productName, cat, Integer.parseInt(page) - 1);
         } else {
             ptr = productFacade.getByPage(page == null ? 0 : Integer.parseInt(page) - 1);
         }

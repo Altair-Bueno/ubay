@@ -57,8 +57,8 @@
                 <h2>Filtros:</h2>
                 <form>
                     <div class="form col">
-                        Nombre del producto: <input type="text" class="form-control" id="name" name="name">
-                        Categoría: <select class="form-select" id="category" name="category">
+                        Nombre del producto: <input id="nameFilter" type="text" class="form-control" id="name" name="name" value="<%=nameFilter%>">
+                        Categoría: <select id="categoryFilter" class="form-select" id="category" name="category">
                         <option <%=categoryFilter == 0 ? "selected" : ""%>value="--">--</option>
                         <%
                             int i = 1;
@@ -71,6 +71,7 @@
                         %>
                     </select>
                         <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                        <button class="btn btn-secondary mt-2" onclick="clearFilter()">Limpiar</button>
                     </div>
                 </form>
             </div>
@@ -149,6 +150,12 @@
         </div>
     </div>
 
+<script>
+    function clearFilter() {
+        document.querySelector("#nameFilter").value = ""
+        document.querySelector("#categoryFilter").selectedIndex = 0
+    }
+</script>
 
 </body>
 </html>
