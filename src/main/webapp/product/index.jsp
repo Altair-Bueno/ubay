@@ -4,8 +4,9 @@
 <%@ page import="uma.taw.ubay.ProductKeys" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
+<%--
   Created by IntelliJ IDEA.
-  User: franm
+  Author: Francisco Javier Hernández
   Date: 28/3/22
   Time: 22:11
   To change this template use File | Settings | File Templates.

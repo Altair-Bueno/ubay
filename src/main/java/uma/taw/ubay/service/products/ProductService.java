@@ -10,6 +10,7 @@ import uma.taw.ubay.dao.*;
 import uma.taw.ubay.dto.products.*;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ClientEntity;
+import uma.taw.ubay.entity.LoginCredentialsEntity;
 import uma.taw.ubay.entity.ProductEntity;
 import uma.taw.ubay.service.AuthService;
 
@@ -22,6 +23,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+/**
+ * @author Francisco Javier Hernández
+ */
 
 @Stateless
 public class ProductService {
@@ -135,8 +140,9 @@ public class ProductService {
     }
 
     public ProductClientDTO loginDTOtoClientDTO(uma.taw.ubay.dto.LoginDTO logindto){
-        ClientEntity cliente = authService.getCredentialsEntity(logindto).getUser();
-        return new ProductClientDTO(cliente.getId());
+        LoginCredentialsEntity credentials = authService.getCredentialsEntity(logindto);
+        if(credentials.getUser() == null) return null;
+        return new ProductClientDTO(credentials.getUser().getId());
     }
 
     public void deleteProduct(int id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {

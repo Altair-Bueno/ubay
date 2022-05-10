@@ -5,7 +5,7 @@
 <%@ page import="uma.taw.ubay.UsersKeys" %>
 <%--
 Created by IntelliJ IDEA.
-  User: franm
+  Author: Francisco Javier Hernández
   Date: 6/4/22
   Time: 10:08
   To change this template use File | Settings | File Templates.

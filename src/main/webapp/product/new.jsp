@@ -3,7 +3,7 @@
 <%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %>
 <%--
 Created by IntelliJ IDEA.
-  User: franm
+  Author: Francisco Javier Hernández
   Date: 28/3/22
   Time: 19:44
   To change this template use File | Settings | File Templates.

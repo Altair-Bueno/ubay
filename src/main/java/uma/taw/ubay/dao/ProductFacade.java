@@ -17,6 +17,10 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Francisco Javier Hernández
+ */
+
 @Stateless
 public class ProductFacade extends AbstractFacade<ProductEntity> {
 

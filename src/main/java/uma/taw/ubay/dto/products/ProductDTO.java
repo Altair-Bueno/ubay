@@ -1,5 +1,9 @@
 package uma.taw.ubay.dto.products;
 
+/**
+ * @author Francisco Javier Hernández
+ */
+
 import lombok.Value;
 
 import java.util.Date;
