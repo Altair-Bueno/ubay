@@ -4,6 +4,10 @@ import lombok.Value;
 
 import java.sql.Date;
 
+/**
+ * @author Francisco Javier Hernández
+ */
+
 @Value
 public class ProductDTO {
     int id;

@@ -10,6 +10,11 @@ import uma.taw.ubay.entity.ProductFavouritesEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Francisco Javier Hernández 50%
+ * @author José Luis Bueno 50%
+ */
+
 @Stateless
 public class ProductFavouritesFacade extends AbstractFacade<ProductFavouritesEntity> {
 

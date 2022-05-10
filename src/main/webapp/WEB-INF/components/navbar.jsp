@@ -4,8 +4,7 @@
 <%@ page import="uma.taw.ubay.entity.KindEnum" %>
 <%@ page import="uma.taw.ubay.dto.LoginDTO" %>
 <%--
-  Created by IntelliJ IDEA.
-  User: compux72
+  Author: Francisco Javier Hernández
   Date: 30/3/22
   Time: 16:43
   To change this template use File | Settings | File Templates.

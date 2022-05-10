@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author Francisco Javier Hernández
+ */
+
 @WebServlet("/users/notifications")
 public class Notifications extends HttpServlet {
     @EJB

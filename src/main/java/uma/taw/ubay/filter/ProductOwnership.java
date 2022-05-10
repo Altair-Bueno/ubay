@@ -15,6 +15,10 @@ import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 
+/**
+ * @author Francisco Javier Hernández
+ */
+
 public class ProductOwnership extends HttpFilter {
     @EJB
     ProductFacade productFacade;
