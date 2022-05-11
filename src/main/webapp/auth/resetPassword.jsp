@@ -87,14 +87,13 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">Change
             password
         </button>
-        <!-- TODO replace hidden field with query parameter-->
         <input type="text"
-               class="visually-hidden"
+               hidden
                name="<%=AuthKeys.USERNAME_PARAMETER%>"
                value="<%=request.getParameter(AuthKeys.USERNAME_PARAMETER)%>"
         >
         <input type="text"
-               class="visually-hidden"
+               hidden
                name="<%=AuthKeys.PASSWORD_CHANGE_ID_PARAMETER%>"
                value="<%=request.getParameter(AuthKeys.PASSWORD_CHANGE_ID_PARAMETER)%>"
         >

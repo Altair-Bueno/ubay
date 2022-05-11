@@ -64,6 +64,8 @@
                         %>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/">Administrar usuarios</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/categories/">Administrar categorias</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/changePassword">Cambiar mi contraseña</a></li>
+
                         <%
                             } else {
                         %>
@@ -71,6 +73,7 @@
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/bids">Mis pujas</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vendor/bids">Pujas recibidas</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/notifications">Notificaciones</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/changePassword">Cambiar mi contraseña</a></li>
 
                     <%
                             }
