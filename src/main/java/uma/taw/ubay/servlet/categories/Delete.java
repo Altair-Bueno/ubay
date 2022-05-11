@@ -6,9 +6,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.UbayException;
-import uma.taw.ubay.dao.CategoryFacade;
-import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.service.categories.CategoriesService;
 
 import java.io.IOException;
@@ -32,13 +29,7 @@ public class Delete extends HttpServlet {
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
 
-        try{
-            categoriesService.deleteCategory(id);
-        } catch (Exception e){
-            throw new UbayException("No puedes eliminar una categoria que esta siendo utilizada por productos.");
-        }
-
-
+        categoriesService.deleteCategory(id);
         request.getRequestDispatcher("delete.jsp").forward(request,response);
     }
 

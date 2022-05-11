@@ -13,7 +13,10 @@ import uma.taw.ubay.entity.*;
 import uma.taw.ubay.service.AuthService;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -55,22 +58,8 @@ public class UsersService {
     }
 
     public void deleteUser(String id) {
-        if(id != null){
-            try{
-                ClientEntity client = clientFacade.find(Integer.parseInt(id));
-                LoginCredentialsEntity login = loginFacade.searchClientLoginByClient(client);
-                PasswordResetEntity passwordReset = passwordResetFacade.searchPasswordResetByLoginCredentials(login);
-
-                if(passwordReset != null){
-                    passwordResetFacade.remove(passwordReset);
-                }
-
-                loginFacade.remove(login);
-                clientFacade.remove(client);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
+        ClientEntity client = clientFacade.find(Integer.parseInt(id));
+        clientFacade.remove(client);
     }
 
     public void deleteFavProduct(String productID, String clientID) {

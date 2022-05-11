@@ -1,3 +1,13 @@
+drop table if exists bid cascade ;
+drop table if exists category cascade ;
+drop table if exists client cascade ;
+drop table if exists client cascade ;
+drop table if exists login_credentials cascade ;
+drop table if exists password_reset cascade ;
+drop table if exists product_favourites cascade ;
+drop table if exists user_favourites cascade ;
+drop table if exists product cascade ;
+
 create table category
 (
     id          serial primary key,
@@ -30,6 +40,7 @@ create table login_credentials
     user_id  integer
         constraint user_fk
             references client (id)
+            on delete cascade
 );
 
 alter table login_credentials
@@ -40,7 +51,8 @@ create table password_reset
 (
     username varchar(20) not null
         constraint login_credentials_fk
-            references login_credentials(username),
+            references login_credentials(username)
+            on delete cascade ,
     request_id varchar(20) not null,
     primary key (username,request_id)
 );
@@ -59,10 +71,12 @@ create table product
     publish_date timestamp        not null,
     vendor_id   integer not null
         constraint vendor_fk
-            references client (id),
+            references client (id)
+            on delete cascade ,
     category_id integer not null
         constraint category_fk
             references category (id)
+            on delete cascade
 );
 
 alter table product
@@ -72,10 +86,12 @@ create table user_favourites
 (
     category_id integer not null
         constraint category_fk
-            references category (id),
+            references category (id)
+            on delete cascade ,
     user_id     integer not null
         constraint user_fk
-            references client (id),
+            references client (id)
+            on delete cascade ,
     primary key (category_id, user_id)
 );
 
@@ -86,10 +102,12 @@ create table product_favourites
 (
     product_id integer not null
         constraint product_id_fk
-            references product (id),
+            references product (id)
+            on delete cascade ,
     user_id     integer not null
         constraint user_fk
-            references client (id),
+            references client (id)
+            on delete cascade ,
     primary key (product_id, user_id)
 );
 
@@ -103,13 +121,14 @@ create table bid
     amount        double precision not null,
     product_id    integer not null
         constraint product_fk
-            references product (id),
+            references product (id)
+            on delete cascade ,
     user_id       integer not null
         constraint user_fk
-            references client (id),
+            references client (id)
+            on delete cascade ,
     primary key (id,product_id, user_id)
 );
 
 alter table bid
     owner to postgres;
-

@@ -34,11 +34,15 @@
 - Docker
   - [Docker compose](docker-compose.yml)
   - [Ubay's Dockerfile](Dockerfile)
+- Database
+  - Schema design
+  - ORM generation
+  - DAO generation
+  - delete on cascade
 - Other
   - [GitHub actions workflows](.github/workflows)
-  - Project setup (Maven, GlassFish, Minio, Authentication...)
+  - Project setup (Maven, GlassFish, Minio...)
   - [README Instructions](README.md)
-  - Database design & ORM
   - [Custom error pages](src/main/webapp/WEB-INF/error)
   - Other minor changes
 
