@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.exception.AuthenticationException;
 import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class Login extends HttpServlet {
     AuthService service;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, AuthenticationException {
         String usernameParameter = req.getParameter(AuthKeys.USERNAME_PARAMETER);
         String passwordParameter = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
 

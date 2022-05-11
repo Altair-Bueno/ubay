@@ -10,6 +10,7 @@ import uma.taw.ubay.dao.LoginCredentialsFacade;
 import uma.taw.ubay.dao.PasswordResetFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.entity.*;
+import uma.taw.ubay.exception.AuthenticationException;
 
 /**
  * @author Altair Bueno
@@ -31,11 +32,11 @@ public class AuthService {
         return BCrypt.checkpw(oldPassword, oldHash);
     }
 
-    public void changePassword(@NonNull LoginDTO loginDTO, @NonNull String oldPassword, @NonNull String newPassword, @NonNull String repeatPassword) {
+    public void changePassword(@NonNull LoginDTO loginDTO, @NonNull String oldPassword, @NonNull String newPassword, @NonNull String repeatPassword) throws AuthenticationException {
         if (!repeatPassword.equals(newPassword))
-            throw new RuntimeException("The passwords don't match");
+            throw new AuthenticationException("Passwords don't match");
         if (!newPassword.matches(AuthKeys.PASSWORD_REGEX))
-            throw new RuntimeException("Password doesn't match the password regex");
+            throw new AuthenticationException("Invalid password format");
 
         LoginCredentialsEntity loginCredentials = getCredentialsEntity(loginDTO);
         String oldHash = loginCredentials.getPassword();
@@ -45,15 +46,15 @@ public class AuthService {
             loginCredentials.setPassword(newHash);
             loginCredentialsFacade.edit(loginCredentials);
         } else {
-            throw new RuntimeException("Old password doesn't match");
+            throw new AuthenticationException("Old password doesn't match");
         }
     }
 
-    public LoginDTO login(@NonNull String username, @NonNull String password) {
+    public LoginDTO login(@NonNull String username, @NonNull String password) throws AuthenticationException {
         if (!username.matches(AuthKeys.USERNAME_REGEX))
-            throw new RuntimeException("Invalid username format");
+            throw new AuthenticationException("Invalid username format");
         if (!password.matches(AuthKeys.PASSWORD_REGEX))
-            throw new RuntimeException("Invalid password format");
+            throw new AuthenticationException("Invalid password format");
 
         LoginCredentialsEntity entity = loginCredentialsFacade.find(username);
 
@@ -62,7 +63,7 @@ public class AuthService {
             var kind = entity.getKind();
             return new LoginDTO(username,kind);
         } else {
-            throw new RuntimeException("Invalid username or password");
+            throw new AuthenticationException("Invalid username or password");
         }
     }
 
@@ -76,13 +77,13 @@ public class AuthService {
             @NonNull String city,
             @NonNull String gender,
             @NonNull String birthDate
-    ) {
+    ) throws AuthenticationException {
         if (!username.matches(AuthKeys.USERNAME_REGEX))
-            throw new IllegalArgumentException("Username invalid format");
+            throw new AuthenticationException("Username invalid format");
         if (!password.matches(AuthKeys.PASSWORD_REGEX))
-            throw new IllegalArgumentException("Password invalid format");
+            throw new AuthenticationException("Password invalid format");
         if (!password.equals(repeatPassword))
-            throw new IllegalArgumentException("Passwords don't match");
+            throw new AuthenticationException("Passwords don't match");
 
         java.sql.Date parsedBirthDate = java.sql.Date.valueOf(birthDate);
         GenderEnum parsedGender = GenderEnum.valueOf(gender);
@@ -95,11 +96,11 @@ public class AuthService {
         loginCredentialsFacade.create(login);
     }
 
-    public void resetPassword(@NonNull String username, @NonNull String requestID, @NonNull String newPassword, @NonNull String repeatPassword) {
+    public void resetPassword(@NonNull String username, @NonNull String requestID, @NonNull String newPassword, @NonNull String repeatPassword) throws AuthenticationException {
         if (!newPassword.equals(repeatPassword))
-            throw new IllegalArgumentException("Passwords don't match");
+            throw new AuthenticationException("Passwords don't match");
         if (!newPassword.matches(AuthKeys.PASSWORD_REGEX))
-            throw new IllegalArgumentException("Invalid password format");
+            throw new AuthenticationException("Invalid password format");
 
         PasswordResetEntityPK key = new PasswordResetEntityPK(username, requestID);
         PasswordResetEntity passwordResetEntity = passwordResetFacade.find(key);
