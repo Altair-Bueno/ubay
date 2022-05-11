@@ -13,6 +13,10 @@ import uma.taw.ubay.service.users.UsersService;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/users/products")
 public class Products extends HttpServlet {
     @EJB

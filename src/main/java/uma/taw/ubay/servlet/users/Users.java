@@ -12,6 +12,10 @@ import uma.taw.ubay.service.users.UsersService;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/users/")
 public class Users extends HttpServlet {
     @EJB

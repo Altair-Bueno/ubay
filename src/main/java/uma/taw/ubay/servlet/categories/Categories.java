@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/categories/")
 public class Categories extends HttpServlet {
     @EJB

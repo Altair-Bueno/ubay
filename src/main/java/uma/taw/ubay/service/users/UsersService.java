@@ -16,6 +16,11 @@ import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author José Luis Bueno Pachón 80%
+ * @author Altair Bueno 20%
+ */
+
 @Stateless
 public class UsersService {
     @EJB

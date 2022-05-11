@@ -7,6 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/admin/")
 public class Admin extends HttpServlet {
     @Override

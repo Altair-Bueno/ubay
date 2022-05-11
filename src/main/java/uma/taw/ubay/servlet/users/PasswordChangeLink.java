@@ -19,6 +19,10 @@ import uma.taw.ubay.service.users.UsersService;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/users/passwordChangeLink")
 public class PasswordChangeLink extends HttpServlet {
     @EJB

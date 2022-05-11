@@ -11,6 +11,10 @@ import uma.taw.ubay.entity.ClientEntity;
 
 import java.util.List;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @Stateless
 public class CategoryFacade extends AbstractFacade<CategoryEntity> {
 

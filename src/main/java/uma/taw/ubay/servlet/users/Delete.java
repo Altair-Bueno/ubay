@@ -16,6 +16,10 @@ import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/users/delete")
 public class Delete extends HttpServlet {
     @EJB

@@ -14,6 +14,10 @@ import uma.taw.ubay.entity.UserFavouritesEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @Stateless
 public class UserFavouritesFacade extends AbstractFacade<UserFavouritesEntity> {
 

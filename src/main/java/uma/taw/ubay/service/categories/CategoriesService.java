@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @Stateless
 public class CategoriesService {
 

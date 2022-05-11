@@ -5,6 +5,9 @@ import uma.taw.ubay.entity.GenderEnum;
 
 import java.sql.Date;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
 
 @Value
 public class ClientDTO {

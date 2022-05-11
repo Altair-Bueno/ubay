@@ -13,6 +13,10 @@ import uma.taw.ubay.entity.GenderEnum;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @Stateless
 public class ClientFacade extends AbstractFacade<ClientEntity> {
 

@@ -4,6 +4,10 @@ import lombok.Value;
 
 import java.util.List;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @Value
 public class CategoriesDTO {
     List<CategoryDTO> userFavouriteCategories;

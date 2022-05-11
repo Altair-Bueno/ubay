@@ -13,6 +13,10 @@ import uma.taw.ubay.service.categories.CategoriesService;
 
 import java.io.IOException;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/categories/delete")
 public class Delete extends HttpServlet {
     @EJB

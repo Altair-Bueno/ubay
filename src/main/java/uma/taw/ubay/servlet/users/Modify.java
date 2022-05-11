@@ -14,6 +14,10 @@ import uma.taw.ubay.service.users.UsersService;
 import java.io.IOException;
 import java.sql.Date;
 
+/**
+ * @author José Luis Bueno Pachón
+ */
+
 @WebServlet("/users/modify")
 public class Modify extends HttpServlet {
     @EJB
