@@ -13,7 +13,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Modify user</title>
+    <title>Ubay | Modificar usuario</title>
 </head>
 <body>
     <a class="btn btn-primary m-2" href="../users/" role="button">Go back</a>

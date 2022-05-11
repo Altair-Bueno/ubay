@@ -16,9 +16,11 @@ import uma.taw.ubay.entity.ProductFavouritesEntity;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
- * @author Francisco Javier Hernández
+ * @author Francisco Javier Hernández 70%
+ * @author José Luis Bueno Pachón 30%
  */
 
 @Stateless
@@ -100,7 +102,7 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         int actualSize = 0;
 
         if(name != null){
-            predicateList.add(builder.like(productTable.get("title"), "%" + name + "%"));
+            predicateList.add(builder.like(builder.upper(productTable.get("title")), "%" + name.toUpperCase(Locale.ROOT) + "%"));
         }
 
         if(category != null){

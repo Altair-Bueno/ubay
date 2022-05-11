@@ -12,7 +12,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Add Favourite</title>
+    <title>Ubay | Add producto favorito</title>
 </head>
 <body>
 <div class="container">

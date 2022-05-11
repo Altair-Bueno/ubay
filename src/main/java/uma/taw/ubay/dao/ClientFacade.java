@@ -12,6 +12,7 @@ import uma.taw.ubay.entity.GenderEnum;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author José Luis Bueno Pachón
@@ -47,20 +48,19 @@ public class ClientFacade extends AbstractFacade<ClientEntity> {
             predicateList.add(builder.equal(clientTable.get("gender"), gender));
         }
 
-        if(!"".equals(address)){
-            predicateList.add(builder.like(clientTable.get("address"), address + "%"));
+        if(address != null){
+            predicateList.add(builder.like(builder.upper(clientTable.get("address")), address.toUpperCase(Locale.ROOT) + "%"));
+        }
+        if(city != null){
+            predicateList.add(builder.like(builder.upper(clientTable.get("city")), city.toUpperCase(Locale.ROOT) + "%"));
         }
 
-        if(!"".equals(city)){
-            predicateList.add(builder.like(clientTable.get("city"), city + "%"));
+        if(name != null){
+            predicateList.add(builder.like(builder.upper(clientTable.get("name")), name.toUpperCase(Locale.ROOT) + "%"));
         }
 
-        if(!"".equals(name)){
-            predicateList.add(builder.like(clientTable.get("name"), name + "%"));
-        }
-
-        if(!"".equals(lastName)){
-            predicateList.add(builder.like(clientTable.get("lastName"), lastName + "%"));
+        if(lastName != null){
+            predicateList.add(builder.like(builder.upper(clientTable.get("lastName")), lastName.toUpperCase(Locale.ROOT) + "%"));
         }
         query.select(clientTable)
                 .where(predicateList.toArray(new Predicate[0]))

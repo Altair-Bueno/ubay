@@ -145,9 +145,9 @@ public class UsersService {
             gender = GenderEnum.valueOf(genderString);
         }
 
-        List<ClientEntity> clientEntityList;
-        clientEntityList = clientFacade.filterClients(name, lastName,gender, address, city, id);
-        return clientEntityList.stream().map(this::clientEntityToDTO).collect(Collectors.toList());
+        List<ClientEntity> clientEntityList = clientFacade.findAll();
+        List<ClientEntity> filtrados = clientFacade.filterClients(name, lastName,gender, address, city, id);
+        return filtrados.size() > 0 ? filtrados.stream().map(this::clientEntityToDTO).collect(Collectors.toList()) : clientEntityList.stream().map(this::clientEntityToDTO).collect(Collectors.toList());
     }
 
     private ClientDTO clientEntityToDTO(ClientEntity client){

@@ -21,7 +21,8 @@
     <title>Ubay | Productos</title>
 </head>
 <%
-    if(session.getAttribute(SessionKeys.LOGIN_CREDENTIALS) != null){
+    LoginDTO loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
+    if(loginDTO != null){
 %>
 <style>
     tr{
