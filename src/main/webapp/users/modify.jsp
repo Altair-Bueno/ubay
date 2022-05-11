@@ -25,10 +25,11 @@
             <div class="col-3">
                 <form action="modify" method="get">
                     <div class="form col">
-                        ID: <input type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
+                        <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
                         Name: <input type="text" class="form-control" name="name" value="<%=request.getParameter("name")%>"> <br>
                         Last name: <input type="text" class="form-control" name="lastName" value="<%=request.getParameter("lastName")%>"> <br>
                         Address: <input type="text" class="form-control" name="address" value="<%=request.getParameter("address")%>"> <br>
+                        <input hidden name="edited" value="1"/>
                         City: <input type="text" class="form-control" name="city" value="<%=request.getParameter("city")%>"> <br>
                         Gender: <select name="gender" class="form-select">
                         <% for (GenderEnum gender : GenderEnum.values()){

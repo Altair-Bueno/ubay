@@ -33,10 +33,14 @@ public class Modify extends HttpServlet {
         String address = request.getParameter("address");
         String city = request.getParameter("city");
         Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
+        String edited = request.getParameter("edited");
+        if(edited == null){
+            request.getRequestDispatcher("modify.jsp").forward(request,response);
+        } else {
+            usersService.modifyUser(id, name, lastName, gender, address, city, birthDate);
+            response.sendRedirect(request.getContextPath() + "/users/");
+        }
 
-        usersService.modifyUser(id, name, lastName, gender, address, city, birthDate);
-
-        request.getRequestDispatcher("modify.jsp").forward(request,response);
     }
 
 }

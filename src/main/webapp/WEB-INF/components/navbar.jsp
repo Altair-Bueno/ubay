@@ -18,7 +18,6 @@
 </script>
 
 <%
-
     Object navsesion = session.getAttribute(SessionKeys.LOGIN_DTO);
     String username = navsesion == null ? "Usuario nuevo" : ((LoginDTO) navsesion).getUsername();
     Object currentURLObject = request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI);
@@ -27,7 +26,9 @@
 
     Map<String, String> urls = new LinkedHashMap<>();
     urls.put("Products", request.getContextPath() + "/product");
-    urls.put("Categories", request.getContextPath() + "/categories");
+    if(navsesion != null){
+        urls.put("Categories", request.getContextPath() + "/categories");
+    }
 %>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">

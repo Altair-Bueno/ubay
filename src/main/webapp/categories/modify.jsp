@@ -24,7 +24,8 @@
                 <form action="modify" method="get">
                     <div class="form col">
                         <label>
-                            ID: <input type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
+                            <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
+                            <input hidden name="edited" value="1"/>
                             Name: <input type="text" class="form-control" name="name" value="<%=request.getParameter("name")%>"> <br>
                             Description: <input type="text" class="form-control" name="description" value="<%=request.getParameter("description")%>"> <br>
                             <button type="submit" class="btn btn-primary mt-2">Submit</button>

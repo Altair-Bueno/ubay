@@ -26,10 +26,17 @@ public class Add extends HttpServlet {
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
+        String added = request.getParameter("added");
 
-        categoriesService.addCategory(name, description);
+        if(added == null){
+            request.getRequestDispatcher("add.jsp").forward(request,response);
+        } else {
+            categoriesService.addCategory(name, description);
+            response.sendRedirect(request.getContextPath() + "/categories/");
+        }
 
-        request.getRequestDispatcher("add.jsp").forward(request,response);
+
+
     }
 }
 

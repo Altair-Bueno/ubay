@@ -80,7 +80,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Description</th>
-                    <% if(entity != null){ %>
+                    <% if(loginDTO != null){ %>
                     <th>Favourite</th>
                     <%}%>
 
@@ -122,13 +122,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-<%
-    }
-%>
 </body>
 </html>

@@ -27,10 +27,14 @@ public class Modify extends HttpServlet {
         String id = request.getParameter("id");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
+        String edited = request.getParameter("edited");
 
-        categoriesService.modify(id, name, description);
-
-        request.getRequestDispatcher("modify.jsp").forward(request,response);
+        if(edited == null){
+            request.getRequestDispatcher("modify.jsp").forward(request,response);
+        } else {
+            categoriesService.modify(id, name, description);
+            response.sendRedirect(request.getContextPath() + "/categories/");
+        }
     }
 
 }

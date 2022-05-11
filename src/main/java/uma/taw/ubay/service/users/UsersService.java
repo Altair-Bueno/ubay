@@ -54,6 +54,11 @@ public class UsersService {
             try{
                 ClientEntity client = clientFacade.find(Integer.parseInt(id));
                 LoginCredentialsEntity login = loginFacade.searchClientLoginByClient(client);
+                PasswordResetEntity passwordReset = passwordResetFacade.searchPasswordResetByLoginCredentials(login);
+
+                if(passwordReset != null){
+                    passwordResetFacade.remove(passwordReset);
+                }
 
                 loginFacade.remove(login);
                 clientFacade.remove(client);

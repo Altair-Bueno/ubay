@@ -28,7 +28,12 @@ public class Delete extends HttpServlet {
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
 
-        categoriesService.deleteCategory(id);
+        try{
+            categoriesService.deleteCategory(id);
+        } catch (Exception e){
+            throw new UbayException("No puedes eliminar una categoria que esta siendo utilizada por productos.");
+        }
+
 
         request.getRequestDispatcher("delete.jsp").forward(request,response);
     }
