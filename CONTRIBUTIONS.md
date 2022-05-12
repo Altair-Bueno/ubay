@@ -77,9 +77,10 @@
   - [ProductFavouritesDTO](src/main/java/uma/taw/ubay/dto/products/ProductFavouritesDTO.java)
   - [ProductLoginDTO](src/main/java/uma/taw/ubay/dto/products/ProductLoginDTO.java)
   - [ProductsDTO](src/main/java/uma/taw/ubay/dto/products/ProductsDTO.java)
+  - [ProductBidDTO](src/main/java/uma/taw/ubay/dto/products/ProductBidDTO.java)
 - Database
-  - [Database Scheme SQL](sql/scheme.sql)
-  - Database Design
+  - Database Schema Design
+  - [Database Schema SQL](sql/scheme.sql)
 - Others
   - Database design & ORM
   - Minor/medium changes in many other files when needed (check github logs)
