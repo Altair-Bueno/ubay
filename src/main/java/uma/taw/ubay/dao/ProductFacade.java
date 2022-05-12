@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @author Francisco Javier Hernández 70%
- * @author José Luis Bueno Pachón 30%
+ * @author Francisco Javier Hernández
  */
 
 @Stateless
@@ -93,6 +92,10 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         return productosfavs;
     }
 
+    /**
+     * @author Filtro: José Luis Bueno Pachón
+     * @author Paginación: Francisco Javier Hernández
+     */
     public ProductTupleResult filterAndGetByPage(String name, CategoryEntity category, int page){
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);

@@ -75,7 +75,6 @@
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vendor/bids">Pujas recibidas</a></li>
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/products">Productos favoritos</a></li>
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/notifications">Notificaciones</a></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/changePassword">Cambiar mi contraseña</a></li>
 
                         <%
                             }

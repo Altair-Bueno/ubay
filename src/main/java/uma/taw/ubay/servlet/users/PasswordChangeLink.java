@@ -12,7 +12,8 @@ import uma.taw.ubay.service.users.UsersService;
 import java.io.IOException;
 
 /**
- * @author José Luis Bueno Pachón
+ * @author Servicio: Altair Bueno Calvente
+ * @author Vista: José Luis Bueno Pachón
  */
 
 @WebServlet("/users/passwordChangeLink")

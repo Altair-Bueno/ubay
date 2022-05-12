@@ -12,6 +12,7 @@ import java.io.IOException;
  * @author José Luis Bueno Pachón
  */
 
+//Not in use.
 @WebServlet("/users/me")
 public class Me extends HttpServlet {
     @Override

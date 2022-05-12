@@ -30,6 +30,9 @@ public class ProductFavouritesFacade extends AbstractFacade<ProductFavouritesEnt
         return em;
     }
 
+    /**
+     * @author José Luis Bueno Pachón
+     */
     public List<ProductEntity> getClientFavouriteProducts(ClientEntity client){
         try {
             return em.createQuery("SELECT p.product FROM ProductFavouritesEntity p WHERE p.user = :user", ProductEntity.class)
@@ -40,6 +43,9 @@ public class ProductFavouritesFacade extends AbstractFacade<ProductFavouritesEnt
         }
     }
 
+    /**
+     * @author Francisco Javier Hernández
+     */
     public ProductFavouritesEntity getTuple(ClientEntity client, ProductEntity product){
         return em.createQuery("SELECT p FROM ProductFavouritesEntity p WHERE p.user = :user AND p.product = :product", ProductFavouritesEntity.class)
                 .setParameter("user", client)
