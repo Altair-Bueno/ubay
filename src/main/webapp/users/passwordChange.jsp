@@ -18,11 +18,13 @@
 <body>
     <%
         String passwordChangeID = (String) request.getAttribute("passwordChangeID");
-        String username = (String) request.getAttribute("username");
+        String usernamepwc = (String) request.getAttribute("username");
     %>
+    <%@include file="../WEB-INF/components/navbar.jsp"%>
+
     <div class="col-6 position-absolute top-50 start-50 translate-middle">
         <h1>Enlace de reseteo de contraseña:</h1>
-        <input type="text" size="80" id="linkReseteo" value="${pageContext.request.contextPath}/auth/resetPassword?passwordChangeID=<%=URLEncoder.encode(passwordChangeID,StandardCharsets.UTF_8)%>&username=<%=URLEncoder.encode(username,StandardCharsets.UTF_8)%>"/>
+        <input type="text" size="80" id="linkReseteo" value="${pageContext.request.contextPath}/auth/resetPassword?passwordChangeID=<%=URLEncoder.encode(passwordChangeID,StandardCharsets.UTF_8)%>&username=<%=URLEncoder.encode(usernamepwc,StandardCharsets.UTF_8)%>"/>
         <button class="btn btn-primary mt-2" onclick="copyToClipboard()">Copiar link al portapapeles</button>
     </div>
 

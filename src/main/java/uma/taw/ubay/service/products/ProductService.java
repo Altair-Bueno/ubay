@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
 import org.jetbrains.annotations.NotNull;
 import uma.taw.ubay.dao.*;
+import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.products.*;
 import uma.taw.ubay.entity.*;
 import uma.taw.ubay.service.AuthService;

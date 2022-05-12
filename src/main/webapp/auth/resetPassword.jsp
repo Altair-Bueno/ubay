@@ -61,7 +61,7 @@
 <main class="form-signin">
     <form method="post"
           action="${pageContext.request.contextPath}/auth/resetPassword">
-        <h1 class="h3 mb-3 fw-normal">Reset my password</h1>
+        <h1 class="h3 mb-3 fw-normal">Reesstablecer contraseña</h1>
         <div class="form-floating">
             <input
                     type="password"
@@ -71,7 +71,7 @@
                     name="<%=AuthKeys.PASSWORD_PARAMETER%>"
                     pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
             >
-            <label for="floatingPassword">New Password</label>
+            <label for="floatingPassword">Nueva contraseña</label>
         </div>
         <div class="form-floating last">
             <input
@@ -82,11 +82,9 @@
                     name="<%=AuthKeys.REPEAT_PASSWORD_PARAMETER%>"
                     pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
             >
-            <label for="floatingRepeat">Repeat New Password</label>
+            <label for="floatingRepeat">Repetir nueva contraseña</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Change
-            password
-        </button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Cambiar contraseña</button>
         <input type="text"
                hidden
                name="<%=AuthKeys.USERNAME_PARAMETER%>"

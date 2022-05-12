@@ -16,44 +16,56 @@
     <title>Ubay | Modificar usuario</title>
 </head>
 <body>
-    <a class="btn btn-primary m-2" href="../users/" role="button">Go back</a>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
 
-    <div class="container">
-        <h2>Data</h2>
-
-        <div class="row">
-            <div class="col-3">
-                <form action="modify" method="get">
-                    <div class="form col">
-                        <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
-                        Name: <input type="text" class="form-control" name="name" value="<%=request.getParameter("name")%>"> <br>
-                        Last name: <input type="text" class="form-control" name="lastName" value="<%=request.getParameter("lastName")%>"> <br>
-                        Address: <input type="text" class="form-control" name="address" value="<%=request.getParameter("address")%>"> <br>
-                        <input hidden name="edited" value="1"/>
-                        City: <input type="text" class="form-control" name="city" value="<%=request.getParameter("city")%>"> <br>
-                        Gender: <select name="gender" class="form-select">
-                        <% for (GenderEnum gender : GenderEnum.values()){
-                            String clientGender = request.getParameter("gender");
-                            GenderEnum clientGenderEnum = GenderEnum.valueOf(clientGender);
-                            if(gender.equals(clientGenderEnum)){
-                        %>
-                        <option selected><%=gender.toString()%></option>
-                        <%
-                        } else {
-                        %>
-                        <option><%=gender.toString()%></option>
-                        <%
-                            }
-                        %>
-                        <%}%>
-                    </select> </br>
-                        Birth date: <input type="date" class="form-control" name="birthDate" value="<%=request.getParameter("birthDate")%>"> <br>
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+<div class="d-flex flex-column align-items-center">
+    <div>
+        <h1>Datos</h1>
     </div>
+
+    <div class="d-flex flex-column">
+        <form action="modify" method="get">
+            <div class="form col">
+                <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
+                Nombre: <input type="text" class="form-control" name="name" value="<%=request.getParameter("name")%>">
+                <br>
+                Apellidos: <input type="text" class="form-control" name="lastName"
+                                  value="<%=request.getParameter("lastName")%>"> <br>
+                Dirección: <input type="text" class="form-control" name="address"
+                                  value="<%=request.getParameter("address")%>"> <br>
+                <input hidden name="edited" value="1"/>
+                Ciudad: <input type="text" class="form-control" name="city" value="<%=request.getParameter("city")%>">
+                <br>
+                Género: <select name="gender" class="form-select">
+                <% for (GenderEnum gender : GenderEnum.values()) {
+                    String clientGender = request.getParameter("gender");
+                    GenderEnum clientGenderEnum = GenderEnum.valueOf(clientGender);
+
+                    String genero = "";
+                    if (gender.toString().equals("male")) {
+                        genero = "Masculino";
+                    } else if (gender.toString().equals("female")) {
+                        genero = "Femenino";
+                    } else {
+                        genero = "Otro";
+                    }
+                %>
+                <option <%=gender.equals(clientGenderEnum) ? "selected" : ""%>
+                        value="<%=gender.toString()%>"><%=genero%>
+                </option>
+
+                <%}%>
+            </select> </br>
+                Fecha de nacimiento: <input type="date" class="form-control" name="birthDate"
+                                            value="<%=request.getParameter("birthDate")%>"> <br>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mt-2">Modificar</button>
+            </div>
+
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

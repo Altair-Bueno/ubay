@@ -31,9 +31,12 @@
     if(currenturl.charAt(currenturl.length()-1) =='/') currenturl = currenturl.substring(0, currenturl.length()-1);
 
     Map<String, String> urls = new LinkedHashMap<>();
-    urls.put("Products", request.getContextPath() + "/product");
+    urls.put("Productos", request.getContextPath() + "/product");
     if(navsesion != null){
-        urls.put("Categories", request.getContextPath() + "/categories");
+        urls.put("Categorías", request.getContextPath() + "/categories");
+        if(((LoginDTO) navsesion).getKind().equals(KindEnum.admin)){
+            urls.put("Usuarios", request.getContextPath() + "/users");
+        }
     }
 %>
 
@@ -66,26 +69,21 @@
                     %>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDarkDropdownMenuLink">
                         <%
-                            if(((LoginDTO) navsesion).getKind().equals(KindEnum.admin)){
+                            if(!((LoginDTO) navsesion).getKind().equals(KindEnum.admin)){
                         %>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/">Administrar usuarios</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/categories/">Administrar categorias</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/changePassword">Cambiar mi contraseña</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/bids">Mis pujas</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vendor/bids">Pujas recibidas</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/products">Productos favoritos</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/notifications">Notificaciones</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/changePassword">Cambiar mi contraseña</a></li>
 
                         <%
-                            } else {
+                            }
                         %>
 
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/bids">Mis pujas</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/vendor/bids">Pujas recibidas</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/notifications">Notificaciones</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/changePassword">Cambiar mi contraseña</a></li>
-
-                    <%
-                            }
-                    %>
                         <li><form method="post" action="${pageContext.request.contextPath}/auth/signoff">
-                            <input type="submit" class="dropdown-item" value="Sign off">
+                            <input type="submit" class="dropdown-item" value="Cerrar sesión">
                         </form></li>
                     </ul>
 
@@ -93,8 +91,8 @@
                         } else {
                     %>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/login">Login</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/register">Register</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/login">Iniciar sesión</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth/register">Registrarse</a></li>
                     </ul>
                     <%
                         }

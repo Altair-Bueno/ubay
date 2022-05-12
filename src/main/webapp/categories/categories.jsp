@@ -24,17 +24,17 @@
     if (loginDTO != null && loginDTO.getKind().equals(KindEnum.admin)) {
 %>
     <div class="container">
-        <h2>Categories: </h2>
+        <h1>Categorías</h1>
         <div class="row">
             <div class="col">
                 <table class="table table-responsive" id="categoryDataTable">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Delete category</th>
-                        <th>Modify category</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Borrar category</th>
+                        <th>Modificar category</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,8 +47,8 @@
                         <td><%=c.getId()%></td>
                         <td><%=c.getName()%></td>
                         <td><%=c.getDescription()%></td>
-                        <td><a href="delete?id=<%=c.getId()%>">Delete category</a></td>
-                        <td><a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&description=<%=c.getDescription()%>">Modify category</a></td>
+                        <td><a href="delete?id=<%=c.getId()%>">Borrar categoría</a></td>
+                        <td><a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&description=<%=c.getDescription()%>">Modificar category</a></td>
                     </tr>
                         <%
             }
@@ -58,7 +58,7 @@
                         </tbody>
                 </table>
                     <br>
-                <a class="btn btn-primary m-2" href="add" role="button">Add new category</a>
+                <a class="btn btn-primary m-2" href="add" role="button">Aádir una nueva categoría</a>
             </div>
         </div>
     </div>
@@ -68,17 +68,17 @@
 %>
 
 <div class="container">
-    <h2>Categories: </h2>
+    <h1>Categorías</h1>
     <div class="row">
         <div class="col">
             <table class="table table-responsive">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
                     <% if(loginDTO != null){ %>
-                    <th>Favourite</th>
+                    <th>Favorita</th>
                     <%}%>
 
 
@@ -98,11 +98,11 @@
                         List<CategoryDTO> favouriteCategories = (List<CategoryDTO>) request.getAttribute("user-fav-category-list");
                         if(favouriteCategories.contains(c)){
                     %>
-                    <td><a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Delete favourite</a></td>
+                    <td><a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Eliminar de favoritos</a></td>
                     <%
                                 }else{
                     %>
-                    <td><a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Add favourite</a></td>
+                    <td><a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Añadir a favoritos</a></td>
                     <%
                                 }
                     %>

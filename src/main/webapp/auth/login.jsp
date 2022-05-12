@@ -61,7 +61,7 @@
 <main class="form-signin">
     <form method="post" action="${pageContext.request.contextPath}/auth/login">
 <%--        <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">--%>
-        <h1 class="h3 mb-3 fw-normal">Please login</h1>
+        <h1 class="h3 mb-3 fw-normal">Por favor, inicie sesión</h1>
         <div class="form-floating">
             <input
                     type="text"
@@ -71,7 +71,7 @@
                     name="<%=AuthKeys.USERNAME_PARAMETER%>"
                     pattern="<%=AuthKeys.USERNAME_REGEX%>" required
             >
-            <label for="floatingInput">Username</label>
+            <label for="floatingInput">Usuario</label>
         </div>
         <div class="form-floating">
             <input
@@ -82,13 +82,13 @@
                     name="<%=AuthKeys.PASSWORD_PARAMETER%>"
                     pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
             >
-            <label for="floatingPassword">Password</label>
+            <label for="floatingPassword">Contraseña</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesión</button>
     </form>
     <small>
         <a class="link-primary" href="${pageContext.request.contextPath}/auth/register">
-            Create an account
+            Crear una cuenta
         </a>
     </small>
 </main>

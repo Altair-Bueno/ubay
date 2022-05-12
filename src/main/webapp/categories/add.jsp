@@ -25,9 +25,9 @@
                 <div class="form col">
                     <label>
                         <input hidden name="added" value="1"/>
-                        Name: <input type="text" class="form-control" name="name"> <br>
-                        Description: <input type="text" class="form-control" name="description"> <br>
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                        Nombre: <input type="text" class="form-control" name="name"> <br>
+                        Descripción: <input type="text" class="form-control" name="description"> <br>
+                        <button type="submit" class="btn btn-primary mt-2">Crear</button>
                     </label>
                 </div>
             </form>

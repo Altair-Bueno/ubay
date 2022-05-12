@@ -52,6 +52,7 @@
         int pagelimit = (int) Math.ceil((double) tam/ProductKeys.productsPerPageLimit);
     %>
     <%@include file="../WEB-INF/components/navbar.jsp"%>
+
     <div class="mx-auto" style="width: 1500px;">
     <div class="container">
         <div class="row">
@@ -73,7 +74,7 @@
                         %>
                     </select>
                         <button type="submit" class="btn btn-primary mt-2">Buscar</button>
-                        <button class="btn btn-secondary mt-2" onclick="clearFilter()">Limpiar</button>
+                        <button type="button" class="btn btn-secondary mt-2" onclick="clearFilter()">Limpiar</button>
                     </div>
                 </form>
             </div>

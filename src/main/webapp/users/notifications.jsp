@@ -27,7 +27,7 @@
         if(notificaciones.size() == 0){
     %>
     <div class="m-auto w-50 h-75 d-flex justify-content-center align-items-center">
-        <h1>Tiene 0 notificaciones.</h1>
+        <h1>No tiene ninguna notificación.</h1>
     </div>
 
     <%

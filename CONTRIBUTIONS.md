@@ -85,6 +85,7 @@
 - Others
   - Database design & ORM
   - Minor/medium changes in many other files when needed (check github logs)
+  - Translation of the whole page to Spanish
 
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
 

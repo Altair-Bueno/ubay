@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.dto.users.ClientDTO" %><%--
+<%@ page import="uma.taw.ubay.dto.users.ClientDTO" %>
+<%@ page import="uma.taw.ubay.entity.GenderEnum" %><%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 28/3/22
@@ -35,23 +36,23 @@
     </form>--%>
 
     <div class="container">
-        <h2>Search users: </h2>
+        <h1>Buscar usuarios</h1>
         <div class="row">
             <div class="col-3">
                 <form>
                     <div class="form col">
                         ID: <input type="text" class="form-control" id="id" name="id">
-                        Name: <input type="text" class="form-control" id="name" name="name">
-                        Last name: <input type="text" class="form-control" id="lastName" name="lastName" >
-                        Address: <input type="text" class="form-control" id="address" name="address" >
-                        City: <input type="text" class="form-control" id="city" name="city" aria-describedby="city">
-                        Gender: <select class="form-select" id="gender" name="gender">
+                        Nombre: <input type="text" class="form-control" id="name" name="name">
+                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName" >
+                        Dirección: <input type="text" class="form-control" id="address" name="address" >
+                        Ciudad: <input type="text" class="form-control" id="city" name="city" aria-describedby="city">
+                        Género: <select class="form-select" id="gender" name="gender">
                         <option selected value="--">--</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="male">Masculino</option>
+                        <option value="female">Femenino</option>
+                        <option value="other">Otro</option>
                     </select>
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
                     </div>
                 </form>
             </div>
@@ -61,15 +62,15 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Last Name</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>Birth Date</th>
-                        <th>Delete user</th>
-                        <th>Modify user</th>
-                        <th>Reset password</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Género</th>
+                        <th>Dirección</th>
+                        <th>Ciudad</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Eliminar usuario</th>
+                        <th>Modificar user</th>
+                        <th>Reestablecer contraseña</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -78,19 +79,27 @@
 
                         if(searchClient != null){
                             for(ClientDTO c : searchClient){
-
+                                String genero = "";
+                                GenderEnum gender = c.getGender();
+                                if(gender.toString().equals("male")){
+                                    genero = "Masculino";
+                                } else if(gender.toString().equals("female")){
+                                    genero = "Femenino";
+                                } else {
+                                    genero = "Otro";
+                                }
                     %>
                     <tr>
                         <td><%=c.getId()%></td>
                         <td><%=c.getName()%></td>
                         <td><%=c.getLastName()%></td>
-                        <td><%=c.getGender()%></td>
+                        <td><%=genero%></td>
                         <td><%=c.getAddress()%></td>
                         <td><%=c.getCity()%></td>
                         <td><%=c.getBirthDate()%></td>
-                        <td><a href=delete?id=<%=c.getId()%>>Delete user</a></td>
-                        <td><a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modify user</a></td>
-                        <td><a href="passwordChangeLink?id=<%=c.getId()%>">Reset password</a></td>
+                        <td><a href=delete?id=<%=c.getId()%>>Eliminar usuario</a></td>
+                        <td><a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modificar usuario</a></td>
+                        <td><a href="passwordChangeLink?id=<%=c.getId()%>">Reestablecer contraseña</a></td>
                     </tr>
                     <%
                             }
