@@ -48,6 +48,7 @@
 
 # [Francisco Javier Hernández](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 - Filters
+  - [UserFilter](src/main/java/uma/taw/ubay/filter/UserFilter.java)
   - [ProductOwnership](src/main/java/uma/taw/ubay/filter/ProductOwnership.java)
 - JSP
   - [Navbar](src/main/webapp/WEB-INF/components/navbar.jsp)

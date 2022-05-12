@@ -10,11 +10,13 @@ import jakarta.servlet.http.HttpSession;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.products.ProductClientDTO;
-import uma.taw.ubay.entity.ProductEntity;
-import uma.taw.ubay.service.AuthService;
 import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;
+
+/**
+ * @author Francisco Javier Hernández
+ */
 
 public class UserFilter extends HttpFilter {
 
