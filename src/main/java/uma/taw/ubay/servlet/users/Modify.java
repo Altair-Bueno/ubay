@@ -6,8 +6,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.ClientFacade;
-import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.GenderEnum;
 import uma.taw.ubay.service.users.UsersService;
 

@@ -1,5 +1,4 @@
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.SessionKeys" %>
 <%@ page import="uma.taw.ubay.dto.users.ProductDTO" %><%--
   Created by IntelliJ IDEA.
   User: jota

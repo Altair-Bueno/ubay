@@ -6,13 +6,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.UbayException;
-import uma.taw.ubay.dao.CategoryFacade;
-import uma.taw.ubay.dao.ClientFacade;
-import uma.taw.ubay.dao.UserFavouritesFacade;
-import uma.taw.ubay.entity.CategoryEntity;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.UserFavouritesEntity;
 import uma.taw.ubay.service.categories.CategoriesService;
 
 import java.io.IOException;

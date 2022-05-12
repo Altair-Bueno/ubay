@@ -10,7 +10,6 @@ import uma.taw.ubay.dao.*;
 import uma.taw.ubay.dto.products.*;
 import uma.taw.ubay.entity.*;
 import uma.taw.ubay.service.AuthService;
-import uma.taw.ubay.service.BidService;
 import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;

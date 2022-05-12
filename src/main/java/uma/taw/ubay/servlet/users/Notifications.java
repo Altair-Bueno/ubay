@@ -7,19 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.dao.BidFacade;
-import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.notifications.BidsDTO;
-import uma.taw.ubay.dto.users.ProductDTO;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
-import uma.taw.ubay.entity.ProductEntity;
 import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author Francisco Javier Hernández

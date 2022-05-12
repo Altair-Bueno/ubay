@@ -17,6 +17,12 @@
         crossorigin="anonymous">
 </script>
 
+<style>
+    .dropdown-toggle{
+        outline: none !important;
+    }
+</style>
+
 <%
     Object navsesion = session.getAttribute(SessionKeys.LOGIN_DTO);
     String username = navsesion == null ? "Usuario nuevo" : ((LoginDTO) navsesion).getUsername();

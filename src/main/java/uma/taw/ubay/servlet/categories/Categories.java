@@ -6,18 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.jetbrains.annotations.NotNull;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.categories.CategoriesDTO;
-import uma.taw.ubay.dto.categories.CategoryDTO;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.KindEnum;
 import uma.taw.ubay.service.categories.CategoriesService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author José Luis Bueno Pachón

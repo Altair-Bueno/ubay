@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
-import uma.taw.ubay.dto.products.*;
+import uma.taw.ubay.dto.products.ProductsDTO;
 import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;

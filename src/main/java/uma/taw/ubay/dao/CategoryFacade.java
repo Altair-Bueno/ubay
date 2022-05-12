@@ -7,7 +7,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import uma.taw.ubay.entity.CategoryEntity;
-import uma.taw.ubay.entity.ClientEntity;
 
 import java.util.List;
 
