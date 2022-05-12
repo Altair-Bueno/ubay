@@ -2,7 +2,8 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
-<%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %><%--
+<%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %>
+<%--
   Created by IntelliJ IDEA.
   Author: Francisco Javier Hernández
   Date: 29/3/22

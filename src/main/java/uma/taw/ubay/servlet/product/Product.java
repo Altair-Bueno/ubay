@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.products.ProductBidDTO;
 import uma.taw.ubay.dto.products.ProductClientDTO;
 import uma.taw.ubay.dto.products.ProductDTO;
 import uma.taw.ubay.service.products.ProductService;
@@ -24,8 +25,10 @@ public class Product extends HttpServlet {
         ProductClientDTO cliente = loginDTO == null ? null : productService.loginDTOtoClientDTO(loginDTO);
 
 
+
         Integer id = Integer.parseInt(req.getParameter("id"));
         ProductDTO productDTO = productService.findProduct(id);
+        ProductBidDTO highestBid = productService.getHighestBid(id);
 
         if(cliente == null){
             req.setAttribute("isFav", null);
@@ -36,6 +39,7 @@ public class Product extends HttpServlet {
 
         req.setAttribute("user", cliente);
         req.setAttribute("product", productDTO);
+        req.setAttribute("highestBid", highestBid);
 
         req.getRequestDispatcher("item.jsp").forward(req,resp);
     }

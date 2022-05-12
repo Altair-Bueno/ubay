@@ -3,6 +3,7 @@
 <%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %>
 <%@ page import="uma.taw.ubay.UsersKeys" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductBidDTO" %>
 <%--
 Created by IntelliJ IDEA.
   Author: Francisco Javier Hernández
@@ -33,6 +34,8 @@ Created by IntelliJ IDEA.
     Object userParameter = request.getAttribute("user");
     ProductDTO p = (ProductDTO) request.getAttribute("product");
     Object isFavParameter = request.getAttribute("isFav");
+    Object highestBidParameter = request.getAttribute("highestBid");
+    double minBid;
     boolean cerrado = p.getCloseDate() != null;
     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
 %>
@@ -110,11 +113,29 @@ Created by IntelliJ IDEA.
             <%
                     } else {
                         if(!cerrado){
+                            if(highestBidParameter == null){
+                                minBid = p.getOutPrice();
             %>
+            <div class="row">
+                <h2>Este producto no ha recibido todavía ninguna puja</h2>
+                <h2>Precio de puja mínima: <%=p.getOutPrice()%></h2>
+            </div>
+            <%
+                            } else {
+                                ProductBidDTO highestBid = (ProductBidDTO) highestBidParameter;
+                                minBid = highestBid.getAmount();
+            %>
+            <div class="row">
+                <h2>Puja más alta actual: <%=highestBid.getAmount()%></h2>
+            </div>
+            <%
+                            }
+            %>
+
             <div class="row align-items-center p-2">
                 <form method="post" action="${pageContext.request.contextPath}/users/bids/new">
                     <div class="col-auto w-25">
-                        <input type="number" name="<%=UsersKeys.BID_AMOUNT_PARAMETER%>" class="form-control" placeholder="Cantidad a pujar..." required>
+                        <input type="number" min="<%=minBid%>" step="0.01" name="<%=UsersKeys.BID_AMOUNT_PARAMETER%>" class="form-control" placeholder="Cantidad a pujar..." required>
                     </div>
                     <div class="col-auto">
                         <input type='hidden' name="<%=UsersKeys.BID_PRODUCT_ID_PARAMETER%>" id='id-compra' value="<%=p.getId()%>"/>

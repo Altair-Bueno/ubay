@@ -98,8 +98,10 @@ public class BidService {
         if (product.getOutPrice() > amount) throw new IllegalArgumentException("The received amount is lower than the starting bid");
 
         var highestBid = bidFacade.getHighestBidByProduct(product);
-        if (highestBid != null && highestBid.getAmount() >= amount)
+        if (highestBid != null && highestBid.getAmount() >= amount){
             throw new IllegalArgumentException("A higher bid exist. Current bid amount: " + highestBid.getAmount());
+        }
+
 
         var bid = new BidEntity(timestamp,amount,product, credentials.getUser());
         bidFacade.create(bid);

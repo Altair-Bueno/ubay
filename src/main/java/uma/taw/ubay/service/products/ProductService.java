@@ -8,11 +8,10 @@ import jakarta.servlet.http.Part;
 import org.jetbrains.annotations.NotNull;
 import uma.taw.ubay.dao.*;
 import uma.taw.ubay.dto.products.*;
-import uma.taw.ubay.entity.CategoryEntity;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
-import uma.taw.ubay.entity.ProductEntity;
+import uma.taw.ubay.entity.*;
 import uma.taw.ubay.service.AuthService;
+import uma.taw.ubay.service.BidService;
+import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +29,12 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class ProductService {
+    @EJB
+    BidFacade bidFacade;
+
+    @EJB
+    UsersService usersService;
+
     @EJB
     ProductFacade productFacade;
 
@@ -202,6 +207,14 @@ public class ProductService {
 
     private ProductCategoryDTO categoryEntityToDTO(CategoryEntity category){
         return new ProductCategoryDTO(category.getId(), category.getName());
+    }
+
+    public ProductBidDTO getHighestBid(int productId){
+        ProductEntity producto = productFacade.find(productId);
+        BidEntity highestBid = bidFacade.getHighestBidByProduct(producto);
+
+        if(highestBid == null) return null;
+        return new ProductBidDTO(highestBid.getAmount());
     }
 
 
