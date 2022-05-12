@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.products.ProductClientDTO;
 import uma.taw.ubay.dto.products.ProductsDTO;
 import uma.taw.ubay.service.products.ProductService;
 
@@ -25,6 +26,7 @@ public class Index extends HttpServlet {
         String page = req.getParameter("page");
         page = page == null ? "1" : page;
         var loginDTO = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);
+        ProductClientDTO cliente = loginDTO == null ? null : productService.loginDTOtoClientDTO(loginDTO);
 
         ProductsDTO productDTOS = productService.getProductsList(productName, category, page);
 
@@ -33,7 +35,7 @@ public class Index extends HttpServlet {
         req.setAttribute("nameFilter", productName);
         req.setAttribute("product-tam", productDTOS.getSize());
         req.setAttribute("product-list", productDTOS.getProductsList());
-        req.setAttribute("user", loginDTO != null);
+        req.setAttribute("user", cliente != null);
 
         req.getRequestDispatcher("product/index.jsp").forward(req,resp);
     }
