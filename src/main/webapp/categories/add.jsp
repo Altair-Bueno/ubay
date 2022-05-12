@@ -12,9 +12,10 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Add category:</title>
+    <title>Ubay | Add categoria</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 <a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
 <div class="container">
     <h2>Data: </h2>
@@ -23,6 +24,7 @@
             <form action="add" method="get">
                 <div class="form col">
                     <label>
+                        <input hidden name="added" value="1"/>
                         Name: <input type="text" class="form-control" name="name"> <br>
                         Description: <input type="text" class="form-control" name="description"> <br>
                         <button type="submit" class="btn btn-primary mt-2">Submit</button>

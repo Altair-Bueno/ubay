@@ -1,17 +1,17 @@
-<%@ page import="uma.taw.ubay.entity.BidEntity" %>
 <%@ page import="uma.taw.ubay.VendorKeys" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
+<%@ page import="uma.taw.ubay.dto.bids.ReceivedBidsDTO" %>
+<%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
 <%--
   Created by IntelliJ IDEA.
-  User: compux72
+  User: Altair Bueno
   Date: 5/4/22
   Time: 11:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<BidEntity> bidsList = (List<BidEntity>) request.getAttribute(VendorKeys.BID_LIST);
+    List<ReceivedBidsDTO> bidsList = (List<ReceivedBidsDTO>) request.getAttribute(VendorKeys.BID_LIST);
     String startDate = request.getParameter(VendorKeys.BID_START_DATE_PARAMETER);
     String endDate = request.getParameter(VendorKeys.BID_END_DATE_PARAMETER);
     String productTitle = request.getParameter(VendorKeys.BID_PRODUCT_TITLE_PARAMETER);
@@ -34,7 +34,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Ubay-Bids Received</title>
+    <title>Ubay | Bids Received</title>
 </head>
 <body>
 <%@include file="../../WEB-INF/components/navbar.jsp"%>
@@ -79,6 +79,28 @@
                            name="<%=VendorKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>
+                <select
+                        class="form-select mb-3"
+                        name="<%=VendorKeys.ORDER_BY_PARAMETER%>"
+                >
+                    <%for (String orderBy: VendorKeys.ORDER_BY_LIST){%>
+                    <option <%=orderBy.equals(request.getParameter(VendorKeys.ORDER_BY_PARAMETER)) ? "selected":""%> value="<%=orderBy%>">
+                        <%=orderBy%>
+                    </option>
+                    <%}%>
+                </select>
+                <div class="form-check mb-3">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="flexCheckDefault"
+                            name="<%=VendorKeys.ASC_PARAMETER%>"
+                            <%=request.getParameter(VendorKeys.ASC_PARAMETER) == null ? "":"checked"%>
+                    >
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sort ascending
+                    </label>
+                </div>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </form>
         </aside>
@@ -97,8 +119,8 @@
                 <%for (int i = 0; i < bidsList.size(); i++) {%>
                 <tr>
                     <%
-                        BidEntity bid = bidsList.get(i);
-                        ProductEntity product = bid.getProduct();
+                        ReceivedBidsDTO bid = bidsList.get(i);
+                        ProductDTO product = bid.getProduct();
                     %>
                     <th scope="row">
                         <%=1 + i + pageNumber * 10%>

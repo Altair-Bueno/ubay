@@ -6,20 +6,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.ClientFacade;
-import uma.taw.ubay.dao.LoginCredentialsFacade;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
+import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
+
+/**
+ * @author José Luis Bueno Pachón
+ */
 
 @WebServlet("/users/delete")
 public class Delete extends HttpServlet {
     @EJB
-    ClientFacade facadeClient;
-
-    @EJB
-    LoginCredentialsFacade facadeLogin;
+    UsersService usersService;
 
 
     @Override
@@ -30,17 +28,10 @@ public class Delete extends HttpServlet {
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        if(id != null){
-            try{
-                ClientEntity client = facadeClient.find(Integer.parseInt(id));
-                LoginCredentialsEntity login = facadeLogin.searchClientLoginByClient(client);
+        usersService.deleteUser(id);
 
-                facadeLogin.remove(login);
-                facadeClient.remove(client);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
         request.getRequestDispatcher("delete.jsp").forward(request,response);
     }
+
+
 }

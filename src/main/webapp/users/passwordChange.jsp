@@ -13,7 +13,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Change password</title>
+    <title>Ubay | Cambiar contrasena</title>
 </head>
 <body>
     <%
@@ -21,11 +21,24 @@
         String username = (String) request.getAttribute("username");
     %>
     <div class="col-6 position-absolute top-50 start-50 translate-middle">
-        <form class="form" action="${pageContext.request.contextPath}/auth/resetPassword?passwordChangeID=<%=URLEncoder.encode(passwordChangeID,StandardCharsets.UTF_8)%>&username=<%=URLEncoder.encode(username,StandardCharsets.UTF_8)%>" method="get">
-            <h1>¿Estás seguro de que quieres cambiar la contraseña?</h1>
-            <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
-        </form>
+        <h1>Enlace de reseteo de contraseña:</h1>
+        <input type="text" size="80" id="linkReseteo" value="${pageContext.request.contextPath}/auth/resetPassword?passwordChangeID=<%=URLEncoder.encode(passwordChangeID,StandardCharsets.UTF_8)%>&username=<%=URLEncoder.encode(username,StandardCharsets.UTF_8)%>"/>
+        <button class="btn btn-primary mt-2" onclick="copyToClipboard()">Copiar link al portapapeles</button>
     </div>
+
+        <script>
+            function copyToClipboard() {
+                /* Get the text field */
+                var copyText = document.getElementById("linkReseteo");
+
+                /* Select the text field */
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                /* Copy the text inside the text field */
+                navigator.clipboard.writeText(copyText.value);
+            }
+        </script>
 
 
 <%--    <a href="${pageContext.request.contextPath}/auth/resetPassword?passwordChangeID=<%=URLEncoder.encode(passwordChangeID,StandardCharsets.UTF_8)%>&username=<%=URLEncoder.encode(username,StandardCharsets.UTF_8)%>">This is the link</a>--%>

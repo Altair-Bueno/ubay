@@ -1,13 +1,12 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
-<%@ page import="uma.taw.ubay.SessionKeys" %>
-<%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
-<%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
-<%@ page import="uma.taw.ubay.entity.ProductFavouritesEntity" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: franm
+<%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %>
+<%@ page import="uma.taw.ubay.UsersKeys" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductBidDTO" %>
+<%--
+Created by IntelliJ IDEA.
+  Author: Francisco Javier Hernández
   Date: 6/4/22
   Time: 10:08
   To change this template use File | Settings | File Templates.
@@ -32,10 +31,12 @@
 </head>
 <body>
 <%
-    Object itemsesion = session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-    ClientEntity user = itemsesion == null ? null : ((LoginCredentialsEntity) itemsesion).getUser();
-    ProductEntity p = (ProductEntity) request.getAttribute("product");
-    List<ProductFavouritesEntity> productFavourites = (List<ProductFavouritesEntity>) request.getAttribute("pflist");
+    Object userParameter = request.getAttribute("user");
+    ProductDTO p = (ProductDTO) request.getAttribute("product");
+    Object isFavParameter = request.getAttribute("isFav");
+    Object highestBidParameter = request.getAttribute("highestBid");
+    double minBid;
+    boolean cerrado = p.getCloseDate() != null;
     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
 %>
 
@@ -44,11 +45,9 @@
 
 <div class="d-flex flex-column" style="width: 1600px">
     <div class="p-2">
-        <form method="get" action="${pageContext.request.contextPath}/product">
-            <button type="submit" class="btn btn-labeled btn-light">
-                <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
-            </button>
-        </form>
+        <button type="button" class="btn btn-labeled btn-light" onclick="goBack()">
+            <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
+        </button>
     </div>
     <div class="d-flex flex-row m-auto p-2">
         <div class="p-2"><img src="<%=imgSrc%>" class="rounded" alt="<%=p.getTitle()%>"
@@ -59,7 +58,7 @@
             <div class="p-2"><h1><%=p.getOutPrice()%> €</h1></div>
             <div class="p-2">
                 <h2>Estado: </h2>
-                <h4><%= p.isCurrentlyAvailable() ? "Activo" : "Cerrado"%>
+                <h4><%= !cerrado ? "Activo" : "Cerrado"%>
                 </h4>
             </div>
             <div class="p-2" style="height: 200px">
@@ -67,16 +66,10 @@
                 <h6><%=p.getDescription()%>
                 </h6>
             </div>
-            <div class="p-2">
-                <form method="get" action="buy">
-                    <input type='hidden' name='id' id='id-compra' value="<%=p.getId()%>"/>
-                    <input class="btn btn-primary" type="submit" value="Comprar"/>
-                </form>
-            </div>
-        </div>
-        <div class="p-4">
             <%
-                if (user != null){
+                if (userParameter != null){
+                    ProductClientDTO user = (ProductClientDTO) userParameter;
+                    boolean isFav = (boolean) isFavParameter;
                     if (user.getId() == p.getVendor().getId()) {
             %>
 
@@ -86,6 +79,7 @@
                     <input type='hidden' name='id' value="<%=p.getId()%>"/>
                     <input class="btn btn-secondary btn-block me-2" type="submit" value="Editar">
                 </form>
+
                 <!-- BORRAR: Button trigger modal -->
                 <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#deleteModal" style="height: 38px">
                     Eliminar
@@ -116,27 +110,54 @@
 
             <%
                     } else {
-                        boolean found = false;
-                        int i = 0;
-                        while(!found && i<productFavourites.size()){
-                            ProductFavouritesEntity pf = productFavourites.get(i);
-                            if(user.equals(pf.getUser()) && p.equals(pf.getProduct())){
-                                found = true;
+                        if(!cerrado){
+                            if(highestBidParameter == null){
+                                minBid = p.getOutPrice();
+            %>
+            <div class="row">
+                <h2>Este producto no ha recibido todavía ninguna puja</h2>
+                <h2>Precio de puja mínima: <%=p.getOutPrice()%></h2>
+            </div>
+            <%
+                            } else {
+                                ProductBidDTO highestBid = (ProductBidDTO) highestBidParameter;
+                                minBid = highestBid.getAmount();
+            %>
+            <div class="row">
+                <h2>Puja más alta actual: <%=highestBid.getAmount()%></h2>
+            </div>
+            <%
                             }
-                            i++;
-                        }
+            %>
 
-                        if(found){
+            <div class="row align-items-center p-2">
+                <form method="post" action="${pageContext.request.contextPath}/users/bids/new">
+                    <div class="col-auto w-25">
+                        <input type="number" min="<%=minBid%>" step="0.01" name="<%=UsersKeys.BID_AMOUNT_PARAMETER%>" class="form-control" placeholder="Cantidad a pujar..." required>
+                    </div>
+                    <div class="col-auto">
+                        <input type='hidden' name="<%=UsersKeys.BID_PRODUCT_ID_PARAMETER%>" id='id-compra' value="<%=p.getId()%>"/>
+                        <input class="btn btn-primary" type="submit" value="Pujar"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="p-4">
+            <%
+                        }
+                        if(isFav){
 
             %>
 
-            <form method="get" action="${pageContext.request.contextPath}/users/deleteFavourite">
-                <input type='hidden' name='productID' value="<%=p.getId()%>"/>
-                <input type='hidden' name='clientID' value="<%=user.getId()%>"/>
-                <button class="btn btn btn-outline-danger btn-labeled" type="submit">
-                    <span><i class="bi bi-star-fill"></i></span>Eliminar de favoritos
-                </button>
-            </form>
+            <div class="d-flex flex-row">
+                <form method="get" action="${pageContext.request.contextPath}/users/deleteFavourite">
+                    <input type='hidden' name='productID' value="<%=p.getId()%>"/>
+                    <input type='hidden' name='clientID' value="<%=user.getId()%>"/>
+                    <button class="btn btn btn-outline-danger btn-labeled" type="submit">
+                        <span><i class="bi bi-star-fill"></i></span>Eliminar de favoritos
+                    </button>
+                </form>
+            </div>
 
             <%
 
@@ -161,6 +182,12 @@
 
 </div>
 
+<script>
+    function goBack()
+    {
+        window.history.back();
+    }
+</script>
 
 </body>
 </html>

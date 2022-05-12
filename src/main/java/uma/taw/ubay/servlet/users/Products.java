@@ -6,26 +6,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.eclipse.persistence.sessions.Session;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.dao.ClientFacade;
-import uma.taw.ubay.dao.ProductFacade;
-import uma.taw.ubay.dao.ProductFavouritesFacade;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
-import uma.taw.ubay.entity.ProductEntity;
+import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.users.ProductDTO;
+import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @author José Luis Bueno Pachón
+ */
 
 @WebServlet("/users/products")
 public class Products extends HttpServlet {
     @EJB
-    ClientFacade clientFacade;
-
-    @EJB
-    ProductFavouritesFacade favouritesFacade;
+    UsersService usersService;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -34,9 +30,11 @@ public class Products extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ClientEntity client = ((LoginCredentialsEntity) request.getSession().getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
+        var login = ((LoginDTO) request.getSession().getAttribute(SessionKeys.LOGIN_DTO));
 
-        List<ProductEntity> favouriteProducts = favouritesFacade.getClientFavouriteProducts(client);
+        List<ProductDTO> favouriteProducts = usersService.products(login);
+
+        request.setAttribute("clientID", usersService.getClientID(login));
         request.setAttribute("favourite-products-list", favouriteProducts);
         request.getRequestDispatcher("products.jsp").forward(request,response);
     }

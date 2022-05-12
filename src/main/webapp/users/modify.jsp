@@ -13,7 +13,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Modify user</title>
+    <title>Ubay | Modificar usuario</title>
 </head>
 <body>
     <a class="btn btn-primary m-2" href="../users/" role="button">Go back</a>
@@ -25,10 +25,11 @@
             <div class="col-3">
                 <form action="modify" method="get">
                     <div class="form col">
-                        ID: <input type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
+                        <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
                         Name: <input type="text" class="form-control" name="name" value="<%=request.getParameter("name")%>"> <br>
                         Last name: <input type="text" class="form-control" name="lastName" value="<%=request.getParameter("lastName")%>"> <br>
                         Address: <input type="text" class="form-control" name="address" value="<%=request.getParameter("address")%>"> <br>
+                        <input hidden name="edited" value="1"/>
                         City: <input type="text" class="form-control" name="city" value="<%=request.getParameter("city")%>"> <br>
                         Gender: <select name="gender" class="form-select">
                         <% for (GenderEnum gender : GenderEnum.values()){
@@ -51,6 +52,7 @@
                     </div>
                 </form>
             </div>
+        </div>
     </div>
 
 </body>

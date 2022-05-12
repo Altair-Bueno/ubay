@@ -6,14 +6,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.CategoryFacade;
-import uma.taw.ubay.entity.CategoryEntity;
+import uma.taw.ubay.service.categories.CategoriesService;
+
 import java.io.IOException;
+
+/**
+ * @author José Luis Bueno Pachón
+ */
 
 @WebServlet("/categories/add")
 public class Add extends HttpServlet {
     @EJB
-    CategoryFacade facade;
+    CategoriesService categoriesService;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -24,15 +28,17 @@ public class Add extends HttpServlet {
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
+        String added = request.getParameter("added");
 
-        if(name != null && description != null){
-            CategoryEntity category = new CategoryEntity();
-            category.setName(name);
-            category.setDescription(description);
-            facade.create(category);
+        if(added == null){
+            request.getRequestDispatcher("add.jsp").forward(request,response);
+        } else {
+            categoriesService.addCategory(name, description);
+            response.sendRedirect(request.getContextPath() + "/categories/");
         }
 
-        request.getRequestDispatcher("add.jsp").forward(request,response);
+
+
     }
 }
 

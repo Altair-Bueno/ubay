@@ -6,7 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.ProductFacade;
+import uma.taw.ubay.SessionKeys;
+import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.dto.products.ProductClientDTO;
+import uma.taw.ubay.dto.products.ProductsDTO;
+import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;
 
@@ -14,12 +18,25 @@ import java.io.IOException;
 public class Index extends HttpServlet {
 
     @EJB
-    ProductFacade facade;
+    ProductService productService;
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("product-tam", facade.findAll().size());
-        var page = req.getParameter("page");
-        req.setAttribute("product-list", facade.getByPage(page == null ? 0 : Integer.parseInt(page) - 1));
+        String productName = req.getParameter("name");
+        String category = req.getParameter("category");
+        String page = req.getParameter("page");
+        page = page == null ? "1" : page;
+        var loginDTO = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);
+        ProductClientDTO cliente = loginDTO == null ? null : productService.loginDTOtoClientDTO(loginDTO);
+
+        ProductsDTO productDTOS = productService.getProductsList(productName, category, page);
+
+        req.setAttribute("category-list", productService.categories());
+        req.setAttribute("categoryFilter", (category == null || category.equals("--")) ? 0 : Integer.parseInt(category));
+        req.setAttribute("nameFilter", productName);
+        req.setAttribute("product-tam", productDTOS.getSize());
+        req.setAttribute("product-list", productDTOS.getProductsList());
+        req.setAttribute("user", cliente != null);
+
         req.getRequestDispatcher("product/index.jsp").forward(req,resp);
     }
 

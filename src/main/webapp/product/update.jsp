@@ -1,12 +1,11 @@
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
-<%@ page import="uma.taw.ubay.servlet.product.Index" %>
-<%@ page import="uma.taw.ubay.dao.ProductFacade" %>
-<%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.nio.charset.StandardCharsets" %><%--
+<%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %>
+<%--
   Created by IntelliJ IDEA.
-  User: franm
+  Author: Francisco Javier Hernández
   Date: 29/3/22
   Time: 11:37
   To change this template use File | Settings | File Templates.
@@ -18,14 +17,16 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Actualizar producto</title>
+    <title>Ubay | Actualizar producto</title>
 </head>
 <body>
     <%
-        ProductEntity p = (ProductEntity) request.getAttribute("product");
-        List<CategoryEntity> cats = (List<CategoryEntity>) request.getAttribute("cats");
+        ProductDTO p = (ProductDTO) request.getAttribute("product");
+        List<ProductCategoryDTO> cats = (List<ProductCategoryDTO>) request.getAttribute("cats");
         String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
     %>
+    <%@include file="../WEB-INF/components/navbar.jsp"%>
+
     <form method="post" enctype="multipart/form-data">
         <div class="d-flex flex-row m-auto" style="width: 1000px">
 
@@ -52,8 +53,8 @@
                 <%-- Estado --%>
                 <div class="p-2">
                     <label>Estado:</label>
-                    <input type="radio" name="estado" value="Activo" <%=p.isCurrentlyAvailable() ? "checked" : ""%>> Activo </input>
-                    <input type="radio" name="estado" value="Cerrado" <%=p.isCurrentlyAvailable() ? "" : "checked"%>> Cerrado </input>
+                    <input type="radio" name="estado" value="Activo" <%=p.getCloseDate() == null ? "checked" : ""%>> Activo </input>
+                    <input type="radio" name="estado" value="Cerrado" <%=p.getCloseDate() == null ? "" : "checked"%>> Cerrado </input>
                 </div>
 
                 <%-- Descripcion --%>
@@ -74,7 +75,7 @@
 
                     <select name="categoria" required>
                         <%
-                            for(CategoryEntity c : cats){
+                            for(ProductCategoryDTO c : cats){
 
                         %>
                         <option value="<%=c.getId()%>" <%=p.getCategory().equals(c) ? "selected" : ""%> ><%=c.getName()%></option>

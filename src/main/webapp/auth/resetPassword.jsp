@@ -1,6 +1,13 @@
 <%@ page import="uma.taw.ubay.AuthKeys" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: Altair Bueno
+  Date: 28/3/22
+  Time: 11:38
+  To change this template use File | Settings | File Templates.
+--%>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -54,7 +61,6 @@
 <main class="form-signin">
     <form method="post"
           action="${pageContext.request.contextPath}/auth/resetPassword">
-        <%--        <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">--%>
         <h1 class="h3 mb-3 fw-normal">Reset my password</h1>
         <div class="form-floating">
             <input
@@ -82,12 +88,12 @@
             password
         </button>
         <input type="text"
-               class="visually-hidden"
+               hidden
                name="<%=AuthKeys.USERNAME_PARAMETER%>"
                value="<%=request.getParameter(AuthKeys.USERNAME_PARAMETER)%>"
         >
         <input type="text"
-               class="visually-hidden"
+               hidden
                name="<%=AuthKeys.PASSWORD_CHANGE_ID_PARAMETER%>"
                value="<%=request.getParameter(AuthKeys.PASSWORD_CHANGE_ID_PARAMETER)%>"
         >

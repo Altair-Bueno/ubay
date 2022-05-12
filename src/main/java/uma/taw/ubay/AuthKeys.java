@@ -2,6 +2,8 @@ package uma.taw.ubay;
 
 /**
  * Multiple constant values shared between auth related servlets
+ *
+ * @author Altair Bueno
  */
 public class AuthKeys {
     // From https://stackoverflow.com/a/1223146

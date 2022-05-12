@@ -7,8 +7,9 @@
   - [login.jsp](src/main/webapp/auth/login.jsp)
   - [register.jsp](src/main/webapp/auth/register.jsp)
   - [Vendor bids](src/main/webapp/vendor/bids/index.jsp)
-  - [User bids](src/main/webapp/vendor/bids/index.jsp)
+  - [User bids](src/main/webapp/users/bids/index.jsp)
   - [resetPassword.jsp](src/main/webapp/auth/resetPassword.jsp)
+  - [changePassword.jsp](src/main/webapp/auth/changePassword.jsp)
 - Servlets
   - [Login](src/main/java/uma/taw/ubay/servlet/auth/Login.java)
   - [Register](src/main/java/uma/taw/ubay/servlet/auth/Register.java)
@@ -16,23 +17,78 @@
   - [User Bids](src/main/java/uma/taw/ubay/servlet/users/bids/Index.java)
   - [Create a new bid](src/main/java/uma/taw/ubay/servlet/users/bids/New.java)
   - [Password reset](src/main/java/uma/taw/ubay/servlet/auth/ResetPassword.java)
+  - [Change password](src/main/java/uma/taw/ubay/servlet/auth/ChangePassword.java)
+  - [Sign off](src/main/java/uma/taw/ubay/servlet/auth/SignOff.java)
+  - [Index redirect](src/main/java/uma/taw/ubay/servlet/Index.java)
+  - [Image](src/main/java/uma/taw/ubay/servlet/Image.java)
+- Services
+  - [AuthService](src/main/java/uma/taw/ubay/service/AuthService.java)
+  - [BidService](src/main/java/uma/taw/ubay/service/BidService.java)
+- Keyfiles
+  - [AuthKeys](src/main/java/uma/taw/ubay/AuthKeys.java)
+  - [SessionKeys](src/main/java/uma/taw/ubay/SessionKeys.java)
+  - [UsersKeys](src/main/java/uma/taw/ubay/UsersKeys.java)
+  - [VendorKeys](src/main/java/uma/taw/ubay/VendorKeys.java)
+- Facades
+  - [MinioFacade](src/main/java/uma/taw/ubay/dao/MinioFacade.java)
 - Docker
   - [Docker compose](docker-compose.yml)
   - [Ubay's Dockerfile](Dockerfile)
+- Database
+  - Schema design
+  - ORM generation
+  - DAO generation
+  - delete on cascade
 - Other
-  - GitHub actions workflows
-  - Project setup
-  - [Instructions](README.md)
-  - Database design & ORM
-  - Custom error pages
-  - Minio object storage configuration and facade
+  - [GitHub actions workflows](.github/workflows)
+  - Project setup (Maven, GlassFish, Minio...)
+  - [README Instructions](README.md)
+  - [Custom error pages](src/main/webapp/WEB-INF/error)
   - Other minor changes
 
-# [Fran Hernandez](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
+# [Francisco Javier Hernández](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
+- Filters
+  - [UserFilter](src/main/java/uma/taw/ubay/filter/UserFilter.java)
+  - [ProductOwnership](src/main/java/uma/taw/ubay/filter/ProductOwnership.java)
+- JSP
+  - [Navbar](src/main/webapp/WEB-INF/components/navbar.jsp)
+  - [index.jsp](src/main/webapp/product/index.jsp)
+  - [item.jsp](src/main/webapp/product/item.jsp)
+  - [new.jsp](src/main/webapp/product/new.jsp)
+  - [update.jsp](src/main/webapp/product/update.jsp)
+  - [notifications.jsp](src/main/webapp/users/notifications.jsp)
+- Servlets
+  - [/product (Web index)](src/main/java/uma/taw/ubay/servlet/product/Index.java)
+  - [/product/item](src/main/java/uma/taw/ubay/servlet/product/Product.java)
+  - [/product/new](src/main/java/uma/taw/ubay/servlet/product/New.java)
+  - [/product/delete](src/main/java/uma/taw/ubay/servlet/product/Delete.java)
+  - [/product/update](src/main/java/uma/taw/ubay/servlet/product/Update.java)
+  - [/users/notifications](src/main/java/uma/taw/ubay/servlet/users/Notifications.java)
+- Facades
+  - [ProductFacade](src/main/java/uma/taw/ubay/dao/ProductFacade.java)
+  - [ProductFavouritesFacade](src/main/java/uma/taw/ubay/dao/ProductFavouritesFacade.java)
+- Services
+  - [ProductService](src/main/java/uma/taw/ubay/service/products/ProductService.java)
+- Keyfiles
+  - [ProductKeys](src/main/java/uma/taw/ubay/UsersKeys.java)
+- DTO
+  - [ProductCategoryDTO](src/main/java/uma/taw/ubay/dto/products/ProductCategoryDTO.java)
+  - [ProductClientDTO](src/main/java/uma/taw/ubay/dto/products/ProductClientDTO.java)
+  - [ProductDTO](src/main/java/uma/taw/ubay/dto/products/ProductDTO.java)
+  - [ProductFavouritesDTO](src/main/java/uma/taw/ubay/dto/products/ProductFavouritesDTO.java)
+  - [ProductLoginDTO](src/main/java/uma/taw/ubay/dto/products/ProductLoginDTO.java)
+  - [ProductsDTO](src/main/java/uma/taw/ubay/dto/products/ProductsDTO.java)
+  - [ProductBidDTO](src/main/java/uma/taw/ubay/dto/products/ProductBidDTO.java)
+- Database
+  - Database Schema Design
+  - [Database Schema SQL](sql/scheme.sql)
+- Others
+  - Database design & ORM
+  - Minor/medium changes in many other files when needed (check github logs)
 
 # [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
 
-- DB Design
+- Database Design
 - Admin functions on user page
   - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Delete.java)
   - [/users/modify](src/main/java/uma/taw/ubay/servlet/users/Modify.java)

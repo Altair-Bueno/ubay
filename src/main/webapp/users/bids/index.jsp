@@ -1,17 +1,17 @@
-<%@ page import="uma.taw.ubay.entity.BidEntity" %>
 <%@ page import="uma.taw.ubay.UsersKeys" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.entity.ProductEntity" %>
+<%@ page import="uma.taw.ubay.dto.bids.SentBidsDTO" %>
+<%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
 <%--
   Created by IntelliJ IDEA.
-  User: compux72
+  User: Altair Bueno
   Date: 7/4/22
   Time: 19:54
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<BidEntity> bidsList = (List<BidEntity>) request.getAttribute(UsersKeys.BID_LIST);
+    List<SentBidsDTO> bidsList = (List<SentBidsDTO>) request.getAttribute(UsersKeys.BID_LIST);
     String startDate = request.getParameter(UsersKeys.BID_START_DATE_PARAMETER);
     String endDate = request.getParameter(UsersKeys.BID_END_DATE_PARAMETER);
     String productTitle = request.getParameter(UsersKeys.BID_PRODUCT_TITLE_PARAMETER);
@@ -79,6 +79,28 @@
                            name="<%=UsersKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>
+                <select
+                        class="form-select mb-3"
+                        name="<%=UsersKeys.ORDER_BY_PARAMETER%>"
+                >
+                    <%for (String orderBy: UsersKeys.ORDER_BY_LIST){%>
+                    <option <%=orderBy.equals(request.getParameter(UsersKeys.ORDER_BY_PARAMETER)) ? "selected":""%> value="<%=orderBy%>">
+                        <%=orderBy%>
+                    </option>
+                    <%}%>
+                </select>
+                <div class="form-check mb-3">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="flexCheckDefault"
+                            name="<%=UsersKeys.ASC_PARAMETER%>"
+                        <%=request.getParameter(UsersKeys.ASC_PARAMETER) == null ? "":"checked"%>
+                    >
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sort ascending
+                    </label>
+                </div>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </form>
         </aside>
@@ -97,8 +119,8 @@
                 <%for (int i = 0; i < bidsList.size(); i++) {%>
                 <tr>
                     <%
-                        BidEntity bid = bidsList.get(i);
-                        ProductEntity product = bid.getProduct();
+                        SentBidsDTO bid = bidsList.get(i);
+                        ProductDTO product = bid.getProduct();
                     %>
                     <th scope="row">
                         <%=1 + i + pageNumber * 10%>

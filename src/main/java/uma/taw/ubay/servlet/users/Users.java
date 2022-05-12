@@ -6,19 +6,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uma.taw.ubay.dao.ClientFacade;
-import uma.taw.ubay.dao.LoginCredentialsFacade;
-import uma.taw.ubay.entity.ClientEntity;
-import uma.taw.ubay.entity.GenderEnum;
+import uma.taw.ubay.dto.users.ClientDTO;
+import uma.taw.ubay.service.users.UsersService;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.*;
+import java.util.List;
+
+/**
+ * @author José Luis Bueno Pachón
+ */
 
 @WebServlet("/users/")
 public class Users extends HttpServlet {
     @EJB
-    ClientFacade facade;
+    UsersService usersService;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
@@ -32,16 +33,11 @@ public class Users extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String address = request.getParameter("address");
         String city = request.getParameter("city");
-        String genderString = request.getParameter("gender");
-        GenderEnum gender = null;
-        if(genderString != null && !"".equals(genderString) && !genderString.equals("--")){
-            gender = GenderEnum.valueOf(genderString);
-        }
+        String gender = request.getParameter("gender");
 
-        List<ClientEntity> clientEntityList = new ArrayList<>();
-        clientEntityList = facade.filterClients(name,lastName,gender,address,city,id);
+        List<ClientDTO> clientDTOList = usersService.users(id, name, lastName, address, city, gender);
 
-        request.setAttribute("search-user", clientEntityList);
+        request.setAttribute("search-user", clientDTOList);
         request.getRequestDispatcher("users.jsp").forward(request,response);
     }
 }

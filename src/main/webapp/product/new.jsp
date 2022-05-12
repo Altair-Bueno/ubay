@@ -1,10 +1,9 @@
-<%@ page import="uma.taw.ubay.entity.CategoryEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.SessionKeys" %>
-<%@ page import="uma.taw.ubay.entity.LoginCredentialsEntity" %>
-<%@ page import="uma.taw.ubay.entity.ClientEntity" %><%--
-  Created by IntelliJ IDEA.
-  User: franm
+<%@ page import="uma.taw.ubay.dto.products.ProductCategoryDTO" %>
+<%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %>
+<%--
+Created by IntelliJ IDEA.
+  Author: Francisco Javier Hernández
   Date: 28/3/22
   Time: 19:44
   To change this template use File | Settings | File Templates.
@@ -21,9 +20,11 @@
 <body>
 
     <%
-        List<CategoryEntity> cats = (List<CategoryEntity>) request.getAttribute("cats");
-        ClientEntity user = ((LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS)).getUser();
+        List<ProductCategoryDTO> cats = (List<ProductCategoryDTO>) request.getAttribute("cats");
+        ProductClientDTO user = ((ProductClientDTO) request.getAttribute("user"));
     %>
+
+    <%@include file="../WEB-INF/components/navbar.jsp"%>
 
     <form method="post" enctype="multipart/form-data">
         <div class="d-flex flex-row m-auto" style="width: 1000px">
@@ -65,7 +66,7 @@
                     <label>Categoria: </label>
                     <select name="categoria" required>
                         <%
-                            for(CategoryEntity c : cats){
+                            for(ProductCategoryDTO c : cats){
                         %>
                         <option value="<%=c.getId()%>"><%=c.getName()%></option>
                         <%

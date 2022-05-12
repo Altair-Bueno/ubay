@@ -12,9 +12,10 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Modify category</title>
+    <title>Ubay | Modificar categoria</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 <a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
     <div class="container">
         <h2>Data: </h2>
@@ -23,7 +24,8 @@
                 <form action="modify" method="get">
                     <div class="form col">
                         <label>
-                            ID: <input type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
+                            <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
+                            <input hidden name="edited" value="1"/>
                             Name: <input type="text" class="form-control" name="name" value="<%=request.getParameter("name")%>"> <br>
                             Description: <input type="text" class="form-control" name="description" value="<%=request.getParameter("description")%>"> <br>
                             <button type="submit" class="btn btn-primary mt-2">Submit</button>

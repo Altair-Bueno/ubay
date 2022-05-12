@@ -1,7 +1,5 @@
-<%@ page import="uma.taw.ubay.entity.ClientEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.LinkedList" %>
-<%@ page import="java.util.Collections" %><%--
+<%@ page import="uma.taw.ubay.dto.users.ClientDTO" %><%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 28/3/22
@@ -15,9 +13,10 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Users</title>
+    <title>Ubay | Usuarios</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
 <div>
     <%--<form>
         <h3>User data:</h3>
@@ -34,8 +33,6 @@
         </select> <br/>
         <input type="submit"/>
     </form>--%>
-
-        <a class="btn btn-primary m-2" href=".." role="button">Go home</a>
 
     <div class="container">
         <h2>Search users: </h2>
@@ -77,10 +74,10 @@
                     </thead>
                     <tbody>
                     <%
-                        List<ClientEntity> searchClient = (List)request.getAttribute("search-user");
+                        List<ClientDTO> searchClient = (List)request.getAttribute("search-user");
 
                         if(searchClient != null){
-                            for(ClientEntity c : searchClient){
+                            for(ClientDTO c : searchClient){
 
                     %>
                     <tr>

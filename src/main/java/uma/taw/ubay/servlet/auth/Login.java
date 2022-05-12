@@ -6,12 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import uma.taw.ubay.AuthKeys;
 import uma.taw.ubay.SessionKeys;
-import uma.taw.ubay.dao.LoginCredentialsFacade;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
+import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.exception.AuthenticationException;
+import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 
@@ -19,39 +18,24 @@ import java.io.IOException;
  * Servlet in charge of creating a new user session with the received username
  * and password. If the login fails, the client will receive a 401
  * (Unauthorised) response
+ *
+ * @author Altair Bueno
  */
 
 @WebServlet("/auth/login")
 public class Login extends HttpServlet {
     @EJB
-    LoginCredentialsFacade facade;
+    AuthService service;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String username = req.getParameter(AuthKeys.USERNAME_PARAMETER);
-        String password = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, AuthenticationException {
+        String usernameParameter = req.getParameter(AuthKeys.USERNAME_PARAMETER);
+        String passwordParameter = req.getParameter(AuthKeys.PASSWORD_PARAMETER);
 
-        if (
-                username == null
-                || password == null
-                || !password.matches(AuthKeys.PASSWORD_REGEX)
-                || !username.matches(AuthKeys.USERNAME_REGEX)
-        ) {
-            resp.setStatus(400);
-            return;
-        }
+        LoginDTO username = service.login(usernameParameter, passwordParameter);
+        req.getSession().setAttribute(SessionKeys.LOGIN_DTO, username);
 
-        LoginCredentialsEntity entity = facade.find(username);
-        boolean matches = entity != null &&
-                BCrypt.checkpw(password,entity.getPassword());
-
-        if (matches) {
-            HttpSession session = req.getSession();
-            session.setAttribute(SessionKeys.LOGIN_CREDENTIALS,entity);
-            resp.sendRedirect(req.getContextPath() + AuthKeys.INDEX_REDIRECT);
-        } else {
-            throw new RuntimeException("Bad username or password");
-        }
+        resp.sendRedirect(req.getContextPath() + AuthKeys.INDEX_REDIRECT);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package uma.taw.ubay.filter;
 
+import jakarta.ejb.EJB;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
@@ -8,15 +9,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import uma.taw.ubay.SessionKeys;
+import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.entity.KindEnum;
-import uma.taw.ubay.entity.LoginCredentialsEntity;
+import uma.taw.ubay.service.AuthService;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Altair Bueno
+ */
 public class RoleFilter extends HttpFilter {
+    @EJB
+    AuthService authService;
 
     private List<KindEnum> role;
 
@@ -34,10 +41,12 @@ public class RoleFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         // Caution: This might trigger Safari's cookie privacy policy
         HttpSession session = req.getSession();
-        LoginCredentialsEntity credentialsEntity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-        KindEnum sessionKind = credentialsEntity.getKind();
+        var loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
+        var loginCredentials= authService.getCredentialsEntity(loginDTO);
+        KindEnum sessionKind = loginCredentials.getKind();
 
-        if (role.stream().anyMatch(x->x.equals(sessionKind))) {
+        boolean matches = role.stream().anyMatch(x->x.equals(sessionKind));
+        if (matches) {
             chain.doFilter(req,res);
         } else {
             throw new RuntimeException("The role kind [" + sessionKind + "] is not allowed for this request");

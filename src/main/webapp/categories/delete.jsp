@@ -12,9 +12,10 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Delete category</title>
+    <title>Ubay | Eliminar categoria</title>
 </head>
 <body>
+<%@include file="../WEB-INF/components/navbar.jsp"%>
     <div class="container">
         <div class="col-6 position-absolute top-50 start-50 translate-middle">
             <form class="form" action="../categories" method="get">

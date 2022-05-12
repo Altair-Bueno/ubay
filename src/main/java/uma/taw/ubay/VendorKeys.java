@@ -1,5 +1,8 @@
 package uma.taw.ubay;
 
+/**
+ * @author Altair Bueno
+ */
 public class VendorKeys {
     public final static String BID_LIST = "bidsByVendor";
 
@@ -8,4 +11,8 @@ public class VendorKeys {
     public static final String BID_PRODUCT_TITLE_PARAMETER = "productTitle";
     public static final String BID_CLIENT_NAME_PARAMETER = "clientName";
     public static final String BID_PAGE_NUMBER_PARAMETER = "page";
+    public static final String ORDER_BY_PARAMETER = "orderby";
+    public static final String ASC_PARAMETER = "asc";
+
+    public static final String[] ORDER_BY_LIST = new String[]{"publishDate","amount"};
 }

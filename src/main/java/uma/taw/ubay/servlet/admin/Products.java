@@ -11,6 +11,7 @@ import uma.taw.ubay.entity.ProductEntity;
 import java.io.IOException;
 import java.util.List;
 
+//Not in use.
 public class Products extends HttpServlet {
     @EJB
     ProductFacade facade;
@@ -24,7 +25,7 @@ public class Products extends HttpServlet {
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String search = request.getParameter("search");
         List<ProductEntity> clientEntityList = facade.findAll();
-        request.setAttribute("users-list",clientEntityList); //TODO
+        request.setAttribute("users-list",clientEntityList);
 
         request.getRequestDispatcher("users.jsp")
                 .forward(request,response);
