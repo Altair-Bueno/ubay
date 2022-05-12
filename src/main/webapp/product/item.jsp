@@ -45,11 +45,9 @@ Created by IntelliJ IDEA.
 
 <div class="d-flex flex-column" style="width: 1600px">
     <div class="p-2">
-        <form method="get" action="${pageContext.request.contextPath}/product">
-            <button type="submit" class="btn btn-labeled btn-light">
-                <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
-            </button>
-        </form>
+        <button type="button" class="btn btn-labeled btn-light" onclick="goBack()">
+            <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
+        </button>
     </div>
     <div class="d-flex flex-row m-auto p-2">
         <div class="p-2"><img src="<%=imgSrc%>" class="rounded" alt="<%=p.getTitle()%>"
@@ -184,6 +182,12 @@ Created by IntelliJ IDEA.
 
 </div>
 
+<script>
+    function goBack()
+    {
+        window.history.back();
+    }
+</script>
 
 </body>
 </html>
