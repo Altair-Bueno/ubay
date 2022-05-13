@@ -1,7 +1,6 @@
 package uma.taw.ubay.servlet.users;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +12,7 @@ import java.io.IOException;
  */
 
 //Not in use.
-@WebServlet("/users/me")
+//@WebServlet("/users/me")
 public class Me extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

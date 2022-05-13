@@ -20,7 +20,11 @@
     </filter>
     <filter>
         <filter-name>UserFilter</filter-name>
-        <filter-class>uma.taw.ubay.filter.UserFilter</filter-class>
+        <filter-class>uma.taw.ubay.filter.RoleFilter</filter-class>
+        <init-param>
+            <param-name>role</param-name>
+            <param-value>client</param-value>
+        </init-param>
     </filter>
     <filter>
         <filter-name>AdminFilter</filter-name>
@@ -37,6 +41,9 @@
         <url-pattern>/users/*</url-pattern>
         <url-pattern>/vendor/*</url-pattern>
         <url-pattern>/categories/*</url-pattern>
+        <url-pattern>/product/new</url-pattern>
+        <url-pattern>/product/update</url-pattern>
+        <url-pattern>/product/delete</url-pattern>
         <url-pattern>/auth/changePassword</url-pattern>
     </filter-mapping>
 
@@ -48,15 +55,11 @@
         <url-pattern>/users/addFavourite</url-pattern>
         <url-pattern>/users/deleteFavourite</url-pattern>
         <url-pattern>/users/notifications</url-pattern>
+        <url-pattern>/users/products</url-pattern>
+        <url-pattern>/users/bids/*</url-pattern>
         <url-pattern>/categories/addFavourite</url-pattern>
         <url-pattern>/categories/deleteFavourite</url-pattern>
-        <url-pattern>/auth/changePassword</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>ProductOwnership</filter-name>
-        <url-pattern>/product/update</url-pattern>
-        <url-pattern>/product/delete</url-pattern>
+        <url-pattern>/vendor/bids/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
@@ -68,8 +71,15 @@
         <url-pattern>/users</url-pattern>
         <url-pattern>/users/new</url-pattern>
         <url-pattern>/users/update</url-pattern>
+        <url-pattern>/users/modify</url-pattern>
         <url-pattern>/users/delete</url-pattern>
         <url-pattern>/users/passwordChangeLink</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ProductOwnership</filter-name>
+        <url-pattern>/product/update</url-pattern>
+        <url-pattern>/product/delete</url-pattern>
     </filter-mapping>
 
     <error-page>
@@ -80,5 +90,4 @@
         <exception-type>java.lang.Exception</exception-type>
         <location>/WEB-INF/error/exception.jsp</location>
     </error-page>
-
 </web-app>
