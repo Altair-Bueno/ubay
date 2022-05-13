@@ -26,4 +26,10 @@ public class AuthKeys {
     public static final String OLD_PASSWORD_PARAMETER = "new_password";
     public static final String REPEAT_PASSWORD_PARAMETER = "repeat_password";
     public static final String PASSWORD_CHANGE_ID_PARAMETER = "passwordChangeID";
+    public static final int NAME_MAXLENGTH = 50;
+    public static final int LAST_NAME_MAXLENGTH = 50;
+
+    public static final int ADDRESS_MAXLENGTH = 100;
+
+    public static final int CITY_MAXLENGTH = 100;
 }

@@ -49,38 +49,49 @@
             <div id="passwordHelp" class="form-text">8 caracteres mínimo</div>
         </div>
         <div class="form-floating col-12">
-            <input id="repeat_password" class="form-control" placeholder="Repite tu contraseña"
-                   name="<%=AuthKeys.REPEAT_PASSWORD_PARAMETER%>" type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>"
+            <input id="repeat_password" class="form-control"
+                   placeholder="Repite tu contraseña"
+                   name="<%=AuthKeys.REPEAT_PASSWORD_PARAMETER%>"
+                   type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>"
                    required>
             <label for="repeat_password">Repite tu contraseña</label>
         </div>
         <div class="form-floating col-12">
-            <input id="first_name" class="form-control" placeholder="Nombre" name="<%=AuthKeys.NAME_PARAMETER%>"
-                   type="text" required>
+            <input id="first_name" class="form-control" placeholder="Nombre"
+                   name="<%=AuthKeys.NAME_PARAMETER%>"
+                   type="text" required
+                   maxlength="<%=AuthKeys.NAME_MAXLENGTH%>">
             <label for="first_name">Nombre</label>
         </div>
         <div class="form-floating col-12">
-            <input id="last_name" class="form-control" placeholder="Apellidos" name="<%=AuthKeys.LAST_NAME_PARAMETER%>"
-                   type="text" required>
+            <input id="last_name" class="form-control" placeholder="Apellidos"
+                   name="<%=AuthKeys.LAST_NAME_PARAMETER%>"
+                   type="text" required
+                   maxlength="<%=AuthKeys.LAST_NAME_MAXLENGTH%>">
             <label for="last_name">Apellidos</label>
         </div>
         <div class="col-md-6">
             <label for="address" class="form-label">Dirección</label>
-            <input id="address" class="form-control" name="<%=AuthKeys.ADDRESS_PARAMETER%>" type="text" required>
+            <input id="address" class="form-control"
+                   name="<%=AuthKeys.ADDRESS_PARAMETER%>" type="text" required
+                   maxlength="<%=AuthKeys.ADDRESS_MAXLENGTH%>">
         </div>
         <div class="col-md-6">
             <label for="city" class="form-label">Ciudad</label>
-            <input id="city" class="form-control" name="<%=AuthKeys.CITY_PARAMETER%>" type="text" required>
+            <input id="city" class="form-control"
+                   maxlength="<%=AuthKeys.CITY_MAXLENGTH%>"
+                   name="<%=AuthKeys.CITY_PARAMETER%>" type="text" required>
         </div>
         <div class="col-md-6">
             <label for="birth" class="form-label">Fecha de nacimiento</label>
-            <input id="birth" class="form-control" name="<%=AuthKeys.BIRTH_PARAMETER%>" type="date" required>
+            <input id="birth" class="form-control"
+                   name="<%=AuthKeys.BIRTH_PARAMETER%>" type="date" required>
         </div>
         <div class="col-md-6">
             <label for="gender" class="form-label">Género</label>
             <select id="gender" class="form-select" name="<%=AuthKeys.GENDER_PARAMETER%>" required>
                 <% for (GenderEnum gender : GenderEnum.values()) {%>
-                <option><%=gender%></option>
+                <option value="<%=gender%>"><%=gender%></option>
                 <%}%>
             </select>
         </div>
