@@ -40,7 +40,7 @@
             <%
                 for (ProductDTO p : l) {
             %>
-            <tr onclick="window.location='${pageContext.request.contextPath}/product/product?id=' + <%=p.getId()%>">
+            <tr onclick="window.location='${pageContext.request.contextPath}/product/item?id=' + <%=p.getId()%>">
                 <td><img src="<%=p.getImages()%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px">
                 </td>
                 <td class="align-middle"><h3><%=p.getTitle()%>
