@@ -16,18 +16,20 @@
     <title>Ubay | Me</title>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <%
-                LoginCredentialsEntity entity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
-                if(entity != null){
-            %>
-                <h2>Profile: <%=entity.getUsername()%></h2>
-                <h4>Your role is: <%=entity.getKind()%></h4>
-            <%
-                }
-            %>
-        </div>
+<div class="container">
+    <div class="row">
+        <%
+            LoginCredentialsEntity entity = (LoginCredentialsEntity) session.getAttribute(SessionKeys.LOGIN_CREDENTIALS);
+            if (entity != null) {
+        %>
+        <h2>Profile: <%=entity.getUsername()%>
+        </h2>
+        <h4>Your role is: <%=entity.getKind()%>
+        </h4>
+        <%
+            }
+        %>
     </div>
+</div>
 </body>
 </html>

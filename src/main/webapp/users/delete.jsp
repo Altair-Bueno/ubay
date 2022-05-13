@@ -16,15 +16,15 @@
 </head>
 <body>
 
-    <div class="container">
-            <div class="col-6 position-absolute top-50 start-50 translate-middle">
-                <form class="form" action="../users/" method="get">
-                    <h1>¿Está seguro de que quiere eliminar al cliente con ID = <%=request.getParameter("id")%>?</h1>
-                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
-                </form>
+<div class="container">
+    <div class="col-6 position-absolute top-50 start-50 translate-middle">
+        <form class="form" action="../users/" method="get">
+            <h1>¿Está seguro de que quiere eliminar al cliente con ID = <%=request.getParameter("id")%>?</h1>
+            <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+        </form>
 
-        </div>
     </div>
+</div>
 
 </body>
 </html>

@@ -31,9 +31,9 @@ public class UserFilter extends HttpFilter {
         var loginDTO = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);
         ProductClientDTO cliente = loginDTO == null ? null : productService.loginDTOtoClientDTO(loginDTO); // Null if admin or not logged in
 
-        if(cliente == null){
+        if (cliente == null) {
             res.sendRedirect(req.getContextPath() + INDEX);
-        } else{
+        } else {
             chain.doFilter(req, res);
         }
     }

@@ -17,17 +17,21 @@ public class Products extends HttpServlet {
     ProductFacade facade;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String search = request.getParameter("search");
         List<ProductEntity> clientEntityList = facade.findAll();
-        request.setAttribute("users-list",clientEntityList);
+        request.setAttribute("users-list", clientEntityList);
 
         request.getRequestDispatcher("users.jsp")
-                .forward(request,response);
+                .forward(request, response);
     }
 }

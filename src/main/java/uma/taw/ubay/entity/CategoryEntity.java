@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "category", schema = "public")
 public class CategoryEntity {
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "category_id_generator")
-    @SequenceGenerator(name = "category_id_generator",sequenceName = "category_id_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_id_generator")
+    @SequenceGenerator(name = "category_id_generator", sequenceName = "category_id_seq", allocationSize = 1)
     @Id
     @Column(name = "id", nullable = false)
     private int id;

@@ -15,7 +15,7 @@
     <title>Admin main page</title>
 </head>
 <body>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
 <div class="container">
     <div class="col position-absolute justify-content-center top-50 start-50 translate-middle">
         <h2 class="p-2">Hi, admin.</h2>

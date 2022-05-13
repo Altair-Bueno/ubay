@@ -7,8 +7,8 @@ import java.sql.Date;
 @Entity
 @Table(name = "client", schema = "public")
 public class ClientEntity {
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "client_id_generator")
-    @SequenceGenerator(name = "client_id_generator",sequenceName = "client_id_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_id_generator")
+    @SequenceGenerator(name = "client_id_generator", sequenceName = "client_id_seq", allocationSize = 1)
     @Id
     @Column(name = "id", nullable = false)
     private int id;
@@ -34,6 +34,7 @@ public class ClientEntity {
     public ClientEntity() {
 
     }
+
     public ClientEntity(String name, String lastName, String address, String city, Date birthDate, GenderEnum gender) {
         super();
         this.name = name;

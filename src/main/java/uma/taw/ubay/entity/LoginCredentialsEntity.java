@@ -15,13 +15,14 @@ public class LoginCredentialsEntity {
     @Column(name = "password", nullable = false, length = 60)
     private String password;
     @Enumerated(EnumType.STRING)
-    @Column(name = "kind",nullable = false)
+    @Column(name = "kind", nullable = false)
     private KindEnum kind;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = true)
     private ClientEntity user;
 
-    public LoginCredentialsEntity() {}
+    public LoginCredentialsEntity() {
+    }
 
     public LoginCredentialsEntity(String username, String password, KindEnum kind, ClientEntity user) {
         super();

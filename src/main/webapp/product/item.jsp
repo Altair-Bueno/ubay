@@ -24,8 +24,6 @@ Created by IntelliJ IDEA.
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
     />
 
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <title>Ubay | Producto</title>
 </head>
@@ -41,7 +39,7 @@ Created by IntelliJ IDEA.
 %>
 
 <script>document.title = "Ubay | <%= p.getTitle()%>"</script>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
 
 <div class="d-flex flex-column" style="width: 1600px">
     <div class="p-2">
@@ -67,7 +65,7 @@ Created by IntelliJ IDEA.
                 </h6>
             </div>
             <%
-                if (userParameter != null){
+                if (userParameter != null) {
                     ProductClientDTO user = (ProductClientDTO) userParameter;
                     boolean isFav = (boolean) isFavParameter;
                     if (user.getId() == p.getVendor().getId()) {
@@ -81,18 +79,21 @@ Created by IntelliJ IDEA.
                 </form>
 
                 <!-- BORRAR: Button trigger modal -->
-                <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#deleteModal" style="height: 38px">
+                <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal" style="height: 38px">
                     Eliminar
                 </button>
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">Eliminar producto</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Cerrar"></button>
                         </div>
                         <div class="modal-body">
                             ¿Está seguro de que quiere eliminar el producto?
@@ -109,34 +110,38 @@ Created by IntelliJ IDEA.
             </div>
 
             <%
-                    } else {
-                        if(!cerrado){
-                            if(highestBidParameter == null){
-                                minBid = p.getOutPrice();
+            } else {
+                if (!cerrado) {
+                    if (highestBidParameter == null) {
+                        minBid = p.getOutPrice();
             %>
             <div class="row">
                 <h2>Este producto no ha recibido todavía ninguna puja</h2>
-                <h2>Precio de puja mínima: <%=p.getOutPrice()%></h2>
+                <h2>Precio de puja mínima: <%=p.getOutPrice()%>
+                </h2>
             </div>
             <%
-                            } else {
-                                ProductBidDTO highestBid = (ProductBidDTO) highestBidParameter;
-                                minBid = highestBid.getAmount();
+            } else {
+                ProductBidDTO highestBid = (ProductBidDTO) highestBidParameter;
+                minBid = highestBid.getAmount();
             %>
             <div class="row">
-                <h2>Puja más alta actual: <%=highestBid.getAmount()%></h2>
+                <h2>Puja más alta actual: <%=highestBid.getAmount()%>
+                </h2>
             </div>
             <%
-                            }
+                }
             %>
 
             <div class="row align-items-center p-2">
                 <form method="post" action="${pageContext.request.contextPath}/users/bids/new">
                     <div class="col-auto w-25">
-                        <input type="number" min="<%=minBid%>" step="0.01" name="<%=UsersKeys.BID_AMOUNT_PARAMETER%>" class="form-control" placeholder="Cantidad a pujar..." required>
+                        <input type="number" min="<%=minBid%>" step="0.01" name="<%=UsersKeys.BID_AMOUNT_PARAMETER%>"
+                               class="form-control" placeholder="Cantidad a pujar..." required>
                     </div>
                     <div class="col-auto">
-                        <input type='hidden' name="<%=UsersKeys.BID_PRODUCT_ID_PARAMETER%>" id='id-compra' value="<%=p.getId()%>"/>
+                        <input type='hidden' name="<%=UsersKeys.BID_PRODUCT_ID_PARAMETER%>" id='id-compra'
+                               value="<%=p.getId()%>"/>
                         <input class="btn btn-primary" type="submit" value="Pujar"/>
                     </div>
                 </form>
@@ -144,8 +149,8 @@ Created by IntelliJ IDEA.
         </div>
         <div class="p-4">
             <%
-                        }
-                        if(isFav){
+                }
+                if (isFav) {
 
             %>
 
@@ -161,7 +166,7 @@ Created by IntelliJ IDEA.
 
             <%
 
-                        } else {
+            } else {
             %>
 
             <form method="get" action="${pageContext.request.contextPath}/users/addFavourite">
@@ -183,8 +188,7 @@ Created by IntelliJ IDEA.
 </div>
 
 <script>
-    function goBack()
-    {
+    function goBack() {
         window.history.back();
     }
 </script>

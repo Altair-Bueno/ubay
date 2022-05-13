@@ -24,10 +24,14 @@ public class Products extends HttpServlet {
     UsersService usersService;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         var login = ((LoginDTO) request.getSession().getAttribute(SessionKeys.LOGIN_DTO));
@@ -36,7 +40,7 @@ public class Products extends HttpServlet {
 
         request.setAttribute("clientID", usersService.getClientID(login));
         request.setAttribute("favourite-products-list", favouriteProducts);
-        request.getRequestDispatcher("products.jsp").forward(request,response);
+        request.getRequestDispatcher("products.jsp").forward(request, response);
     }
 }
 

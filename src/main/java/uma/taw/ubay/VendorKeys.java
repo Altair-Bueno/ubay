@@ -14,5 +14,5 @@ public class VendorKeys {
     public static final String ORDER_BY_PARAMETER = "orderby";
     public static final String ASC_PARAMETER = "asc";
 
-    public static final String[] ORDER_BY_LIST = new String[]{"Fecha de publicación","Valor de la puja"};
+    public static final String[] ORDER_BY_LIST = new String[]{"Fecha de publicación", "Valor de la puja"};
 }

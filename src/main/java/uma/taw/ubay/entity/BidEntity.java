@@ -10,8 +10,8 @@ import java.util.Objects;
 @IdClass(BidEntityPK.class)
 public class BidEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "bid_id_generator")
-    @SequenceGenerator(name = "bid_id_generator",sequenceName = "bid_id_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bid_id_generator")
+    @SequenceGenerator(name = "bid_id_generator", sequenceName = "bid_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false, updatable = false)
     private int id;
     @Basic

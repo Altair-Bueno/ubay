@@ -17,7 +17,7 @@
     <title>Ubay | Usuarios</title>
 </head>
 <body>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
 <div>
     <%--<form>
         <h3>User data:</h3>
@@ -43,8 +43,8 @@
                     <div class="form col">
                         ID: <input type="text" class="form-control" id="id" name="id">
                         Nombre: <input type="text" class="form-control" id="name" name="name">
-                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName" >
-                        Dirección: <input type="text" class="form-control" id="address" name="address" >
+                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName">
+                        Dirección: <input type="text" class="form-control" id="address" name="address">
                         Ciudad: <input type="text" class="form-control" id="city" name="city" aria-describedby="city">
                         Género: <select class="form-select" id="gender" name="gender">
                         <option selected value="--">--</option>
@@ -75,30 +75,39 @@
                     </thead>
                     <tbody>
                     <%
-                        List<ClientDTO> searchClient = (List)request.getAttribute("search-user");
+                        List<ClientDTO> searchClient = (List) request.getAttribute("search-user");
 
-                        if(searchClient != null){
-                            for(ClientDTO c : searchClient){
+                        if (searchClient != null) {
+                            for (ClientDTO c : searchClient) {
                                 String genero = "";
                                 GenderEnum gender = c.getGender();
-                                if(gender.toString().equals("male")){
+                                if (gender.toString().equals("male")) {
                                     genero = "Masculino";
-                                } else if(gender.toString().equals("female")){
+                                } else if (gender.toString().equals("female")) {
                                     genero = "Femenino";
                                 } else {
                                     genero = "Otro";
                                 }
                     %>
                     <tr>
-                        <td><%=c.getId()%></td>
-                        <td><%=c.getName()%></td>
-                        <td><%=c.getLastName()%></td>
-                        <td><%=genero%></td>
-                        <td><%=c.getAddress()%></td>
-                        <td><%=c.getCity()%></td>
-                        <td><%=c.getBirthDate()%></td>
+                        <td><%=c.getId()%>
+                        </td>
+                        <td><%=c.getName()%>
+                        </td>
+                        <td><%=c.getLastName()%>
+                        </td>
+                        <td><%=genero%>
+                        </td>
+                        <td><%=c.getAddress()%>
+                        </td>
+                        <td><%=c.getCity()%>
+                        </td>
+                        <td><%=c.getBirthDate()%>
+                        </td>
                         <td><a href=delete?id=<%=c.getId()%>>Eliminar usuario</a></td>
-                        <td><a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modificar usuario</a></td>
+                        <td>
+                            <a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modificar
+                                usuario</a></td>
                         <td><a href="passwordChangeLink?id=<%=c.getId()%>">Reestablecer contraseña</a></td>
                     </tr>
                     <%
@@ -107,57 +116,11 @@
                     %>
                     </tbody>
                 </table>
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Register new user</a>
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Registrar
+                    a un usuario nuevo</a>
             </div>
         </div>
     </div>
-
-
-    &nbsp;
-    &nbsp;
-<%--
-    <form>
-        <label for="userID">ID:</label><input type="text" name="userID" id="userID">
-        <label for="userName">Name:</label><input type="text" name="userName" id="userName">
-        <label for="userLastName">Last Name:</label><input type="text" name="userLastName" id="userLastName"><br>
-        <label for="userGender">Gender:</label><input type="text" name="userGender" id="userGender">
-        <label for="userAddress">Address:</label><input type="text" name="userAddress" id="userAddress">
-        <label for="userCity">City:</label><input type="text" name="userCity" id="userCity">
-        <label for="userBirthDate">Birth date:</label><input type="text" name="userBirthDate" id="userBirthDate"><br>
-    </form>
-
-    <script>
-        var table = document.getElementById('userDataTable'), rIndex;
-
-        for(var i = 0; i < table.rows.length; i++){
-            table.rows[i].onclick = function(){
-                rIndex = this.rowsIndex;
-                document.getElementById("userID").value = this.cells[0].innerHTML;
-                document.getElementById("userName").value = this.cells[1].innerHTML;
-                document.getElementById("userLastName").value = this.cells[2].innerHTML;
-                document.getElementById("userGender").value = this.cells[3].innerHTML;
-                document.getElementById("userAddress").value = this.cells[4].innerHTML;
-                document.getElementById("userCity").value = this.cells[5].innerHTML;
-                document.getElementById("userBirthDate").value = this.cells[6].innerHTML;
-            };
-        }
-    </script>
-
-    --%>
-
-<%--
-<h2>Create new user: </h2>
-    <a href="../auth/register.jsp">Click here to register a new user</a>
-
-    <h2>Delete a existing user by ID: </h2>
-        <form>
-            <label>
-                <input name="IDdeleteUser">
-                <input type="submit">
-            </label>
-        </form>
-
---%>
 
 </div>
 </body>

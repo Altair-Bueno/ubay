@@ -20,10 +20,14 @@ public class DeleteFavProduct extends HttpServlet {
     UsersService usersService;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String productID = request.getParameter("productID");
@@ -31,7 +35,7 @@ public class DeleteFavProduct extends HttpServlet {
 
         usersService.deleteFavProduct(productID, clientID);
 
-        request.getRequestDispatcher("deleteFavProduct.jsp").forward(request,response);
+        request.getRequestDispatcher("deleteFavProduct.jsp").forward(request, response);
     }
 
 }

@@ -22,10 +22,14 @@ public class Modify extends HttpServlet {
     UsersService usersService;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
@@ -36,8 +40,8 @@ public class Modify extends HttpServlet {
         String city = request.getParameter("city");
         Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
         String edited = request.getParameter("edited");
-        if(edited == null){
-            request.getRequestDispatcher("modify.jsp").forward(request,response);
+        if (edited == null) {
+            request.getRequestDispatcher("modify.jsp").forward(request, response);
         } else {
             usersService.modifyUser(id, name, lastName, gender, address, city, birthDate);
             response.sendRedirect(request.getContextPath() + "/users/");

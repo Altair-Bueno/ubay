@@ -37,7 +37,7 @@ public class Index extends HttpServlet {
         req.setAttribute("product-list", productDTOS.getProductsList());
         req.setAttribute("user", cliente != null);
 
-        req.getRequestDispatcher("product/index.jsp").forward(req,resp);
+        req.getRequestDispatcher("product/index.jsp").forward(req, resp);
     }
 
     @Override

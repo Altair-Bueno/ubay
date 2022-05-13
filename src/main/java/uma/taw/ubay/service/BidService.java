@@ -53,35 +53,35 @@ public class BidService {
         );
     }
 
-    public List<ReceivedBidsDTO> getReceivedBids(@NonNull LoginDTO loginDTO, String startDateParameter, String endDateParameter, String productTitleParameter, String clientNameParameter, String pageParameter,String orderByParameter, String ascParameter) {
+    public List<ReceivedBidsDTO> getReceivedBids(@NonNull LoginDTO loginDTO, String startDateParameter, String endDateParameter, String productTitleParameter, String clientNameParameter, String pageParameter, String orderByParameter, String ascParameter) {
         Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
         Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);
         String productTitle = "".equals(productTitleParameter) ? null : productTitleParameter;
         String clientName = "".equals(clientNameParameter) ? null : clientNameParameter;
-        var orderBy = orderByParameter == null || orderByParameter.equals("") ? "publishDate":orderByParameter;
+        var orderBy = orderByParameter == null || orderByParameter.equals("") ? "publishDate" : orderByParameter;
         var asc = ascParameter != null;
         int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
         if (page < 0) throw new IllegalArgumentException("Negative page index");
 
         var userCredentials = authService.getCredentialsEntity(loginDTO);
         var vendor = userCredentials.getUser();
-        Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromVendor(vendor, page, startDate, endDate, productTitle, clientName,orderBy,asc);
+        Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromVendor(vendor, page, startDate, endDate, productTitle, clientName, orderBy, asc);
 
         return bidEntityStream.map(this::entityBidToReceivedBid).collect(Collectors.toList());
     }
 
-    public List<SentBidsDTO> getSentBids(@NonNull LoginDTO loginDTO, String startDateParameter, String endDateParameter, String productTitleParameter, String vendorNameParameter, String pageParameter,String orderByParameter,String ascParameter) {
+    public List<SentBidsDTO> getSentBids(@NonNull LoginDTO loginDTO, String startDateParameter, String endDateParameter, String productTitleParameter, String vendorNameParameter, String pageParameter, String orderByParameter, String ascParameter) {
         Date startDate = "".equals(startDateParameter) || startDateParameter == null ? null : Date.valueOf(startDateParameter);
         Date endDate = "".equals(endDateParameter) || endDateParameter == null ? null : Date.valueOf(endDateParameter);
         String productTitle = "".equals(productTitleParameter) ? null : productTitleParameter;
         String vendorName = "".equals(vendorNameParameter) ? null : vendorNameParameter;
-        var orderBy = orderByParameter == null || orderByParameter.equals("") ? "publishDate":orderByParameter;
+        var orderBy = orderByParameter == null || orderByParameter.equals("") ? "publishDate" : orderByParameter;
         var asc = ascParameter != null;
         int page = "".equals(pageParameter) || pageParameter == null ? 0 : Integer.parseInt(pageParameter);
         if (page < 0) throw new IllegalArgumentException("Negative page index");
 
         var loginCredentials = authService.getCredentialsEntity(loginDTO);
-        Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName,orderBy,asc);
+        Stream<BidEntity> bidEntityStream = bidFacade.getFilteredBidsFromUser(loginCredentials.getUser(), page, startDate, endDate, productTitle, vendorName, orderBy, asc);
         return bidEntityStream.map(this::entityBidToSentBid).collect(Collectors.toList());
     }
 
@@ -94,16 +94,18 @@ public class BidService {
         var product = productFacade.find(productId);
 
         if (product == null) throw new IllegalArgumentException("The given product ID doesn't exist");
-        if (!product.isCurrentlyAvailable()) throw new IllegalArgumentException("The given product is no longer available");
-        if (product.getOutPrice() > amount) throw new IllegalArgumentException("The received amount is lower than the starting bid");
+        if (!product.isCurrentlyAvailable())
+            throw new IllegalArgumentException("The given product is no longer available");
+        if (product.getOutPrice() > amount)
+            throw new IllegalArgumentException("The received amount is lower than the starting bid");
 
         var highestBid = bidFacade.getHighestBidByProduct(product);
-        if (highestBid != null && highestBid.getAmount() >= amount){
+        if (highestBid != null && highestBid.getAmount() >= amount) {
             throw new IllegalArgumentException("A higher bid exist. Current bid amount: " + highestBid.getAmount());
         }
 
 
-        var bid = new BidEntity(timestamp,amount,product, credentials.getUser());
+        var bid = new BidEntity(timestamp, amount, product, credentials.getUser());
         bidFacade.create(bid);
     }
 }

@@ -42,6 +42,6 @@ public class Update extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("product", productService.findProduct(Integer.parseInt(req.getParameter("id"))));
         req.setAttribute("cats", productService.categories());
-        req.getRequestDispatcher("update.jsp").forward(req,resp);
+        req.getRequestDispatcher("update.jsp").forward(req, resp);
     }
 }

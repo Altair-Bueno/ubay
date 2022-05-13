@@ -48,7 +48,7 @@ public class New extends HttpServlet {
     ProductService productService;
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("new.jsp").forward(req,resp);
+        req.getRequestDispatcher("new.jsp").forward(req, resp);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class New extends HttpServlet {
 
         req.setAttribute("cats", cats);
         req.setAttribute("user", cliente);
-        req.getRequestDispatcher("new.jsp").forward(req,resp);
+        req.getRequestDispatcher("new.jsp").forward(req, resp);
     }
 
     @Override
@@ -68,16 +68,16 @@ public class New extends HttpServlet {
 
 
         String vendorIdParameter = req.getParameter("vendor");
-        if(vendorIdParameter == null) throw new RuntimeException("ERROR: Intentelo de nuevo.");
+        if (vendorIdParameter == null) throw new RuntimeException("ERROR: Intentelo de nuevo.");
         int vendorId = Integer.parseInt(vendorIdParameter);
         String description = req.getParameter("description");
         String title = req.getParameter("titulo");
-        Double outprice  = Double.parseDouble(req.getParameter("precio"));
+        Double outprice = Double.parseDouble(req.getParameter("precio"));
         Part file = req.getPart("img");
         String img = "";
 
         // IMAGEN
-        if(!file.getSubmittedFileName().equals("")){
+        if (!file.getSubmittedFileName().equals("")) {
             InputStream inputStream = file.getInputStream();
 
 

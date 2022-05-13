@@ -12,11 +12,11 @@ public class PasswordResetEntity {
 
     @ManyToOne
     @MapsId("username")
-    @JoinColumn(name = "username",nullable = false)
+    @JoinColumn(name = "username", nullable = false)
     private LoginCredentialsEntity user;
     @Basic
     @MapsId("requestId")
-    @Column(name = "request_id",nullable = false,length = 20)
+    @Column(name = "request_id", nullable = false, length = 20)
     private String requestId;
 
     public PasswordResetEntityPK getKey() {

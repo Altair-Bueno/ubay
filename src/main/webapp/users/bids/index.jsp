@@ -37,7 +37,7 @@
     <title>Ubay-My bids</title>
 </head>
 <body>
-<%@include file="../../WEB-INF/components/navbar.jsp"%>
+<%@include file="../../WEB-INF/components/navbar.jsp" %>
 
 <div class="container mt-4">
     <div class="row">
@@ -73,7 +73,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="pageNumber" class="form-label">Página</label>
-                    <input type="number" class = "form-control" id="pageNumber"
+                    <input type="number" class="form-control" id="pageNumber"
                            name="<%=UsersKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>
@@ -82,8 +82,9 @@
                         id="orderBy"
                         name="<%=UsersKeys.ORDER_BY_PARAMETER%>"
                 >
-                    <%for (String orderBy: UsersKeys.ORDER_BY_LIST){%>
-                    <option <%=orderBy.equals(request.getParameter(UsersKeys.ORDER_BY_PARAMETER)) ? "selected":""%> value="<%=orderBy%>">
+                    <%for (String orderBy : UsersKeys.ORDER_BY_LIST) {%>
+                    <option <%=orderBy.equals(request.getParameter(UsersKeys.ORDER_BY_PARAMETER)) ? "selected" : ""%>
+                            value="<%=orderBy%>">
                         <%=orderBy%>
                     </option>
                     <%}%>

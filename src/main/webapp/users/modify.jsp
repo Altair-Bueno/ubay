@@ -59,13 +59,18 @@
                 Fecha de nacimiento: <input type="date" class="form-control" name="birthDate"
                                             value="<%=request.getParameter("birthDate")%>"> <br>
             </div>
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary mt-2">Modificar</button>
-            </div>
+            <button type="submit" class="btn btn-primary mt-2">Modificar</button>
+            <button type="button" class="btn btn-secondary mt-2" onclick="goBack()">Cancelar</button>
 
         </form>
     </div>
 </div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
 </body>
 </html>

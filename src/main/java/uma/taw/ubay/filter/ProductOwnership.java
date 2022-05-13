@@ -34,9 +34,9 @@ public class ProductOwnership extends HttpFilter {
         var loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
         var loginCredentialsEntity = authService.getCredentialsEntity(loginDTO);
 
-        if(!p.getVendor().equals(loginCredentialsEntity.getUser())){
+        if (!p.getVendor().equals(loginCredentialsEntity.getUser())) {
             res.sendRedirect(req.getContextPath() + INDEX);
-        } else{
+        } else {
             chain.doFilter(req, res);
         }
     }

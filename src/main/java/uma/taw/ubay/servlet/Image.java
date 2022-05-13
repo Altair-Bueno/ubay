@@ -30,7 +30,7 @@ public class Image extends HttpServlet {
             object.close();
             outputStream.close();
         } catch (Exception e) {
-            throw new ServletException(e.getMessage(),e);
+            throw new ServletException(e.getMessage(), e);
         }
     }
 }
