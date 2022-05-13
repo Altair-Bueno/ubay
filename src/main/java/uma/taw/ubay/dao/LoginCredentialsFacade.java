@@ -6,6 +6,9 @@ import jakarta.persistence.PersistenceContext;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
 
+/**
+ * @author Jose Luís Bueno
+ */
 @Stateless
 public class LoginCredentialsFacade extends AbstractFacade<LoginCredentialsEntity> {
 

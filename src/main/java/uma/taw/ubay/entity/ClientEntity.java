@@ -3,6 +3,9 @@ package uma.taw.ubay.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+/**
+ * @author Altair Bueno
+ */
 
 @Entity
 @Table(name = "client", schema = "public")

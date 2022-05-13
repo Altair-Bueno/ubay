@@ -4,6 +4,10 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
+/**
+ *
+ * @author Altair Bueno
+ */
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;

@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
+/**
+ * @author Altair Bueno
+ */
 
 @Entity
 @Table(name = "product", schema = "public")

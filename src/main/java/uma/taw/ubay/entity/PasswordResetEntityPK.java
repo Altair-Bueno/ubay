@@ -5,6 +5,9 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
+/**
+ * @author Altair Bueno
+ */
 
 @Embeddable
 public class PasswordResetEntityPK implements Serializable {

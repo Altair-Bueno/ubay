@@ -1,6 +1,9 @@
 package uma.taw.ubay.entity;
 
 import jakarta.persistence.*;
+/**
+ * @author Altair Bueno
+ */
 
 @Entity
 @Table(name = "category", schema = "public")
