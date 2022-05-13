@@ -37,23 +37,19 @@
                 Ciudad: <input type="text" class="form-control" name="city" value="<%=request.getParameter("city")%>">
                 <br>
                 Género: <select name="gender" class="form-select">
-                <% for (GenderEnum gender : GenderEnum.values()) {
+                <% for (GenderEnum gender : GenderEnum.values()){
                     String clientGender = request.getParameter("gender");
                     GenderEnum clientGenderEnum = GenderEnum.valueOf(clientGender);
-
-                    String genero = "";
-                    if (gender.toString().equals("male")) {
-                        genero = "Masculino";
-                    } else if (gender.toString().equals("female")) {
-                        genero = "Femenino";
-                    } else {
-                        genero = "Otro";
+                    if(gender.equals(clientGenderEnum)){
+                %>
+                <option selected><%=gender.toString()%></option>
+                <%
+                } else {
+                %>
+                <option><%=gender.toString()%></option>
+                <%
                     }
                 %>
-                <option <%=gender.equals(clientGenderEnum) ? "selected" : ""%>
-                        value="<%=gender.toString()%>"><%=genero%>
-                </option>
-
                 <%}%>
             </select> </br>
                 Fecha de nacimiento: <input type="date" class="form-control" name="birthDate"

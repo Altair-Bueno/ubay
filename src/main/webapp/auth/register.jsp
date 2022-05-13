@@ -76,19 +76,8 @@
         <div class="col-md-6">
             <label for="gender" class="form-label">Género</label>
             <select id="gender" class="form-select" name="<%=AuthKeys.GENDER_PARAMETER%>" required>
-                <% for (GenderEnum gender : GenderEnum.values()) {
-                    String genero = "";
-                    if (gender.toString().equals("male")) {
-                        genero = "Masculino";
-                    } else if (gender.toString().equals("female")) {
-                        genero = "Femenino";
-                    } else {
-                        genero = "Otro";
-                    }
-                %>
-
-                <option><%=genero%>
-                </option>
+                <% for (GenderEnum gender : GenderEnum.values()) {%>
+                <option><%=gender%></option>
                 <%}%>
             </select>
         </div>

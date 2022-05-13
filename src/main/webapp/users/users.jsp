@@ -75,19 +75,11 @@
                     </thead>
                     <tbody>
                     <%
-                        List<ClientDTO> searchClient = (List) request.getAttribute("search-user");
+                        List<ClientDTO> searchClient = (List)request.getAttribute("search-user");
 
-                        if (searchClient != null) {
-                            for (ClientDTO c : searchClient) {
-                                String genero = "";
-                                GenderEnum gender = c.getGender();
-                                if (gender.toString().equals("male")) {
-                                    genero = "Masculino";
-                                } else if (gender.toString().equals("female")) {
-                                    genero = "Femenino";
-                                } else {
-                                    genero = "Otro";
-                                }
+                        if(searchClient != null){
+                            for(ClientDTO c : searchClient){
+
                     %>
                     <tr>
                         <td><%=c.getId()%>
@@ -96,7 +88,7 @@
                         </td>
                         <td><%=c.getLastName()%>
                         </td>
-                        <td><%=genero%>
+                        <td><%=c.getGender()%>
                         </td>
                         <td><%=c.getAddress()%>
                         </td>
