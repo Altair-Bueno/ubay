@@ -21,6 +21,8 @@
 </head>
 <body>
 <%@include file="../WEB-INF/components/navbar.jsp" %>
+<div class="container">
+    <h1>Notificaciones</h1>
 <%
     HashMap<BidsDTO, Boolean> notificaciones = (HashMap<BidsDTO, Boolean>) request.getAttribute("notifications");
 
@@ -30,46 +32,44 @@
     <h1>No tiene ninguna notificación.</h1>
 </div>
 
-<%
+    <%
 } else {
 %>
 
-<table class="table table-bordered text-center">
-    <thead>
-    <tr>
-        <th scope="col">Imagen</th>
-        <th scope="col">Titulo</th>
-        <th scope="col">Fecha de cierre</th>
-        <th scope="col">Resultado</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%
-        for (BidsDTO b : notificaciones.keySet()) {
-            ProductDTO p = b.getProduct();
-            String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
-    %>
+    <table class="table table-bordered text-center">
+        <thead>
+        <tr>
+            <th scope="col">Imagen</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Fecha de cierre</th>
+            <th scope="col">Resultado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            for (BidsDTO b : notificaciones.keySet()) {
+                ProductDTO p = b.getProduct();
+                String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
+        %>
 
-    <tr onclick="window.location='${pageContext.request.contextPath}/product/item?id=' + <%=p.getId()%>">
-        <td><img src="<%=imgSrc%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
-        <td class="align-middle"><h3><%=p.getTitle()%>
-        </h3></td>
-        <td class="align-middle"><%=p.getCloseDate()%>
-        </td>
-        <td class="align-middle"><%=notificaciones.get(b) ? "Ganada" : "Perdida"%>
-        </td>
-    </tr>
+        <tr onclick="window.location='${pageContext.request.contextPath}/product/item?id=' + <%=p.getId()%>">
+            <td><img src="<%=imgSrc%>" class="img-thumbnail" alt="<%=p.getTitle()%>" style="width: 200px"></td>
+            <td class="align-middle"><h3><%=p.getTitle()%>
+            </h3></td>
+            <td class="align-middle"><%=p.getCloseDate()%>
+            </td>
+            <td class="align-middle"><%=notificaciones.get(b) ? "Ganada" : "Perdida"%>
+            </td>
+        </tr>
 
-    <%
-        }
-    %>
-    </tbody>
-
-
+        <%
+            }
+        %>
+        </tbody>
 </table>
 <%
     }
 %>
-
+</div>
 </body>
 </html>
