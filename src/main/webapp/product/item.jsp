@@ -41,12 +41,7 @@ Created by IntelliJ IDEA.
 <script>document.title = "Ubay | <%= p.getTitle()%>"</script>
 <%@include file="../WEB-INF/components/navbar.jsp" %>
 
-<div class="d-flex flex-column" style="width: 1600px">
-    <div class="p-2">
-        <button type="button" class="btn btn-labeled btn-light" onclick="goBack()">
-            <span class="btn-label"><i class="bi bi-arrow-left"></i></span>Volver
-        </button>
-    </div>
+<div class="d-flex flex-column">
     <div class="d-flex flex-row m-auto p-2">
         <div class="p-2"><img src="<%=imgSrc%>" class="rounded" alt="<%=p.getTitle()%>"
                               style="height: 500px; width: 500px;"></div>
@@ -59,7 +54,7 @@ Created by IntelliJ IDEA.
                 <h4><%= !cerrado ? "Activo" : "Cerrado"%>
                 </h4>
             </div>
-            <div class="p-2" style="height: 200px">
+            <div class="p-2">
                 <h2>Descripcion: </h2>
                 <h6><%=p.getDescription()%>
                 </h6>
@@ -80,7 +75,7 @@ Created by IntelliJ IDEA.
 
                 <!-- BORRAR: Button trigger modal -->
                 <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
-                        data-bs-target="#deleteModal" style="height: 38px">
+                        data-bs-target="#deleteModal">
                     Eliminar
                 </button>
             </div>
