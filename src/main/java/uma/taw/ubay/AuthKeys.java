@@ -7,7 +7,9 @@ package uma.taw.ubay;
  */
 public class AuthKeys {
     // From https://stackoverflow.com/a/1223146
-    public final static String USERNAME_REGEX = "^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$";
+    public final static String USERNAME_REGEX = "^.{3,20}$";
+    //public final static String USERNAME_REGEX = "^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$";
+
     public final static String PASSWORD_REGEX = ".{8,}";
 
     public final static String INDEX_REDIRECT = "/";

@@ -37,13 +37,16 @@
     <form method="post" action="${pageContext.request.contextPath}/auth/register" class="row g-2">
         <div class="form-floating col-12">
             <input id="username" class="form-control" placeholder="Usuario" name="<%=AuthKeys.USERNAME_PARAMETER%>"
-                   type="text" pattern="<%=AuthKeys.USERNAME_REGEX%>" required>
+                   type="text" pattern="<%=AuthKeys.USERNAME_REGEX%>" required aria-describedby="usernameHelp">
             <label for="username">Usuario</label>
+            <div id="usernameHelp" class="form-text">Entre 3 y 20 caracteres</div>
+
         </div>
         <div class="form-floating col-12">
             <input id="password" class="form-control" placeholder="Contraseña" name="<%=AuthKeys.PASSWORD_PARAMETER%>"
-                   type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>" required>
+                   type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>" required aria-describedby="passwordHelp">
             <label for="password">Contraseña</label>
+            <div id="passwordHelp" class="form-text">8 caracteres mínimo</div>
         </div>
         <div class="form-floating col-12">
             <input id="repeat_password" class="form-control" placeholder="Repite tu contraseña"

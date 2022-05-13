@@ -63,8 +63,7 @@
         <%--        <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">--%>
         <h1 class="h3 mb-3 fw-normal">Cambiar mi contraseña</h1>
         <div class="form-floating">
-            <input
-                    type="text"
+            <input type="password"
                     class="form-control"
                     id="floatingInput"
                     placeholder="Old Password"
@@ -81,8 +80,10 @@
                     placeholder="New Password"
                     name="<%=AuthKeys.PASSWORD_PARAMETER%>"
                     pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
+                    aria-describedby="passwordHelp"
             >
             <label for="floatingPassword">Nueva contraseña</label>
+            <div id="passwordHelp" class="form-text">8 caracteres mínimo</div>
         </div>
         <div class="form-floating last">
             <input
