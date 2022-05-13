@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="uma.taw.ubay.dto.bids.ReceivedBidsDTO" %>
 <%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   Author: Altair Bueno 90% Francisco Javier Hernández 10%
@@ -27,6 +28,8 @@
         pageNumber = Integer.parseInt(pageNumberParameter);
     } catch (Exception ignored) {
     }
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 %>
 <html>
 <head>
@@ -127,7 +130,7 @@
                         <%=1 + i + pageNumber * 10%>
                     </th>
                     <td>
-                        <%=bid.getPublishDate()%>
+                        <%=dateFormat.format(bid.getPublishDate())%>
                     </td>
                     <td>
                         $<%=bid.getAmount()%>
