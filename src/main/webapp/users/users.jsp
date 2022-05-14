@@ -38,7 +38,7 @@
                         <option value="female">Femenino</option>
                         <option value="other">Otro</option>
                     </select>
-                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+                        <button type="submit" class="btn btn-primary mt-2">Buscar</button>
                     </div>
                 </form>
             </div>

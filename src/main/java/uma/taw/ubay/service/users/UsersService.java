@@ -136,7 +136,11 @@ public class UsersService {
 
         List<ClientEntity> clientEntityList = clientFacade.findAll();
         List<ClientEntity> filtrados = clientFacade.filterClients(name, lastName, gender, address, city, id);
-        return filtrados.size() > 0 ? filtrados.stream().map(this::clientEntityToDTO).collect(Collectors.toList()) : clientEntityList.stream().map(this::clientEntityToDTO).collect(Collectors.toList());
+        if(name != null || lastName != null || gender != null || address != null || city != null || id != null){
+            return filtrados.stream().map(this::clientEntityToDTO).collect(Collectors.toList());
+        } else {
+            return clientEntityList.stream().map(this::clientEntityToDTO).collect(Collectors.toList());
+        }
     }
 
     private ClientDTO clientEntityToDTO(ClientEntity client) {
