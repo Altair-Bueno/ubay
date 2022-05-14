@@ -1,6 +1,9 @@
 package uma.taw.ubay.exception;
 
 import jakarta.servlet.ServletException;
+/**
+ * @author Altair Bueno
+ */
 
 public class AuthenticationException extends ServletException {
     public AuthenticationException() {

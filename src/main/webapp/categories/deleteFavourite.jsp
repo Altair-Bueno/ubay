@@ -15,8 +15,8 @@
     <title>Ubay | Eliminar categoria favorita</title>
 </head>
 <body>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
-<a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
+
 <div class="container">
     <div class="container">
         <div class="col-6 position-absolute top-50 start-50 translate-middle">

@@ -25,12 +25,11 @@ public class Product extends HttpServlet {
         ProductClientDTO cliente = loginDTO == null ? null : productService.loginDTOtoClientDTO(loginDTO);
 
 
-
         Integer id = Integer.parseInt(req.getParameter("id"));
         ProductDTO productDTO = productService.findProduct(id);
         ProductBidDTO highestBid = productService.getHighestBid(id);
 
-        if(cliente == null){
+        if (cliente == null) {
             req.setAttribute("isFav", null);
         } else {
             boolean isUserFav = productService.isProductUserFavourite(cliente, id);
@@ -41,7 +40,7 @@ public class Product extends HttpServlet {
         req.setAttribute("product", productDTO);
         req.setAttribute("highestBid", highestBid);
 
-        req.getRequestDispatcher("item.jsp").forward(req,resp);
+        req.getRequestDispatcher("item.jsp").forward(req, resp);
     }
 
     @Override

@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="uma.taw.ubay.dto.bids.ReceivedBidsDTO" %>
 <%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   Author: Altair Bueno 90% Francisco Javier Hernández 10%
@@ -27,6 +28,8 @@
         pageNumber = Integer.parseInt(pageNumberParameter);
     } catch (Exception ignored) {
     }
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 %>
 <html>
 <head>
@@ -37,7 +40,7 @@
     <title>Ubay | Bids Received</title>
 </head>
 <body>
-<%@include file="../../WEB-INF/components/navbar.jsp"%>
+<%@include file="../../WEB-INF/components/navbar.jsp" %>
 
 <div class="container mt-4">
     <div class="row">
@@ -73,7 +76,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="pageNumber" class="form-label">Página</label>
-                    <input type="number" class = "form-control" id="pageNumber"
+                    <input type="number" class="form-control" id="pageNumber"
                            name="<%=VendorKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>
@@ -82,8 +85,9 @@
                         id="orderBy"
                         name="<%=VendorKeys.ORDER_BY_PARAMETER%>"
                 >
-                    <%for (String orderBy: VendorKeys.ORDER_BY_LIST){%>
-                    <option <%=orderBy.equals(request.getParameter(VendorKeys.ORDER_BY_PARAMETER)) ? "selected":""%> value="<%=orderBy%>">
+                    <%for (String orderBy : VendorKeys.ORDER_BY_LIST) {%>
+                    <option <%=orderBy.equals(request.getParameter(VendorKeys.ORDER_BY_PARAMETER)) ? "selected" : ""%>
+                            value="<%=orderBy%>">
                         <%=orderBy%>
                     </option>
                     <%}%>
@@ -94,7 +98,7 @@
                             type="checkbox"
                             id="flexCheckDefault"
                             name="<%=VendorKeys.ASC_PARAMETER%>"
-                            <%=request.getParameter(VendorKeys.ASC_PARAMETER) == null ? "":"checked"%>
+                        <%=request.getParameter(VendorKeys.ASC_PARAMETER) == null ? "":"checked"%>
                     >
                     <label class="form-check-label" for="flexCheckDefault">
                         Ordenar ascendentemente
@@ -126,7 +130,7 @@
                         <%=1 + i + pageNumber * 10%>
                     </th>
                     <td>
-                        <%=bid.getPublishDate()%>
+                        <%=dateFormat.format(bid.getPublishDate())%>
                     </td>
                     <td>
                         $<%=bid.getAmount()%>

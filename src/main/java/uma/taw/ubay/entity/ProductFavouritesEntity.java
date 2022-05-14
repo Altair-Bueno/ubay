@@ -3,6 +3,9 @@ package uma.taw.ubay.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+/**
+ * @author Altair Bueno
+ */
 
 @Entity
 @Table(name = "product_favourites", schema = "public")

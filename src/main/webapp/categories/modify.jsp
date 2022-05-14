@@ -15,31 +15,33 @@
     <title>Ubay | Modificar categoria</title>
 </head>
 <body>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
 
-    <div class="d-flex flex-column align-items-center">
-        <h1>Datos</h1>
+<div class="d-flex flex-column align-items-center">
+    <h1>Datos</h1>
 
-        <div class="d-flex flex-column">
-                <form action="modify" method="get">
-                    <div class="form col">
-                        <label>
-                            <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>"> <br>
-                            <input hidden name="edited" value="1"/>
-                            Nombre: <input type="text" class="form-control" name="name" value="<%=request.getParameter("name")%>"> <br>
-                            Descripción: <input type="text" class="form-control" name="description" value="<%=request.getParameter("description")%>"> <br>
+    <div class="d-flex flex-column">
+        <form action="modify" method="get">
+            <div class="form col">
+                <label>
+                    <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>">
+                    <br>
+                    <input hidden name="edited" value="1"/>
+                    Nombre: <input type="text" class="form-control" name="name"
+                                   value="<%=request.getParameter("name")%>"> <br>
+                    Descripción: <input type="text" class="form-control" name="description"
+                                        value="<%=request.getParameter("description")%>"> <br>
 
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-2">Modificar</button>
-                    <button type="button" class="btn btn-secondary mt-2" onclick="goBack()">Cancelar</button>
-                </form>
-        </div>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Modificar</button>
+            <button type="button" class="btn btn-secondary mt-2" onclick="goBack()">Cancelar</button>
+        </form>
     </div>
+</div>
 
 <script>
-    function goBack()
-    {
+    function goBack() {
         window.history.back();
     }
 </script>

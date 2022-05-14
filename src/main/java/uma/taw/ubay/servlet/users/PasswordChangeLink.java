@@ -27,9 +27,9 @@ public class PasswordChangeLink extends HttpServlet {
 
         PasswordChangeDTO passwordChangeDTO = usersService.passwordChange(id);
 
-        req.setAttribute("passwordChangeID",passwordChangeDTO.getPasswordChangeID());
-        req.setAttribute("username",passwordChangeDTO.getUsername());
-        req.getRequestDispatcher("passwordChange.jsp").forward(req,resp);
+        req.setAttribute("passwordChangeID", passwordChangeDTO.getPasswordChangeID());
+        req.setAttribute("username", passwordChangeDTO.getUsername());
+        req.getRequestDispatcher("passwordChange.jsp").forward(req, resp);
     }
 
 }

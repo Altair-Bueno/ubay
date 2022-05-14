@@ -40,7 +40,7 @@ public class CategoriesService {
     AuthService authService;
 
     public void addCategory(String name, String description) {
-        if(name != null && description != null){
+        if (name != null && description != null) {
             CategoryEntity category = new CategoryEntity();
             category.setName(name);
             category.setDescription(description);
@@ -60,7 +60,7 @@ public class CategoriesService {
 
     @NotNull
     private List<CategoryDTO> userFavouriteCategories(LoginDTO login) {
-        if(login != null){
+        if (login != null) {
             ClientEntity client = authService.getCredentialsEntity(login).getUser();
             List<CategoryEntity> userFavouriteCategories = favouritesFacade.getClientFavouriteCategories(client);
             return userFavouriteCategories.stream().map(this::categoryEntityToDTO).collect(Collectors.toList());
@@ -70,24 +70,24 @@ public class CategoriesService {
     }
 
     @NotNull
-    private List<CategoryDTO> categories(){
+    private List<CategoryDTO> categories() {
         return categoryFacade.findAll().stream().map(this::categoryEntityToDTO).collect(Collectors.toList());
     }
 
-    private CategoryDTO categoryEntityToDTO(CategoryEntity category){
+    private CategoryDTO categoryEntityToDTO(CategoryEntity category) {
         return new CategoryDTO(category.getId(), category.getName(), category.getDescription());
     }
 
-    private ClientEntity getClientEntity(LoginDTO login){
+    private ClientEntity getClientEntity(LoginDTO login) {
         return authService.getCredentialsEntity(login).getUser();
     }
 
     public void deleteCategory(String id) {
-        if(id != null){
-            try{
+        if (id != null) {
+            try {
                 CategoryEntity category = categoryFacade.find(Integer.parseInt(id));
                 categoryFacade.remove(category);
-            } catch (Exception e){
+            } catch (Exception e) {
                 throw new UbayException("Cannot delete a category that is being used by a product.");
             }
         }
@@ -118,7 +118,7 @@ public class CategoriesService {
         List<CategoryDTO> categoryList = categories();
         int userID = -1;
 
-        if(loginDTO.getKind().equals(KindEnum.client)){
+        if (loginDTO.getKind().equals(KindEnum.client)) {
             userFavouriteCategories = userFavouriteCategories(loginDTO);
             userID = getClientEntity(loginDTO).getId();
         }

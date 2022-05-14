@@ -22,10 +22,14 @@ public class Users extends HttpServlet {
     UsersService usersService;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
@@ -38,6 +42,6 @@ public class Users extends HttpServlet {
         List<ClientDTO> clientDTOList = usersService.users(id, name, lastName, address, city, gender);
 
         request.setAttribute("search-user", clientDTOList);
-        request.getRequestDispatcher("users.jsp").forward(request,response);
+        request.getRequestDispatcher("users.jsp").forward(request, response);
     }
 }

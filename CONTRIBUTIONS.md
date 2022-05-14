@@ -1,4 +1,4 @@
-# [Altair Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=Altair-Bueno)
+# [Altair Bueno Calvente](https://github.com/Altair-Bueno/ubay/commits/master?author=Altair-Bueno)
 
 - Filters
   - [AuthFilter](src/main/java/uma/taw/ubay/filter/AuthFilter.java)
@@ -46,7 +46,7 @@
   - [Custom error pages](src/main/webapp/WEB-INF/error)
   - Other minor changes
 
-# [Francisco Javier Hernández](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
+# [Francisco Javier Hernández Martín](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 - Filters
   - [UserFilter](src/main/java/uma/taw/ubay/filter/UserFilter.java)
   - [ProductOwnership](src/main/java/uma/taw/ubay/filter/ProductOwnership.java)
@@ -86,6 +86,8 @@
   - Database design & ORM
   - Minor/medium changes in many other files when needed (check github logs)
   - Translation of the whole page to Spanish
+  - Refactoring of the whole page (import, errors, etc)
+  - Styling set up / fixed all over the website
 
 # [José Luis Bueno Pachón](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
 - Admin page (not in use)
@@ -135,5 +137,4 @@
   - [ProductDTO](src/main/java/uma/taw/ubay/dto/users/ProductDTO.java)
 - Others
   - Database schema design
-  - Dropdown menu on navbar.
-  - Navbar buttons change depending on session kind.
+  - Navbar dropdown / buttons change for admins

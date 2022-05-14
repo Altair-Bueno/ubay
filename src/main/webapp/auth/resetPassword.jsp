@@ -70,8 +70,10 @@
                     placeholder="New Password"
                     name="<%=AuthKeys.PASSWORD_PARAMETER%>"
                     pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
+                    aria-describedby="passwordHelp"
             >
             <label for="floatingPassword">Nueva contraseña</label>
+            <div id="passwordHelp" class="form-text">8 caracteres mínimo</div>
         </div>
         <div class="form-floating last">
             <input

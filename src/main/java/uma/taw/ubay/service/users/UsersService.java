@@ -96,7 +96,7 @@ public class UsersService {
                 productEntity.getCloseDate());
     }
 
-    private uma.taw.ubay.dto.notifications.ProductDTO notificationsProductEntityToDTO(ProductEntity productEntity){
+    private uma.taw.ubay.dto.notifications.ProductDTO notificationsProductEntityToDTO(ProductEntity productEntity) {
         return new uma.taw.ubay.dto.notifications.ProductDTO(productEntity.getId(),
                 productEntity.getTitle(),
                 productEntity.getDescription(),
@@ -104,11 +104,11 @@ public class UsersService {
                 productEntity.getCloseDate());
     }
 
-    public int getClientID(LoginDTO login){
+    public int getClientID(LoginDTO login) {
         return authService.getCredentialsEntity(login).getUser().getId();
     }
 
-    private BidsDTO bidEntityToDto(BidEntity bidEntity){
+    private BidsDTO bidEntityToDto(BidEntity bidEntity) {
         return new BidsDTO(bidEntity.getPublishDate(),
                 bidEntity.getAmount(),
                 notificationsProductEntityToDTO(bidEntity.getProduct())
@@ -120,7 +120,7 @@ public class UsersService {
         HashMap<BidsDTO, Boolean> notifications = new LinkedHashMap(); // Key: Bid; Value: Is the client the bid winner
         List<BidEntity> closedBidsByClient = bidFacade.productsBiddedClosedProducts(user);
 
-        for(BidEntity b : closedBidsByClient){
+        for (BidEntity b : closedBidsByClient) {
             BidsDTO bidDto = bidEntityToDto(b);
             notifications.put(bidDto, bidFacade.isWinnerBid(user, b));
         }
@@ -130,16 +130,16 @@ public class UsersService {
 
     public List<ClientDTO> users(String id, String name, String lastName, String address, String city, String genderString) {
         GenderEnum gender = null;
-        if(genderString != null && !"".equals(genderString) && !genderString.equals("--")){
+        if (genderString != null && !"".equals(genderString) && !genderString.equals("--")) {
             gender = GenderEnum.valueOf(genderString);
         }
 
         List<ClientEntity> clientEntityList = clientFacade.findAll();
-        List<ClientEntity> filtrados = clientFacade.filterClients(name, lastName,gender, address, city, id);
+        List<ClientEntity> filtrados = clientFacade.filterClients(name, lastName, gender, address, city, id);
         return filtrados.size() > 0 ? filtrados.stream().map(this::clientEntityToDTO).collect(Collectors.toList()) : clientEntityList.stream().map(this::clientEntityToDTO).collect(Collectors.toList());
     }
 
-    private ClientDTO clientEntityToDTO(ClientEntity client){
+    private ClientDTO clientEntityToDTO(ClientEntity client) {
         return new ClientDTO(client.getId(), client.getName(), client.getLastName(), client.getGender(), client.getAddress(), client.getCity(), client.getBirthDate());
     }
 
@@ -155,7 +155,7 @@ public class UsersService {
 
     @NotNull
     public PasswordChangeDTO passwordChange(String id) {
-        String passwordChangeID = generateRandomString(20,new Random());
+        String passwordChangeID = generateRandomString(20, new Random());
         ClientEntity client = clientFacade.find(Integer.parseInt(id));
         LoginCredentialsEntity loginCredentialsEntity = loginFacade.searchClientLoginByClient(client);
 

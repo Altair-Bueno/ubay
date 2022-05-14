@@ -19,6 +19,7 @@ import java.io.IOException;
  */
 public class AuthFilter extends HttpFilter {
     private final static String LOGIN_PAGE = "/auth/login";
+
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {

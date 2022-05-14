@@ -7,11 +7,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
 import org.jetbrains.annotations.NotNull;
 import uma.taw.ubay.dao.*;
-import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.products.*;
 import uma.taw.ubay.entity.*;
 import uma.taw.ubay.service.AuthService;
 import uma.taw.ubay.service.users.UsersService;
+import uma.taw.ubay.dao.ProductFacade.ProductTupleResult;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,39 +54,59 @@ public class ProductService {
     AuthService authService;
 
 
-    public ProductsDTO getProductsList(String productName, String category, String page){
+    public ProductsDTO getProductsList(ProductClientDTO sesionClient, String productName, String category, String favOwnedFilter, String page) {
         List<ProductDTO> productDTOS = new ArrayList<>();
-        ProductFacade.ProductTupleResult ptr;
+        ProductTupleResult<ProductEntity> ptr;
+        CategoryEntity cat = null;
+        ClientEntity clientEntity = null;
+        if(sesionClient != null) clientEntity = clientFacade.find(sesionClient.getId());
+        boolean favFilter = false, ownedFilter = false, productAndCategory = productName != null || (category != null && !category.equals("--"));
+        int tam = 0, pageParam = page == null ? 0 : Integer.parseInt(page) - 1;
         page = page.equals("") ? "1" : page;
-        int tam = 0;
 
-        // Filters:
+        if(favOwnedFilter != null){
+            if(favOwnedFilter.equals("favFilter")){
+                favFilter = true;
+            } else if(favOwnedFilter.equals("ownedFilter")){
+                ownedFilter = true;
+            }
+        }
 
-
-        if(productName != null || (category != null && !category.equals("--"))){
-            CategoryEntity cat = null;
-            if(!category.equals("--")){
+        if (productAndCategory) {
+            if (!category.equals("--")) {
                 int catId = Integer.parseInt(category);
                 cat = categoryFacade.searchById(catId);
             }
-            ptr = productFacade.filterAndGetByPage(productName, cat, Integer.parseInt(page) - 1);
-        } else {
-            ptr = productFacade.getByPage(page == null ? 0 : Integer.parseInt(page) - 1);
         }
 
-        for(ProductEntity p : ptr.getProductEntities()){
+        // Filters:
+
+        if(productAndCategory && favFilter){
+            ptr = productFavouritesFacade.getClientFavouriteProductsFiltered(productName, cat, pageParam);
+        } else if(favFilter){
+            ptr = productFavouritesFacade.getClientFavouriteProductsByPage(pageParam);
+        } else if(productAndCategory){
+            ptr = productFacade.filterAndGetByPage(clientEntity, productName, cat, ownedFilter, pageParam);
+        }  else {
+            ptr = productFacade.getByPage(clientEntity, ownedFilter, pageParam);
+        }
+
+        for (ProductEntity p : ptr.getProductEntities()) {
             productDTOS.add(
                     productEntityToDTO(p)
             );
         }
+
+
+
         return new ProductsDTO(productDTOS, ptr.getActualSize());
     }
 
     @NotNull
-    public boolean isProductUserFavourite(ProductClientDTO client, int id){
+    public boolean isProductUserFavourite(ProductClientDTO client, int id) {
         ClientEntity user = clientFacade.find(client.getId());
 
-        if(user != null){
+        if (user != null) {
             List<ProductEntity> products = productFavouritesFacade.getClientFavouriteProducts(user);
             var product = productFacade.find(id);
             return products.contains(product);
@@ -96,11 +116,11 @@ public class ProductService {
     }
 
     @NotNull
-    public ProductCategoryDTO findCategory(int id){
+    public ProductCategoryDTO findCategory(int id) {
         return categoryEntityToDTO(categoryFacade.find(id));
     }
 
-    public ProductDTO createProduct(String title, String description, double outPrice, String images, java.util.Date publishDate, int vendorId, int categoryId){
+    public ProductDTO createProduct(String title, String description, double outPrice, String images, java.util.Date publishDate, int vendorId, int categoryId) {
         ProductEntity p = new ProductEntity();
         ClientEntity vendorEntity = clientFacade.find(vendorId);
         CategoryEntity categoryEntity = categoryFacade.find(categoryId);
@@ -120,16 +140,16 @@ public class ProductService {
         return productEntityToDTO(p);
     }
 
-    public ProductDTO findProduct(int id){
+    public ProductDTO findProduct(int id) {
         return productEntityToDTO(productFacade.find(id));
     }
 
     @NotNull
-    public List<ProductCategoryDTO> categories(){
+    public List<ProductCategoryDTO> categories() {
         return categoryFacade.findAllSortedById().stream().map(this::categoryEntityToDTO).collect(Collectors.toList());
     }
 
-    private ProductDTO productEntityToDTO(ProductEntity p){
+    private ProductDTO productEntityToDTO(ProductEntity p) {
         return new ProductDTO(
                 p.getId(),
                 p.getTitle(),
@@ -144,16 +164,16 @@ public class ProductService {
         );
     }
 
-    public ProductClientDTO loginDTOtoClientDTO(uma.taw.ubay.dto.LoginDTO logindto){
+    public ProductClientDTO loginDTOtoClientDTO(uma.taw.ubay.dto.LoginDTO logindto) {
         LoginCredentialsEntity credentials = authService.getCredentialsEntity(logindto);
-        if(credentials.getUser() == null) return null;
+        if (credentials.getUser() == null) return null;
         return new ProductClientDTO(credentials.getUser().getId());
     }
 
     public void deleteProduct(int id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         ProductEntity p = productFacade.find(id);
 
-        if(p.getImages() != null){
+        if (p.getImages() != null) {
             minioFacade.removeObject(p.getImages());
         }
 
@@ -166,13 +186,13 @@ public class ProductService {
 
 
         // IMAGEN
-        if(!file.getSubmittedFileName().equals("")){
+        if (file != null && !file.getSubmittedFileName().equals("")) {
             InputStream inputStream = file.getInputStream();
             String img = "";
 
             try {
                 img = minioFacade.uploadObject(inputStream);
-                if(!img.equals(p.getImages())){
+                if (!img.equals(p.getImages())) {
                     minioFacade.removeObject(p.getImages());
                 }
             } catch (Exception e) {
@@ -183,12 +203,12 @@ public class ProductService {
         }
 
         // ESTADO
-        if(estado.equals("Cerrado")){
-            if(p.getCloseDate() == null){
+        if (estado.equals("Cerrado")) {
+            if (p.getCloseDate() == null) {
                 p.setCloseDate(new Date(new java.util.Date().getTime()));
             }
-        } else if(estado.equals("Activo")) {
-            if(p.getCloseDate() != null){
+        } else if (estado.equals("Activo")) {
+            if (p.getCloseDate() != null) {
                 p.setCloseDate(null);
             }
         }
@@ -201,19 +221,19 @@ public class ProductService {
         productFacade.edit(p);
     }
 
-    private ProductClientDTO clientEntityToDto(ClientEntity client){
+    private ProductClientDTO clientEntityToDto(ClientEntity client) {
         return new ProductClientDTO(client.getId());
     }
 
-    private ProductCategoryDTO categoryEntityToDTO(CategoryEntity category){
+    private ProductCategoryDTO categoryEntityToDTO(CategoryEntity category) {
         return new ProductCategoryDTO(category.getId(), category.getName());
     }
 
-    public ProductBidDTO getHighestBid(int productId){
+    public ProductBidDTO getHighestBid(int productId) {
         ProductEntity producto = productFacade.find(productId);
         BidEntity highestBid = bidFacade.getHighestBidByProduct(producto);
 
-        if(highestBid == null) return null;
+        if (highestBid == null) return null;
         return new ProductBidDTO(highestBid.getAmount());
     }
 

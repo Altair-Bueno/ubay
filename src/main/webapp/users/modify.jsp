@@ -37,35 +37,36 @@
                 Ciudad: <input type="text" class="form-control" name="city" value="<%=request.getParameter("city")%>">
                 <br>
                 Género: <select name="gender" class="form-select">
-                <% for (GenderEnum gender : GenderEnum.values()) {
+                <% for (GenderEnum gender : GenderEnum.values()){
                     String clientGender = request.getParameter("gender");
                     GenderEnum clientGenderEnum = GenderEnum.valueOf(clientGender);
-
-                    String genero = "";
-                    if (gender.toString().equals("male")) {
-                        genero = "Masculino";
-                    } else if (gender.toString().equals("female")) {
-                        genero = "Femenino";
-                    } else {
-                        genero = "Otro";
+                    if(gender.equals(clientGenderEnum)){
+                %>
+                <option selected><%=gender.toString()%></option>
+                <%
+                } else {
+                %>
+                <option><%=gender.toString()%></option>
+                <%
                     }
                 %>
-                <option <%=gender.equals(clientGenderEnum) ? "selected" : ""%>
-                        value="<%=gender.toString()%>"><%=genero%>
-                </option>
-
                 <%}%>
             </select> </br>
                 Fecha de nacimiento: <input type="date" class="form-control" name="birthDate"
                                             value="<%=request.getParameter("birthDate")%>"> <br>
             </div>
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary mt-2">Modificar</button>
-            </div>
+            <button type="submit" class="btn btn-primary mt-2">Modificar</button>
+            <button type="button" class="btn btn-secondary mt-2" onclick="goBack()">Cancelar</button>
 
         </form>
     </div>
 </div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
 </body>
 </html>

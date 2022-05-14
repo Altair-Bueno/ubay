@@ -5,12 +5,15 @@ import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
+/**
+ * @author Altair Bueno
+ */
 
 @Entity
 @Table(name = "product", schema = "public")
 public class ProductEntity {
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "product_id_generator")
-    @SequenceGenerator(name = "product_id_generator",sequenceName = "product_id_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_generator")
+    @SequenceGenerator(name = "product_id_generator", sequenceName = "product_id_seq", allocationSize = 1)
     @Id
     @Column(name = "id", nullable = false)
     private int id;

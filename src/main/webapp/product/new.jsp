@@ -19,82 +19,85 @@ Created by IntelliJ IDEA.
 </head>
 <body>
 
-    <%
-        List<ProductCategoryDTO> cats = (List<ProductCategoryDTO>) request.getAttribute("cats");
-        ProductClientDTO user = ((ProductClientDTO) request.getAttribute("user"));
-    %>
+<%
+    List<ProductCategoryDTO> cats = (List<ProductCategoryDTO>) request.getAttribute("cats");
+    ProductClientDTO user = ((ProductClientDTO) request.getAttribute("user"));
+%>
 
-    <%@include file="../WEB-INF/components/navbar.jsp"%>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
 
-    <form method="post" enctype="multipart/form-data">
-        <div class="d-flex flex-row m-auto" style="width: 1000px">
+<form method="post" enctype="multipart/form-data">
+    <div class="d-flex flex-row m-auto" style="width: 1000px">
 
-            <%-- BLOQUE I - Imagen --%>
-            <div class="d-flex flex-column p-2">
-                <div class="p-2">
-                    <img id="output" style="height: auto; width: 500px;" />
-                </div>
-                <div class="form-group mb-3 w-75 p-2">
-                    <label for="img" class="form-label">Subir imagen: </label>
-                    <input type="file" accept="image/*" class="form-control" id="img" name="img" onchange="loadFile(event)" />
-                </div>
-
+        <%-- BLOQUE I - Imagen --%>
+        <div class="d-flex flex-column p-2">
+            <div class="p-2">
+                <img id="output" style="height: auto; width: 500px;"/>
+            </div>
+            <div class="form-group mb-3 w-75 p-2">
+                <label for="img" class="form-label">Subir imagen: </label>
+                <input type="file" accept="image/*" class="form-control" id="img" name="img"
+                       onchange="loadFile(event)"/>
             </div>
 
-            <%-- BLOQUE II - Resto --%>
-            <div class="d-flex flex-column p-2">
-                <%-- Titulo --%>
-                <div class="form-group w-75 p-2">
-                    <label for="tit">Título: </label>
-                    <input type="text" id="tit" class="form-control" name="titulo" required/>
-                </div>
-
-                <%-- Descripcion --%>
-                <div class="p-2">
-                    <label for="desc">Descripcion: </label>
-                    <textarea id="desc" class="form-control" name="description" rows="4" cols="50"></textarea>
-                </div>
-
-                <%-- Precio --%>
-                <div class="p-2">
-                    <label for="precio">Precio: </label>
-                    <input type="number" id="precio" class="form-control" name="precio" required/>
-                </div>
-
-                <%-- Categoria --%>
-                <div class="p-2">
-                    <label>Categoria: </label>
-                    <select name="categoria" required>
-                        <%
-                            for(ProductCategoryDTO c : cats){
-                        %>
-                        <option value="<%=c.getId()%>"><%=c.getName()%></option>
-                        <%
-                            }
-                        %>
-                    </select>
-                </div>
-
-                <%-- Submit --%>
-                <div class="p-2">
-                    <div class="d-flex flex-row p-2">
-                        <div class="p-2">
-                            <input type="text" name="vendor" hidden value="<%=user.getId()%>">
-                            <input class="btn btn-primary p-2" type="submit" value="Confirmar">
-                        </div>
-                        <div class="p-2">
-                            <input class="btn btn-secondary p-2" type="submit" value="Cancelar" formaction="<%=request.getHeader("Referer")%>" formnovalidate>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
 
-    </form>
+        <%-- BLOQUE II - Resto --%>
+        <div class="d-flex flex-column p-2">
+            <%-- Titulo --%>
+            <div class="form-group w-75 p-2">
+                <label for="tit">Título: </label>
+                <input type="text" id="tit" class="form-control" name="titulo" required/>
+            </div>
+
+            <%-- Descripcion --%>
+            <div class="p-2">
+                <label for="desc">Descripcion: </label>
+                <textarea id="desc" class="form-control" name="description" rows="4" cols="50"></textarea>
+            </div>
+
+            <%-- Precio --%>
+            <div class="p-2">
+                <label for="precio">Precio: </label>
+                <input type="number" id="precio" class="form-control" name="precio" required/>
+            </div>
+
+            <%-- Categoria --%>
+            <div class="p-2">
+                <label>Categoria: </label>
+                <select name="categoria" required>
+                    <%
+                        for (ProductCategoryDTO c : cats) {
+                    %>
+                    <option value="<%=c.getId()%>"><%=c.getName()%>
+                    </option>
+                    <%
+                        }
+                    %>
+                </select>
+            </div>
+
+            <%-- Submit --%>
+            <div class="p-2">
+                <div class="d-flex flex-row p-2">
+                    <div class="p-2">
+                        <input type="text" name="vendor" hidden value="<%=user.getId()%>">
+                        <input class="btn btn-primary p-2" type="submit" value="Confirmar">
+                    </div>
+                    <div class="p-2">
+                        <input class="btn btn-secondary p-2" type="submit" value="Cancelar"
+                               formaction="<%=request.getHeader("Referer")%>" formnovalidate>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</form>
 </body>
 <script>
-    var loadFile = function(event) {
+    var loadFile = function (event) {
         var image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
     };

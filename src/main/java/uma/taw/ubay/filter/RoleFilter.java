@@ -42,12 +42,12 @@ public class RoleFilter extends HttpFilter {
         // Caution: This might trigger Safari's cookie privacy policy
         HttpSession session = req.getSession();
         var loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
-        var loginCredentials= authService.getCredentialsEntity(loginDTO);
+        var loginCredentials = authService.getCredentialsEntity(loginDTO);
         KindEnum sessionKind = loginCredentials.getKind();
 
-        boolean matches = role.stream().anyMatch(x->x.equals(sessionKind));
+        boolean matches = role.stream().anyMatch(x -> x.equals(sessionKind));
         if (matches) {
-            chain.doFilter(req,res);
+            chain.doFilter(req, res);
         } else {
             throw new RuntimeException("The role kind [" + sessionKind + "] is not allowed for this request");
         }

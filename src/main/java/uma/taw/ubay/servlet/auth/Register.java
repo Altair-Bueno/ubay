@@ -22,6 +22,7 @@ import java.io.IOException;
 public class Register extends HttpServlet {
     @EJB
     AuthService service;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, AuthenticationException {
         String usernameParameter = req.getParameter(AuthKeys.USERNAME_PARAMETER);
