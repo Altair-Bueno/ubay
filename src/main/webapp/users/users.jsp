@@ -27,7 +27,7 @@
             <div class="col-3">
                 <form>
                     <div class="form col">
-                        ID: <input type="text" class="form-control" id="id" name="id">
+                        ID: <input type="number" class="form-control" id="id" name="id">
                         Nombre: <input type="text" class="form-control" id="name" name="name">
                         Apellidos: <input type="text" class="form-control" id="lastName" name="lastName">
                         Dirección: <input type="text" class="form-control" id="address" name="address">
