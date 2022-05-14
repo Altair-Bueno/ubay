@@ -24,7 +24,8 @@
     if (loginDTO != null && loginDTO.getKind().equals(KindEnum.admin)) {
 %>
 <div class="container">
-    <h1>Categorías</h1>
+    <h1>Categorías <a class="btn btn-primary m-2" href="add" role="button">Añadir una nueva categoría</a></h1>
+
     <div class="row">
         <div class="col">
             <table class="table table-responsive" id="categoryDataTable">
@@ -62,7 +63,7 @@
                 </tbody>
             </table>
             <br>
-            <a class="btn btn-primary m-2" href="add" role="button">Añadir una nueva categoría</a>
+
         </div>
     </div>
 </div>
