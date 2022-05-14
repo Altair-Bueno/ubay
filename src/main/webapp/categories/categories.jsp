@@ -95,42 +95,55 @@
                     if (catList != null) {
                         for (CategoryDTO c : catList) {
                 %>
-                <tr>
-                    <td>
-                        <%=c.getId()%>
-                    </td>
-                    <td>
-                        <%
-                            if (favouriteCategories.contains(c)) {
-                        %>
-                                <a href="${pageContext.request.contextPath}/product?category=<%=c.getId()%>"><%=c.getName()%></a>
-                        <%
-                            } else {
-                        %>
-                                <%=c.getName()%>
-                        <%
-                            }
-                        %>
-                    </td>
-                    <td><%=c.getDescription()%>
-                    </td>
-                    <%
 
-                        if (favouriteCategories.contains(c)) {
-                    %>
-                    <td>
-                        <a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Eliminar
-                            de favoritos</a></td>
-                    <%
+                <%
+                    if (favouriteCategories.contains(c)) {
+                %>
+
+                    <tr class="table-primary">
+                        <td>
+                            <%=c.getId()%>
+                        </td>
+
+                        <td>
+                            <a href="${pageContext.request.contextPath}/product?category=<%=c.getId()%>"><%=c.getName()%></a>
+                        </td>
+
+                        <td>
+                            <%=c.getDescription()%>
+                        </td>
+
+                        <td>
+                            <a href="deleteFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Eliminar
+                                de favoritos</a>
+                        </td>
+                    </tr>
+
+                <%
                     } else {
-                    %>
-                    <td>
-                        <a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Añadir
-                            a favoritos</a></td>
-                    <%
-                        }
-                    %>
-                </tr>
+                %>
+                    <tr>
+                        <td>
+                            <%=c.getId()%>
+                        </td>
+
+                        <td>
+                            <a href="${pageContext.request.contextPath}/product?category=<%=c.getId()%>"><%=c.getName()%></a>
+                        </td>
+
+                        <td>
+                            <%=c.getDescription()%>
+                        </td>
+
+                        <td>
+                            <a href="addFavourite?categoryID=<%=c.getId()%>&clientID=<%=request.getAttribute("client-id")%>">Añadir
+                                a favoritos</a>
+                        </td>
+                    </tr>
+                <%
+                    }
+                %>
+
                 <%
                             }
                         }

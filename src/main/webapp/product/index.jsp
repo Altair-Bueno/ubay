@@ -110,7 +110,7 @@
                 %>
                 <form method="get" action="${pageContext.request.contextPath}/product/new">
                     <div class="py-3" style="width: max-content; float: left">
-                        <button type="submit" class="btn btn-success">Subir producto</button>
+                        <button type="submit" class="btn btn-primary">Subir producto</button>
                     </div>
                 </form>
                 <%
