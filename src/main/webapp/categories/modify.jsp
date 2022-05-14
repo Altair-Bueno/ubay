@@ -27,10 +27,10 @@
                     <input hidden type="text" class="form-control" name="id" value="<%=request.getParameter("id")%>">
                     <br>
                     <input hidden name="edited" value="1"/>
-                    Nombre: <input type="text" class="form-control" name="name"
-                                   value="<%=request.getParameter("name")%>"> <br>
-                    Descripción: <input type="text" class="form-control" name="description"
-                                        value="<%=request.getParameter("description")%>"> <br>
+                    Nombre: <input required type="text" class="form-control" name="name"
+                                   value="<%=request.getParameter("name")%>" maxlength="15"> <br>
+                    Descripción: <input required type="text" class="form-control" name="description"
+                                        value="<%=request.getParameter("description")%>" maxlength="25"> <br>
 
                 </label>
             </div>

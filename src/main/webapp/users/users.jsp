@@ -27,11 +27,11 @@
             <div class="col-3">
                 <form>
                     <div class="form col">
-                        ID: <input type="number" class="form-control" id="id" name="id">
-                        Nombre: <input type="text" class="form-control" id="name" name="name">
-                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName">
-                        Dirección: <input type="text" class="form-control" id="address" name="address">
-                        Ciudad: <input type="text" class="form-control" id="city" name="city" aria-describedby="city">
+                        ID: <input type="number" class="form-control" id="id" name="id" maxlength="5">
+                        Nombre: <input type="text" class="form-control" id="name" name="name" maxlength="10">
+                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName" maxlength="10">
+                        Dirección: <input type="text" class="form-control" id="address" name="address" maxlength="15">
+                        Ciudad: <input type="text" class="form-control" id="city" name="city" aria-describedby="city" maxlength="10">
                         Género: <select class="form-select" id="gender" name="gender">
                         <option selected value="--">--</option>
                         <option value="male">Masculino</option>

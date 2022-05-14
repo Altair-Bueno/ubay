@@ -48,7 +48,7 @@
             <%-- Titulo --%>
             <div class="form-group w-75 p-2">
                 <label for="tit">Título: </label>
-                <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>" required/>
+                <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>" required maxlength="20"/>
             </div>
 
             <%-- Descripcion --%>
@@ -62,7 +62,7 @@
             <div class="p-2">
                 <label for="precio">Precio: </label>
                 <input type="number" id="precio" class="form-control" name="precio" value="<%=p.getOutPrice()%>"
-                       required/>
+                       required maxlength="6"/>
             </div>
 
             <%-- Categoria --%>

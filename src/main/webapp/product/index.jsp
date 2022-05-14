@@ -71,7 +71,7 @@
                 <form id="filterForm">
                     <div class="form col">
                         Nombre del producto: <input id="nameFilter" type="text" class="form-control" id="name"
-                                                    name="name" value="<%=nameFilter%>">
+                                                    name="name" value="<%=nameFilter%>" maxlength="20">
                         Categoría:
                         <select id="categoryFilter" class="form-select" id="category" name="category">
                             <option <%=categoryFilter == 0 ? "selected" : ""%>value="--">--</option>
