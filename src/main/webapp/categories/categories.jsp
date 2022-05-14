@@ -91,18 +91,31 @@
                 <tbody>
                 <%
                     List<CategoryDTO> catList = (List) request.getAttribute("category-list");
+                    List<CategoryDTO> favouriteCategories = (List<CategoryDTO>) request.getAttribute("user-fav-category-list");
                     if (catList != null) {
                         for (CategoryDTO c : catList) {
                 %>
                 <tr>
-                    <td><%=c.getId()%>
+                    <td>
+                        <%=c.getId()%>
                     </td>
-                    <td><%=c.getName()%>
+                    <td>
+                        <%
+                            if (favouriteCategories.contains(c)) {
+                        %>
+                                <a href="${pageContext.request.contextPath}/product?category=<%=c.getId()%>"><%=c.getName()%></a>
+                        <%
+                            } else {
+                        %>
+                                <%=c.getName()%>
+                        <%
+                            }
+                        %>
                     </td>
                     <td><%=c.getDescription()%>
                     </td>
                     <%
-                        List<CategoryDTO> favouriteCategories = (List<CategoryDTO>) request.getAttribute("user-fav-category-list");
+
                         if (favouriteCategories.contains(c)) {
                     %>
                     <td>
