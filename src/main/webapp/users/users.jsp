@@ -36,12 +36,12 @@
     </form>--%>
 
     <div class="container">
-        <h1>Buscar usuarios</h1>
+        <h1>Buscar usuarios <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Registrar nuevo usuario</a></h1>
         <div class="row">
             <div class="col-3">
                 <form>
                     <div class="form col">
-                        ID: <input type="text" class="form-control" id="id" name="id">
+                        ID: <input type="number" class="form-control" id="id" name="id">
                         Nombre: <input type="text" class="form-control" id="name" name="name">
                         Apellidos: <input type="text" class="form-control" id="lastName" name="lastName" >
                         Dirección: <input type="text" class="form-control" id="address" name="address" >
@@ -107,7 +107,6 @@
                     %>
                     </tbody>
                 </table>
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Register new user</a>
             </div>
         </div>
     </div>
