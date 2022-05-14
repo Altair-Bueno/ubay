@@ -28,7 +28,7 @@ public class Update extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
 
         String estado = req.getParameter("estado");
-        String desc = req.getParameter("description");
+        String desc = req.getParameter("descripcion");
         String titulo = req.getParameter("titulo");
         Double precio = Double.parseDouble(req.getParameter("precio"));
         Part file = req.getPart("img");

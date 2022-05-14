@@ -78,9 +78,21 @@ Created by IntelliJ IDEA.
                         data-bs-target="#deleteModal">
                     Eliminar
                 </button>
+
+                <%
+                    if(!cerrado){
+
+                %>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#closeProductModal">
+                    Cerrar
+                </button>
+                <%
+                    }
+                %>
             </div>
 
-            <!-- Modal -->
+            <!-- Delete Modal -->
             <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                  aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -98,6 +110,35 @@ Created by IntelliJ IDEA.
                             <form method="post" action="${pageContext.request.contextPath}/product/delete">
                                 <input type='hidden' name='id' value="<%=p.getId()%>"/>
                                 <input class="btn btn-danger" type="submit" value="Eliminar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Close Product Modal -->
+            <div class="modal fade" id="closeProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel2">Eliminar producto</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Está seguro de que quiere cerrar el producto?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form method="post" action="${pageContext.request.contextPath}/product/update" enctype="multipart/form-data">
+                                <input type='hidden' name='id' value="<%=p.getId()%>"/>
+                                <input type='hidden' name='categoria' value="<%=p.getCategory().getId()%>"/>
+                                <input type='hidden' name='estado' value="Cerrado"/>
+                                <input type='hidden' name='descripcion' value="<%=p.getDescription()%>"/>
+                                <input type='hidden' name='titulo' value="<%=p.getTitle()%>"/>
+                                <input type='hidden' name='precio' value="<%=p.getOutPrice()%>"/>
+                                <input class="btn btn-warning" type="submit" value="Cerrar">
                             </form>
                         </div>
                     </div>

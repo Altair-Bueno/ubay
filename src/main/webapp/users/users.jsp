@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
 <%@ page import="uma.taw.ubay.dto.users.ClientDTO" %>
-<%@ page import="uma.taw.ubay.entity.GenderEnum" %><%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 28/3/22

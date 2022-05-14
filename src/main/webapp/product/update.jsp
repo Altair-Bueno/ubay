@@ -51,19 +51,10 @@
                 <input type="text" id="tit" class="form-control" name="titulo" value="<%=p.getTitle()%>" required/>
             </div>
 
-            <%-- Estado --%>
-            <div class="p-2">
-                <label>Estado:</label>
-                <input type="radio" name="estado" value="Activo" <%=p.getCloseDate() == null ? "checked" : ""%>>
-                Activo </input>
-                <input type="radio" name="estado" value="Cerrado" <%=p.getCloseDate() == null ? "" : "checked"%>>
-                Cerrado </input>
-            </div>
-
             <%-- Descripcion --%>
             <div class="p-2">
                 <label for="desc">Descripcion: </label>
-                <textarea id="desc" class="form-control" name="description" rows="4"
+                <textarea id="desc" class="form-control" name="descripcion" rows="4"
                           cols="50"><%=p.getDescription()%></textarea>
             </div>
 

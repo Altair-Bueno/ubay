@@ -43,6 +43,16 @@
     List<ProductCategoryDTO> categories = (List<ProductCategoryDTO>) request.getAttribute("category-list");
     String pagAtt = request.getParameter("page");
     Object nameParameter = request.getAttribute("nameFilter");
+    Object favOwnedParameter = request.getParameter("favOwnedFilter");
+    boolean favFilter = false, ownedFilter = false;
+    if(favOwnedParameter != null){
+        String favOwned = (String) favOwnedParameter;
+        if(favOwned.equals("favFilter")){
+            favFilter = true;
+        } else if(favOwned.equals("ownedFilter")){
+            ownedFilter = true;
+        }
+    }
     String nameFilter = (nameParameter == null ? "" : (String) nameParameter);
     int categoryFilter = (int) request.getAttribute("categoryFilter");
 
@@ -58,23 +68,36 @@
         <div class="row">
             <div class="col-3">
                 <h2>Filtros:</h2>
-                <form>
+                <form id="filterForm">
                     <div class="form col">
                         Nombre del producto: <input id="nameFilter" type="text" class="form-control" id="name"
                                                     name="name" value="<%=nameFilter%>">
-                        Categoría: <select id="categoryFilter" class="form-select" id="category" name="category">
-                        <option <%=categoryFilter == 0 ? "selected" : ""%>value="--">--</option>
+                        Categoría:
+                        <select id="categoryFilter" class="form-select" id="category" name="category">
+                            <option <%=categoryFilter == 0 ? "selected" : ""%>value="--">--</option>
+                            <%
+                                int i = 1;
+                                for (ProductCategoryDTO cat : categories) {
+                            %>
+                            <option <%=categoryFilter == i ? "selected" : ""%> value="<%=cat.getId()%>"><%=cat.getName()%>
+                            </option>
+                            <%
+                                    i++;
+                                }
+                            %>
+                        </select>
                         <%
-                            int i = 1;
-                            for (ProductCategoryDTO cat : categories) {
+                            if(loggedIn){
                         %>
-                        <option <%=categoryFilter == i ? "selected" : ""%> value="<%=cat.getId()%>"><%=cat.getName()%>
-                        </option>
+
+                        <input type="radio" id="favFilter" name="favOwnedFilter" value="favFilter" <%=favFilter ? "checked" : ""%>>
+                        <label for="favFilter">Mis favoritos</label> <br>
+                        <input type="radio" id="ownedFilter" name="favOwnedFilter" value="ownedFilter" <%=ownedFilter ? "checked" : ""%>>
+                        <label for="favFilter">Mis productos</label> <br>
                         <%
-                                i++;
                             }
                         %>
-                    </select>
+
                         <button type="submit" class="btn btn-primary mt-2">Buscar</button>
                         <button type="button" class="btn btn-secondary mt-2" onclick="clearFilter()">Limpiar</button>
                     </div>
@@ -164,6 +187,9 @@
     function clearFilter() {
         document.querySelector("#nameFilter").value = ""
         document.querySelector("#categoryFilter").selectedIndex = 0
+        document.querySelector("#favFilter").checked = false
+
+        document.querySelector("#filterForm").submit()
     }
 </script>
 

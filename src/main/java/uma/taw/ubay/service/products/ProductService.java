@@ -7,11 +7,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
 import org.jetbrains.annotations.NotNull;
 import uma.taw.ubay.dao.*;
-import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.products.*;
 import uma.taw.ubay.entity.*;
 import uma.taw.ubay.service.AuthService;
 import uma.taw.ubay.service.users.UsersService;
+import uma.taw.ubay.dao.ProductFacade.ProductTupleResult;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,24 +54,41 @@ public class ProductService {
     AuthService authService;
 
 
-    public ProductsDTO getProductsList(String productName, String category, String page) {
+    public ProductsDTO getProductsList(ProductClientDTO sesionClient, String productName, String category, String favOwnedFilter, String page) {
         List<ProductDTO> productDTOS = new ArrayList<>();
-        ProductFacade.ProductTupleResult ptr;
+        ProductTupleResult<ProductEntity> ptr;
+        CategoryEntity cat = null;
+        ClientEntity clientEntity = null;
+        if(sesionClient != null) clientEntity = clientFacade.find(sesionClient.getId());
+        boolean favFilter = false, ownedFilter = false, productAndCategory = productName != null || (category != null && !category.equals("--"));
+        int tam = 0, pageParam = page == null ? 0 : Integer.parseInt(page) - 1;
         page = page.equals("") ? "1" : page;
-        int tam = 0;
 
-        // Filters:
+        if(favOwnedFilter != null){
+            if(favOwnedFilter.equals("favFilter")){
+                favFilter = true;
+            } else if(favOwnedFilter.equals("ownedFilter")){
+                ownedFilter = true;
+            }
+        }
 
-
-        if (productName != null || (category != null && !category.equals("--"))) {
-            CategoryEntity cat = null;
+        if (productAndCategory) {
             if (!category.equals("--")) {
                 int catId = Integer.parseInt(category);
                 cat = categoryFacade.searchById(catId);
             }
-            ptr = productFacade.filterAndGetByPage(productName, cat, Integer.parseInt(page) - 1);
-        } else {
-            ptr = productFacade.getByPage(page == null ? 0 : Integer.parseInt(page) - 1);
+        }
+
+        // Filters:
+
+        if(productAndCategory && favFilter){
+            ptr = productFavouritesFacade.getClientFavouriteProductsFiltered(productName, cat, pageParam);
+        } else if(favFilter){
+            ptr = productFavouritesFacade.getClientFavouriteProductsByPage(pageParam);
+        } else if(productAndCategory){
+            ptr = productFacade.filterAndGetByPage(clientEntity, productName, cat, ownedFilter, pageParam);
+        }  else {
+            ptr = productFacade.getByPage(clientEntity, ownedFilter, pageParam);
         }
 
         for (ProductEntity p : ptr.getProductEntities()) {
@@ -79,6 +96,9 @@ public class ProductService {
                     productEntityToDTO(p)
             );
         }
+
+
+
         return new ProductsDTO(productDTOS, ptr.getActualSize());
     }
 
@@ -166,7 +186,7 @@ public class ProductService {
 
 
         // IMAGEN
-        if (!file.getSubmittedFileName().equals("")) {
+        if (file != null && !file.getSubmittedFileName().equals("")) {
             InputStream inputStream = file.getInputStream();
             String img = "";
 
