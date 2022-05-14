@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="uma.taw.ubay.dto.users.ClientDTO" %>
+<%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 28/3/22
@@ -18,24 +19,10 @@
 <body>
 <%@include file="../WEB-INF/components/navbar.jsp" %>
 <div>
-    <%--<form>
-        <h3>User data:</h3>
-        ID: <input type="text" name="id"> <br>
-        Name: <input type="text" name="name"> <br>
-        Last name: <input type="text" name="lastName"> <br>
-        Address: <input type="text" name="address"> <br>
-        City: <input type="text" name="city"> <br>
-        Gender: <select id="gender" name="gender">
-            <option id="--" name="--">--</option>
-            <option id="male" name="male">male</option>
-            <option id="female" name="female">female</option>
-            <option id="other" name="other">other</option>
-        </select> <br/>
-        <input type="submit"/>
-    </form>--%>
-
     <div class="container">
         <h1>Buscar usuarios</h1>
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Registrar
+            a un usuario nuevo</a>
         <div class="row">
             <div class="col-3">
                 <form>
@@ -107,8 +94,6 @@
                     %>
                     </tbody>
                 </table>
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Registrar
-                    a un usuario nuevo</a>
             </div>
         </div>
     </div>
