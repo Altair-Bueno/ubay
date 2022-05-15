@@ -24,17 +24,19 @@ public class Index extends HttpServlet {
         var loginDTO = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);
         ProductClientDTO cliente = loginDTO == null ? null : productService.loginDTOtoClientDTO(loginDTO);
 
-        String productName = req.getParameter("name");
-        String category = req.getParameter("category");
-        String page = req.getParameter("page");
-        String favOwnedFilter = req.getParameter("favOwnedFilter");
+        Object categoryparameter = req.getParameter("category");
+
+        String productName = req.getParameter("name") == null ? "" : req.getParameter("name");
+        String category = (categoryparameter == null || ((String) categoryparameter).equals("--") ? "0" : req.getParameter("category"));
+        String page = req.getParameter("page") == null ? "1" : req.getParameter("page");
+        String favOwnedFilter = req.getParameter("favOwnedFilter") == null ? "" : req.getParameter("favOwnedFilter");
 
         page = page == null ? "1" : page;
 
         ProductsDTO productDTOS = productService.getProductsList(cliente, productName, category, favOwnedFilter, page);
 
         req.setAttribute("category-list", productService.categories());
-        req.setAttribute("categoryFilter", (category == null || category.equals("--")) ? 0 : Integer.parseInt(category));
+        req.setAttribute("categoryFilter", Integer.parseInt(category));
         req.setAttribute("nameFilter", productName);
         req.setAttribute("product-tam", productDTOS.getSize());
         req.setAttribute("product-list", productDTOS.getProductsList());

@@ -59,36 +59,38 @@ public class ProductService {
         ProductTupleResult<ProductEntity> ptr;
         CategoryEntity cat = null;
         ClientEntity clientEntity = null;
-        if(sesionClient != null) clientEntity = clientFacade.find(sesionClient.getId());
-        boolean favFilter = false, ownedFilter = false, productAndCategory = productName != null || (category != null && !category.equals("--"));
-        int tam = 0, pageParam = page == null ? 0 : Integer.parseInt(page) - 1;
-        page = page.equals("") ? "1" : page;
+        String name = null;
+        boolean favFilter = false, ownedFilter = false;
+        int pageParam = Integer.parseInt(page) - 1;
 
-        if(favOwnedFilter != null){
-            if(favOwnedFilter.equals("favFilter")){
-                favFilter = true;
-            } else if(favOwnedFilter.equals("ownedFilter")){
-                ownedFilter = true;
-            }
+        // Set fav / owned filters
+        if(favOwnedFilter.equals("favFilter")){
+            favFilter = true;
+        } else if(favOwnedFilter.equals("ownedFilter")){
+            ownedFilter = true;
         }
 
-        if (productAndCategory) {
-            if (!category.equals("--")) {
-                int catId = Integer.parseInt(category);
-                cat = categoryFacade.searchById(catId);
-            }
+        // Set category
+        if (!category.equals("0")) {
+            int catId = Integer.parseInt(category);
+            cat = categoryFacade.searchById(catId);
+        }
+
+        // Set client
+        if(sesionClient != null) {
+            clientEntity = clientFacade.find(sesionClient.getId());
+        }
+
+        // Set name
+        if(!productName.equals("")){
+            name = productName;
         }
 
         // Filters:
-
-        if(productAndCategory && favFilter){
-            ptr = productFavouritesFacade.getClientFavouriteProductsFiltered(productName, cat, pageParam);
-        } else if(favFilter){
-            ptr = productFavouritesFacade.getClientFavouriteProductsByPage(pageParam);
-        } else if(productAndCategory){
-            ptr = productFacade.filterAndGetByPage(clientEntity, productName, cat, ownedFilter, pageParam);
-        }  else {
-            ptr = productFacade.getByPage(clientEntity, ownedFilter, pageParam);
+        if(favFilter){
+            ptr = productFavouritesFacade.getClientFavouriteProductsFiltered(clientEntity, name, cat, pageParam);
+        } else {
+            ptr = productFacade.filterAndGetByPage(clientEntity, name, cat, ownedFilter, pageParam);
         }
 
         for (ProductEntity p : ptr.getProductEntities()) {
@@ -96,8 +98,6 @@ public class ProductService {
                     productEntityToDTO(p)
             );
         }
-
-
 
         return new ProductsDTO(productDTOS, ptr.getActualSize());
     }
@@ -167,7 +167,7 @@ public class ProductService {
     public ProductClientDTO loginDTOtoClientDTO(uma.taw.ubay.dto.LoginDTO logindto) {
         LoginCredentialsEntity credentials = authService.getCredentialsEntity(logindto);
         if (credentials.getUser() == null) return null;
-        return new ProductClientDTO(credentials.getUser().getId());
+        return new ProductClientDTO(credentials.getUser().getId(), credentials.getKind());
     }
 
     public void deleteProduct(int id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
@@ -203,13 +203,15 @@ public class ProductService {
         }
 
         // ESTADO
-        if (estado.equals("Cerrado")) {
-            if (p.getCloseDate() == null) {
-                p.setCloseDate(new Date(new java.util.Date().getTime()));
-            }
-        } else if (estado.equals("Activo")) {
-            if (p.getCloseDate() != null) {
-                p.setCloseDate(null);
+        if(estado != null){
+            if (estado.equals("Cerrado")) {
+                if (p.getCloseDate() == null) {
+                    p.setCloseDate(new Date(new java.util.Date().getTime()));
+                }
+            } else if (estado.equals("Activo")) {
+                if (p.getCloseDate() != null) {
+                    p.setCloseDate(null);
+                }
             }
         }
 
@@ -222,7 +224,7 @@ public class ProductService {
     }
 
     private ProductClientDTO clientEntityToDto(ClientEntity client) {
-        return new ProductClientDTO(client.getId());
+        return new ProductClientDTO(client.getId(), KindEnum.client);
     }
 
     private ProductCategoryDTO categoryEntityToDTO(CategoryEntity category) {

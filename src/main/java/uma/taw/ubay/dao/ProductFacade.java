@@ -108,35 +108,6 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         return new ProductTupleResult<>(productEntities, actualSize);
     }
 
-    public ProductTupleResult getByPage(ClientEntity client, boolean owned, int page){
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
-        List<ProductEntity> productEntities;
-        List<Predicate> predicateList = new ArrayList<>();
-        int actualSize = 0;
-
-        Root<ProductEntity> productTable = query.from(ProductEntity.class);
-
-        if(client != null && owned){
-            predicateList.add(builder.equal(productTable.get("vendor"), client));
-        }
-
-        query.select(productTable)
-                .where(predicateList.toArray(new Predicate[0]))
-                .orderBy(builder.desc(productTable.get("id")));
-
-        actualSize = em.createQuery(query)
-                .getResultList()
-                .size();
-
-        productEntities = em.createQuery(query)
-                .setFirstResult(page * ProductKeys.productsPerPageLimit)
-                .setMaxResults(ProductKeys.productsPerPageLimit)
-                .getResultList();
-
-        return new ProductTupleResult(productEntities, actualSize);
-    }
-
     public static class ProductTupleResult<T>{
         private List<T> productEntities;
         private int actualSize = 0;

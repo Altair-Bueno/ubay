@@ -49,24 +49,33 @@ public class ProductFavouritesFacade extends AbstractFacade<ProductFavouritesEnt
     /**
      * @author Francisco Javier Hernández
      */
-    public ProductTupleResult<ProductEntity> getClientFavouriteProductsFiltered(String name, CategoryEntity category, int page){
+    public ProductTupleResult<ProductEntity> getClientFavouriteProductsFiltered(ClientEntity clientEntity, String name, CategoryEntity category, int page){
+        // SELECT p
+        // FROM product p JOIN product_favourites pf on pf.product_id = p.id
+        // WHERE p.name...
+
+        if(clientEntity == null)  return null;
+
         CriteriaBuilder builder = em.getCriteriaBuilder();
         List<Predicate> predicateList = new ArrayList<>();
         CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
         Root<ProductFavouritesEntity> productFavTable = query.from(ProductFavouritesEntity.class);
-        Join<ProductFavouritesEntity, ProductEntity> join = productFavTable.join("product", JoinType.INNER);
+        Root<ProductEntity> productTable = query.from(ProductEntity.class);
 
         int actualSize = 0;
 
         if(name != null){
-            predicateList.add(builder.like(builder.upper(join.get("title")), "%" + name.toUpperCase(Locale.ROOT) + "%"));
+            predicateList.add(builder.like(builder.upper(productTable.get("title")), "%" + name.toUpperCase(Locale.ROOT) + "%"));
         }
 
         if(category != null){
-            predicateList.add(builder.equal(join.get("category"), category));
+            predicateList.add(builder.equal(productTable.get("category"), category));
         }
 
-        query.select(join).where(predicateList.toArray(new Predicate[0]));
+        predicateList.add(builder.equal(productFavTable.get("user"), clientEntity));
+        predicateList.add(builder.equal(productTable.get("id"), productFavTable.get("product").get("id")));
+
+        query.select(productTable).where(predicateList.toArray(new Predicate[0]));
 
         actualSize = em.createQuery(query)
                 .getResultList()

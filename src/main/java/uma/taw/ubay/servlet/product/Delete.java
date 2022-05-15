@@ -33,7 +33,7 @@ public class Delete extends HttpServlet {
         try {
             process(req, resp);
         } catch (Exception e) {
-            req.getRequestDispatcher("exception.jsp").forward(req, resp);
+            throw new ServletException(e);
         }
     }
 
@@ -42,7 +42,7 @@ public class Delete extends HttpServlet {
         try {
             process(req, resp);
         } catch (Exception e) {
-            req.getRequestDispatcher("exception.jsp").forward(req, resp);
+            throw new ServletException(e);
         }
     }
 }

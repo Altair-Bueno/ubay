@@ -20,22 +20,21 @@
           crossorigin="anonymous">
     <title>Ubay | Productos</title>
 </head>
-<%
-    LoginDTO loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
-    if (loginDTO != null) {
-%>
+
 <style>
     tr {
         cursor: pointer
+    }
+
+    th {
+        cursor: default;
     }
 
     tr:hover {
         background-color: #F5F5F5;
     }
 </style>
-<%
-    }
-%>
+
 <body>
 
 <%
@@ -99,7 +98,7 @@
                         %>
 
                         <button type="submit" class="btn btn-primary mt-2">Buscar</button>
-                        <button type="button" class="btn btn-secondary mt-2" onclick="clearFilter()">Limpiar</button>
+                        <a class="btn btn-secondary mt-2" href="<%=request.getContextPath()%>/product">Limpiar</a>
                     </div>
                 </form>
             </div>
@@ -162,6 +161,15 @@
                     <input type="text" hidden name="name" value="<%=nameFilter%>">
                     <%
                         }
+                        if(favFilter) {
+                    %>
+                    <input type="text" hidden name="favOwnedFilter" value="favFilter">
+                    <%
+                        } else if(ownedFilter) {
+                    %>
+                    <input type="text" hidden name="favOwnedFilter" value="ownedFilter">
+                    <%
+                        }
                     %>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
@@ -182,16 +190,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    function clearFilter() {
-        document.querySelector("#nameFilter").value = ""
-        document.querySelector("#categoryFilter").selectedIndex = 0
-        document.querySelector("#favFilter").checked = false
-
-        document.querySelector("#filterForm").submit()
-    }
-</script>
 
 </body>
 </html>

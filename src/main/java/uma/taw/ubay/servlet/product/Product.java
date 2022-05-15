@@ -11,6 +11,7 @@ import uma.taw.ubay.dto.LoginDTO;
 import uma.taw.ubay.dto.products.ProductBidDTO;
 import uma.taw.ubay.dto.products.ProductClientDTO;
 import uma.taw.ubay.dto.products.ProductDTO;
+import uma.taw.ubay.entity.KindEnum;
 import uma.taw.ubay.service.products.ProductService;
 
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class Product extends HttpServlet {
         req.setAttribute("user", cliente);
         req.setAttribute("product", productDTO);
         req.setAttribute("highestBid", highestBid);
+        req.setAttribute("isAdmin", loginDTO.getKind().equals(KindEnum.admin));
 
         req.getRequestDispatcher("item.jsp").forward(req, resp);
     }

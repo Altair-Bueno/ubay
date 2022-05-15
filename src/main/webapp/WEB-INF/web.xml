@@ -50,8 +50,6 @@
     <filter-mapping>
         <filter-name>UserFilter</filter-name>
         <url-pattern>/product/new</url-pattern>
-        <url-pattern>/product/update</url-pattern>
-        <url-pattern>/product/delete</url-pattern>
         <url-pattern>/users/addFavourite</url-pattern>
         <url-pattern>/users/deleteFavourite</url-pattern>
         <url-pattern>/users/notifications</url-pattern>

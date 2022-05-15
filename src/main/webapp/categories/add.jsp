@@ -25,8 +25,8 @@
             <div class="form col">
                 <label>
                     <input hidden name="added" value="1"/>
-                    Nombre: <input type="text" class="form-control" name="name"> <br>
-                    Descripción: <input type="text" class="form-control" name="description"> <br>
+                    Nombre: <input type="text" class="form-control" name="name" maxlength="15" required> <br>
+                    Descripción: <input type="text" class="form-control" name="description" maxlength="25" required> <br>
                 </label>
             </div>
             <div class="d-flex justify-content-center">

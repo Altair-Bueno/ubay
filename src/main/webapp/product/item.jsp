@@ -4,6 +4,7 @@
 <%@ page import="uma.taw.ubay.dto.products.ProductClientDTO" %>
 <%@ page import="uma.taw.ubay.UsersKeys" %>
 <%@ page import="uma.taw.ubay.dto.products.ProductBidDTO" %>
+<%@ page import="uma.taw.ubay.servlet.product.Product" %>
 <%--
 Created by IntelliJ IDEA.
   Author: Francisco Javier Hernández
@@ -33,6 +34,8 @@ Created by IntelliJ IDEA.
     ProductDTO p = (ProductDTO) request.getAttribute("product");
     Object isFavParameter = request.getAttribute("isFav");
     Object highestBidParameter = request.getAttribute("highestBid");
+    Object isAdminParameter = request.getAttribute("isAdmin");
+    boolean isAdmin = isAdminParameter != null && (boolean) isAdminParameter;
     double minBid;
     boolean cerrado = p.getCloseDate() != null;
     String imgSrc = p.getImages() == null ? "" : request.getContextPath() + "/image?id=" + URLEncoder.encode(p.getImages(), StandardCharsets.UTF_8);
@@ -60,18 +63,25 @@ Created by IntelliJ IDEA.
                 </h6>
             </div>
             <%
-                if (userParameter != null) {
-                    ProductClientDTO user = (ProductClientDTO) userParameter;
-                    boolean isFav = (boolean) isFavParameter;
-                    if (user.getId() == p.getVendor().getId()) {
+                if (userParameter != null || isAdmin) {
+                    if (isAdmin || (userParameter != null && ((ProductClientDTO) userParameter).equals(p.getVendor()))) {
             %>
 
-            <!-- EDITAR -->
             <div class="d-flex flex-row">
+
+            <%
+                if(!cerrado){
+
+            %>
+                <!-- EDITAR -->
                 <form method="get" action="${pageContext.request.contextPath}/product/update">
                     <input type='hidden' name='id' value="<%=p.getId()%>"/>
                     <input class="btn btn-secondary btn-block me-2" type="submit" value="Editar">
                 </form>
+            <%
+                }
+            %>
+
 
                 <!-- BORRAR: Button trigger modal -->
                 <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
@@ -107,7 +117,7 @@ Created by IntelliJ IDEA.
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <form method="post" action="${pageContext.request.contextPath}/product/delete">
+                            <form method="get" action="${pageContext.request.contextPath}/product/delete">
                                 <input type='hidden' name='id' value="<%=p.getId()%>"/>
                                 <input class="btn btn-danger" type="submit" value="Eliminar">
                             </form>
@@ -186,8 +196,9 @@ Created by IntelliJ IDEA.
         <div class="p-4">
             <%
                 }
-                if (isFav) {
-
+                if (userParameter != null) {
+                    ProductClientDTO user = (ProductClientDTO) userParameter;
+                    if(isFavParameter != null && (boolean) isFavParameter){
             %>
 
             <div class="d-flex flex-row">
@@ -202,7 +213,7 @@ Created by IntelliJ IDEA.
 
             <%
 
-            } else {
+                } else {
             %>
 
             <form method="get" action="${pageContext.request.contextPath}/users/addFavourite">
@@ -214,6 +225,7 @@ Created by IntelliJ IDEA.
             </form>
 
             <%
+                            }
                         }
                     }
                 }
