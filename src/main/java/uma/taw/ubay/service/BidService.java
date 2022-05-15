@@ -12,7 +12,6 @@ import uma.taw.ubay.entity.ProductEntity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -87,7 +86,7 @@ public class BidService {
 
     public void createBid(@NonNull LoginDTO loginDTO, @NonNull String amountParameter, @NonNull String productIDParameter) {
         var credentials = authService.getCredentialsEntity(loginDTO);
-        var timestamp = new Timestamp(Instant.now().getEpochSecond());
+        var timestamp = new Timestamp(new java.util.Date().getTime());
 
         var amount = Double.parseDouble(amountParameter);
         var productId = Integer.parseInt(productIDParameter);

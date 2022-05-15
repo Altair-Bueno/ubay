@@ -14,7 +14,8 @@ services:
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_DB: UBAY
     volumes:
-      - ./sql/scheme.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./sql/scheme.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./sql/sample-data.sql:/docker-entrypoint-initdb.d/2.sql
       - postgres-data:/var/lib/postgresql/data
   minio:
     container_name: 'green-bird'
