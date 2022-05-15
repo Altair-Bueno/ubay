@@ -12,7 +12,8 @@ import uma.taw.ubay.service.users.UsersService;
 import java.io.IOException;
 
 /**
- * @author José Luis Bueno Pachón
+ * @author Servicio: Altair Bueno Calvente
+ * @author Vista: José Luis Bueno Pachón
  */
 
 @WebServlet("/users/passwordChangeLink")
@@ -26,9 +27,9 @@ public class PasswordChangeLink extends HttpServlet {
 
         PasswordChangeDTO passwordChangeDTO = usersService.passwordChange(id);
 
-        req.setAttribute("passwordChangeID",passwordChangeDTO.getPasswordChangeID());
-        req.setAttribute("username",passwordChangeDTO.getUsername());
-        req.getRequestDispatcher("passwordChange.jsp").forward(req,resp);
+        req.setAttribute("passwordChangeID", passwordChangeDTO.getPasswordChangeID());
+        req.setAttribute("username", passwordChangeDTO.getUsername());
+        req.getRequestDispatcher("passwordChange.jsp").forward(req, resp);
     }
 
 }

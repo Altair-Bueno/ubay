@@ -11,7 +11,7 @@ import uma.taw.ubay.entity.CategoryEntity;
 import java.util.List;
 
 /**
- * @author José Luis Bueno Pachón
+ * @author José Luis Bueno Pachón 85 Fran Hernandez 15
  */
 
 @Stateless
@@ -38,6 +38,10 @@ public class CategoryFacade extends AbstractFacade<CategoryEntity> {
 
     }
 
+    /**
+     *
+     * @author Fran Hernandez
+     */
     public List<CategoryEntity> findAllSortedById(){
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<CategoryEntity> query = builder.createQuery(CategoryEntity.class);

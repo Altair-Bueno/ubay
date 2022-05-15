@@ -21,10 +21,14 @@ public class AddFavourite extends HttpServlet {
 
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String clientID = request.getParameter("clientID");
@@ -32,7 +36,7 @@ public class AddFavourite extends HttpServlet {
 
         categoriesService.addFavouriteCategory(clientID, categoryID);
 
-        request.getRequestDispatcher("addFavourite.jsp").forward(request,response);
+        request.getRequestDispatcher("addFavourite.jsp").forward(request, response);
     }
 
 

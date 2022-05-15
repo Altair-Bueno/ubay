@@ -3,6 +3,9 @@ package uma.taw.ubay.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+/**
+ * @author Altair Bueno
+ */
 
 @Entity
 @Table(name = "password_reset", schema = "public")
@@ -12,11 +15,11 @@ public class PasswordResetEntity {
 
     @ManyToOne
     @MapsId("username")
-    @JoinColumn(name = "username",nullable = false)
+    @JoinColumn(name = "username", nullable = false)
     private LoginCredentialsEntity user;
     @Basic
     @MapsId("requestId")
-    @Column(name = "request_id",nullable = false,length = 20)
+    @Column(name = "request_id", nullable = false, length = 20)
     private String requestId;
 
     public PasswordResetEntityPK getKey() {

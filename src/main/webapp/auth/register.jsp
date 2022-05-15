@@ -13,7 +13,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Ubay | Register</title>
+    <title>Ubay | Registro</title>
 </head>
 <style>
     body {
@@ -33,55 +33,75 @@
 </style>
 <body class="text-center">
 <main class="form-signin">
-<h1 class="h3 mb-3 fw-normal">Register</h1>
-<form method="post" action="${pageContext.request.contextPath}/auth/register" class="row g-2">
-    <div class="form-floating col-12">
-        <input id = "username" class="form-control" placeholder="Username" name="<%=AuthKeys.USERNAME_PARAMETER%>" type="text" pattern="<%=AuthKeys.USERNAME_REGEX%>" required>
-        <label for="username">Username</label>
-    </div>
-    <div class="form-floating col-12">
-        <input id = "password" class="form-control" placeholder="Password" name="<%=AuthKeys.PASSWORD_PARAMETER%>" type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>" required>
-        <label for="password">Password</label>
-    </div>
-    <div class="form-floating col-12">
-        <input id="repeat_password" class="form-control" placeholder="Repeat your password" name="<%=AuthKeys.REPEAT_PASSWORD_PARAMETER%>" type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>" required>
-        <label for="repeat_password">Repeat your password</label>
-    </div>
-    <div class="form-floating col-12">
-        <input id = "first_name" class="form-control" placeholder="First name" name="<%=AuthKeys.NAME_PARAMETER%>" type="text" required>
-        <label for="first_name">First name</label>
-    </div>
-    <div class="form-floating col-12">
-        <input id="last_name" class="form-control" placeholder="Last name" name="<%=AuthKeys.LAST_NAME_PARAMETER%>" type="text" required>
-        <label for="last_name">Last name</label>
-    </div>
-    <div class="col-md-6">
-        <label for="address" class="form-label">Address</label>
-        <input id="address" class = "form-control" name="<%=AuthKeys.ADDRESS_PARAMETER%>" type="text" required>
-    </div>
-    <div class="col-md-6">
-        <label for="city" class="form-label">City</label>
-        <input id="city" class = "form-control" name="<%=AuthKeys.CITY_PARAMETER%>" type="text" required>
-    </div>
-    <div class="col-md-6">
-        <label for ="birth" class="form-label">Birth date</label>
-        <input id="birth" class="form-control" name="<%=AuthKeys.BIRTH_PARAMETER%>" type="date" required>
-    </div>
-    <div class="col-md-6">
-        <label for ="gender" class="form-label">Gender</label>
-        <select id="gender" class="form-select" name="<%=AuthKeys.GENDER_PARAMETER%>" required>
-            <% for (GenderEnum gender : GenderEnum.values()) {%>
-                <option><%=gender.toString()%></option>
-            <%}%>
-        </select>
-    </div>
-    <div class="row-1">
-        <button type="submit" class="btn btn-primary col-6">Create an account</button>
-    </div>
-</form>
+    <h1 class="h3 mb-3 fw-normal">Registro en Ubay</h1>
+    <form method="post" action="${pageContext.request.contextPath}/auth/register" class="row g-2">
+        <div class="form-floating col-12">
+            <input id="username" class="form-control" placeholder="Usuario" name="<%=AuthKeys.USERNAME_PARAMETER%>"
+                   type="text" pattern="<%=AuthKeys.USERNAME_REGEX%>" required aria-describedby="usernameHelp">
+            <label for="username">Usuario</label>
+            <div id="usernameHelp" class="form-text">Entre 3 y 20 caracteres</div>
+
+        </div>
+        <div class="form-floating col-12">
+            <input id="password" class="form-control" placeholder="Contraseña" name="<%=AuthKeys.PASSWORD_PARAMETER%>"
+                   type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>" required aria-describedby="passwordHelp">
+            <label for="password">Contraseña</label>
+            <div id="passwordHelp" class="form-text">8 caracteres mínimo</div>
+        </div>
+        <div class="form-floating col-12">
+            <input id="repeat_password" class="form-control"
+                   placeholder="Repite tu contraseña"
+                   name="<%=AuthKeys.REPEAT_PASSWORD_PARAMETER%>"
+                   type="password" pattern="<%=AuthKeys.PASSWORD_REGEX%>"
+                   required>
+            <label for="repeat_password">Repite tu contraseña</label>
+        </div>
+        <div class="form-floating col-12">
+            <input id="first_name" class="form-control" placeholder="Nombre"
+                   name="<%=AuthKeys.NAME_PARAMETER%>"
+                   type="text" required
+                   maxlength="<%=AuthKeys.NAME_MAXLENGTH%>">
+            <label for="first_name">Nombre</label>
+        </div>
+        <div class="form-floating col-12">
+            <input id="last_name" class="form-control" placeholder="Apellidos"
+                   name="<%=AuthKeys.LAST_NAME_PARAMETER%>"
+                   type="text" required
+                   maxlength="<%=AuthKeys.LAST_NAME_MAXLENGTH%>">
+            <label for="last_name">Apellidos</label>
+        </div>
+        <div class="col-md-6">
+            <label for="address" class="form-label">Dirección</label>
+            <input id="address" class="form-control"
+                   name="<%=AuthKeys.ADDRESS_PARAMETER%>" type="text" required
+                   maxlength="<%=AuthKeys.ADDRESS_MAXLENGTH%>">
+        </div>
+        <div class="col-md-6">
+            <label for="city" class="form-label">Ciudad</label>
+            <input id="city" class="form-control"
+                   maxlength="<%=AuthKeys.CITY_MAXLENGTH%>"
+                   name="<%=AuthKeys.CITY_PARAMETER%>" type="text" required>
+        </div>
+        <div class="col-md-6">
+            <label for="birth" class="form-label">Fecha de nacimiento</label>
+            <input id="birth" class="form-control"
+                   name="<%=AuthKeys.BIRTH_PARAMETER%>" type="date" required>
+        </div>
+        <div class="col-md-6">
+            <label for="gender" class="form-label">Género</label>
+            <select id="gender" class="form-select" name="<%=AuthKeys.GENDER_PARAMETER%>" required>
+                <% for (GenderEnum gender : GenderEnum.values()) {%>
+                <option value="<%=gender%>"><%=gender%></option>
+                <%}%>
+            </select>
+        </div>
+        <div class="row-1">
+            <button type="submit" class="btn btn-primary col-6">Crear cuenta</button>
+        </div>
+    </form>
     <small>
         <a class="link-primary" href="${pageContext.request.contextPath}/auth/login">
-            Already have an account?
+            ¿Tiene ya una cuenta en Ubay?
         </a>
     </small>
 </main>

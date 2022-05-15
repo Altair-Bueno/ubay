@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import uma.taw.ubay.SessionKeys;
 import uma.taw.ubay.dao.ProductFacade;
 import uma.taw.ubay.dto.LoginDTO;
+import uma.taw.ubay.entity.KindEnum;
 import uma.taw.ubay.entity.ProductEntity;
 import uma.taw.ubay.service.AuthService;
 
@@ -34,9 +35,9 @@ public class ProductOwnership extends HttpFilter {
         var loginDTO = (LoginDTO) session.getAttribute(SessionKeys.LOGIN_DTO);
         var loginCredentialsEntity = authService.getCredentialsEntity(loginDTO);
 
-        if(!p.getVendor().equals(loginCredentialsEntity.getUser())){
+        if (!p.getVendor().equals(loginCredentialsEntity.getUser()) && !loginCredentialsEntity.getKind().equals(KindEnum.admin)) {
             res.sendRedirect(req.getContextPath() + INDEX);
-        } else{
+        } else {
             chain.doFilter(req, res);
         }
     }

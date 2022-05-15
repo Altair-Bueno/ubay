@@ -8,6 +8,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import uma.taw.ubay.ProductKeys;
+import uma.taw.ubay.dto.products.ProductClientDTO;
 import uma.taw.ubay.entity.CategoryEntity;
 import uma.taw.ubay.entity.ClientEntity;
 import uma.taw.ubay.entity.ProductEntity;
@@ -19,8 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @author Francisco Javier Hernández 70%
- * @author José Luis Bueno Pachón 30%
+ * @author Francisco Javier Hernández
  */
 
 @Stateless
@@ -44,29 +44,6 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         Root<ProductEntity> productTable = query.from(ProductEntity.class);
         query.select(productTable).where(builder.equal(productTable.get("vendor"), client));
         return em.createQuery(query).getResultList();
-    }
-
-    public ProductTupleResult getByPage(int page){
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
-        List<ProductEntity> productEntities;
-        int actualSize = 0;
-
-        Root<ProductEntity> productTable = query.from(ProductEntity.class);
-
-        query.select(productTable)
-                .orderBy(builder.desc(productTable.get("id")));
-
-        actualSize = em.createQuery(query)
-                .getResultList()
-                .size();
-
-        productEntities = em.createQuery(query)
-                .setFirstResult(page * ProductKeys.productsPerPageLimit)
-                .setMaxResults(ProductKeys.productsPerPageLimit)
-                .getResultList();
-
-        return new ProductTupleResult(productEntities, actualSize);
     }
 
     public List<ProductEntity> getNotifications(ClientEntity sesion){
@@ -93,7 +70,11 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
         return productosfavs;
     }
 
-    public ProductTupleResult filterAndGetByPage(String name, CategoryEntity category, int page){
+    /**
+     * @author Filtro: José Luis Bueno Pachón y Francisco Javier Hernández
+     * @author Paginación: Francisco Javier Hernández
+     */
+    public ProductTupleResult filterAndGetByPage(ClientEntity client, String name, CategoryEntity category, boolean owned, int page){
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ProductEntity> query = builder.createQuery(ProductEntity.class);
         Root<ProductEntity> productTable = query.from(ProductEntity.class);
@@ -109,6 +90,10 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
             predicateList.add(builder.equal(productTable.get("category"), category));
         }
 
+        if(client != null && owned){
+            predicateList.add(builder.equal(productTable.get("vendor"), client));
+        }
+
         query.select(productTable).where(predicateList.toArray(new Predicate[0]));
 
         actualSize = em.createQuery(query)
@@ -120,19 +105,19 @@ public class ProductFacade extends AbstractFacade<ProductEntity> {
                 .setMaxResults(ProductKeys.productsPerPageLimit)
                 .getResultList();
 
-        return new ProductTupleResult(productEntities, actualSize);
+        return new ProductTupleResult<>(productEntities, actualSize);
     }
 
-    public class ProductTupleResult{
-        private List<ProductEntity> productEntities;
+    public static class ProductTupleResult<T>{
+        private List<T> productEntities;
         private int actualSize = 0;
 
-        public ProductTupleResult(List<ProductEntity> pE, int aS){
+        public ProductTupleResult(List<T> pE, int aS){
             productEntities = pE;
             actualSize = aS;
         }
 
-        public List<ProductEntity> getProductEntities() {
+        public List<T> getProductEntities() {
             return productEntities;
         }
 

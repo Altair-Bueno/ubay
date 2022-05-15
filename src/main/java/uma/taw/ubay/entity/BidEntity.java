@@ -5,13 +5,16 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * @author Altair Bueno
+ */
 @Entity
 @Table(name = "bid", schema = "public")
 @IdClass(BidEntityPK.class)
 public class BidEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "bid_id_generator")
-    @SequenceGenerator(name = "bid_id_generator",sequenceName = "bid_id_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bid_id_generator")
+    @SequenceGenerator(name = "bid_id_generator", sequenceName = "bid_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false, updatable = false)
     private int id;
     @Basic

@@ -15,23 +15,24 @@
     <title>Ubay | Add categoria</title>
 </head>
 <body>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
-<a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
-<div class="container">
-    <h2>Data: </h2>
-    <div class="row">
-        <div class="col-3">
-            <form action="add" method="get">
-                <div class="form col">
-                    <label>
-                        <input hidden name="added" value="1"/>
-                        Name: <input type="text" class="form-control" name="name"> <br>
-                        Description: <input type="text" class="form-control" name="description"> <br>
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                    </label>
-                </div>
-            </form>
-        </div>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
+
+<div class="d-flex flex-column align-items-center">
+    <h1>Datos</h1>
+    <div class="d-flex flex-column">
+
+        <form action="add" method="get">
+            <div class="form col">
+                <label>
+                    <input hidden name="added" value="1"/>
+                    Nombre: <input type="text" class="form-control" name="name" maxlength="15" required> <br>
+                    Descripción: <input type="text" class="form-control" name="description" maxlength="25" required> <br>
+                </label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mt-2">Crear</button>
+            </div>
+        </form>
     </div>
 </div>
 

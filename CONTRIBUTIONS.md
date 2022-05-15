@@ -1,4 +1,4 @@
-# [Altair Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=Altair-Bueno)
+# [Altair Bueno Calvente](https://github.com/Altair-Bueno/ubay/commits/master?author=Altair-Bueno)
 
 - Filters
   - [AuthFilter](src/main/java/uma/taw/ubay/filter/AuthFilter.java)
@@ -46,7 +46,7 @@
   - [Custom error pages](src/main/webapp/WEB-INF/error)
   - Other minor changes
 
-# [Francisco Javier Hernández](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
+# [Francisco Javier Hernández Martín](https://github.com/Altair-Bueno/ubay/commits/master?author=fran1215)
 - Filters
   - [UserFilter](src/main/java/uma/taw/ubay/filter/UserFilter.java)
   - [ProductOwnership](src/main/java/uma/taw/ubay/filter/ProductOwnership.java)
@@ -85,13 +85,56 @@
 - Others
   - Database design & ORM
   - Minor/medium changes in many other files when needed (check github logs)
+  - Translation of the whole page to Spanish
+  - Refactoring of the whole page (import, errors, etc)
+  - Styling set up / fixed all over the website
 
-# [José Luis Bueno](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
-
-- Database Design
+# [José Luis Bueno Pachón](https://github.com/Altair-Bueno/ubay/commits/master?author=jxtaaa)
+- Admin page (not in use)
+  - [/admin](src/main/java/uma/taw/ubay/servlet/admin/Admin.java)
+  - [/admin/admin.jsp](src/main/webapp/admin/admin.jsp)
 - Admin functions on user page
   - [/users/delete](src/main/java/uma/taw/ubay/servlet/users/Delete.java)
+  - [/users/delete.jsp](src/main/webapp/users/delete.jsp)
   - [/users/modify](src/main/java/uma/taw/ubay/servlet/users/Modify.java)
-  - [/users/](src/main/java/uma/taw/ubay/servlet/users/Users.java)
-- User filters
+  - [/users/modify.jsp](src/main/webapp/users/modify.jsp)
+  - [/users](src/main/java/uma/taw/ubay/servlet/users/Users.java)
+  - [/users/users.jsp](src/main/webapp/users/users.jsp)
+- Admin functions on categories page
+  - [/categories/add](src/main/java/uma/taw/ubay/servlet/categories/Add.java)
+  - [/categories/add.jsp](src/main/webapp/categories/add.jsp)
+  - [/categories/delete](src/main/java/uma/taw/ubay/servlet/categories/Delete.java)
+  - [/categories/delete.jsp](src/main/webapp/categories/delete.jsp)
+  - [/categories/modify](src/main/java/uma/taw/ubay/servlet/categories/Modify.java)
+  - [/categories/modify.jsp](src/main/webapp/categories/modify.jsp)
+- Categories functions
+  - [/categories](src/main/java/uma/taw/ubay/servlet/categories/Categories.java)
+  - [/categories/categories.jsp](src/main/webapp/categories/categories.jsp)
+  - [/categories/addFavourite](src/main/java/uma/taw/ubay/servlet/categories/AddFavourite.java)
+  - [/categories/addFavourite.jsp](src/main/webapp/categories/addFavourite.jsp)
+  - [/categories/deleteFavourite](src/main/java/uma/taw/ubay/servlet/categories/DeleteFavourite.java)
+  - [/categories/deleteFavourite](src/main/webapp/categories/deleteFavourite.jsp)
+- User functions
+  - [/users/addFavourite](src/main/java/uma/taw/ubay/servlet/users/AddFavProduct.java)
+  - [/users/addFavProduct.jsp](src/main/webapp/users/addFavProduct.jsp)
+  - [/users/deleteFavourite](src/main/java/uma/taw/ubay/servlet/users/DeleteFavProduct.java)
+  - [/users/deleteFavProduct.jsp](src/main/webapp/users/deleteFavProduct.jsp)
+  - [/users/products](src/main/java/uma/taw/ubay/servlet/users/Products.java)
+  - [/users/products.jsp](src/main/webapp/users/products.jsp)
+- Facade
   - [ClientFacade](src/main/java/uma/taw/ubay/dao/ClientFacade.java)
+  - [CategoryFacade](src/main/java/uma/taw/ubay/dao/CategoryFacade.java)
+  - [UserFavouritesFacade](src/main/java/uma/taw/ubay/dao/UserFavouritesFacade.java)
+  - [ProductFavouritesFacade](src/main/java/uma/taw/ubay/dao/ProductFavouritesFacade.java)
+- Services
+  - [CategoriesService](src/main/java/uma/taw/ubay/service/categories/CategoriesService.java)
+  - [UsersService](src/main/java/uma/taw/ubay/service/users/UsersService.java)
+- DTO
+  - [CategoriesDTO](src/main/java/uma/taw/ubay/dto/categories/CategoriesDTO.java)
+  - [CategoryDTO](src/main/java/uma/taw/ubay/dto/categories/CategoryDTO.java)
+  - [ClientDTO](src/main/java/uma/taw/ubay/dto/users/ClientDTO.java)
+  - [PasswordChangeDTO](src/main/java/uma/taw/ubay/dto/users/PasswordChangeDTO.java)
+  - [ProductDTO](src/main/java/uma/taw/ubay/dto/users/ProductDTO.java)
+- Others
+  - Database schema design
+  - Navbar dropdown / buttons change for admins

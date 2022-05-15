@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ *
+ * @author Altair Bueno 85 Fran Hernandez 15
+ */
 @Stateless
 public class BidFacade extends AbstractFacade<BidEntity> {
 
@@ -124,6 +128,7 @@ public class BidFacade extends AbstractFacade<BidEntity> {
      * that have been made by the user given
      * by parameter.
      *
+     * @author Fran Hernandez
      */
     public List<BidEntity> productsBiddedClosedProducts(ClientEntity sesion){
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -144,6 +149,10 @@ public class BidFacade extends AbstractFacade<BidEntity> {
                 .getResultList();
     }
 
+    /**
+     *
+     * @author Fran Hernandez
+     */
     public boolean isWinnerBid(ClientEntity client, BidEntity bid){
         return getHighestBidByProduct(bid.getProduct()).getUser().equals(client);
     }

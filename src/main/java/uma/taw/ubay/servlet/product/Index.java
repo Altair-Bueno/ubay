@@ -21,23 +21,28 @@ public class Index extends HttpServlet {
     ProductService productService;
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String productName = req.getParameter("name");
-        String category = req.getParameter("category");
-        String page = req.getParameter("page");
-        page = page == null ? "1" : page;
         var loginDTO = (LoginDTO) req.getSession().getAttribute(SessionKeys.LOGIN_DTO);
         ProductClientDTO cliente = loginDTO == null ? null : productService.loginDTOtoClientDTO(loginDTO);
 
-        ProductsDTO productDTOS = productService.getProductsList(productName, category, page);
+        Object categoryparameter = req.getParameter("category");
+
+        String productName = req.getParameter("name") == null ? "" : req.getParameter("name");
+        String category = (categoryparameter == null || ((String) categoryparameter).equals("--") ? "0" : req.getParameter("category"));
+        String page = req.getParameter("page") == null ? "1" : req.getParameter("page");
+        String favOwnedFilter = req.getParameter("favOwnedFilter") == null ? "" : req.getParameter("favOwnedFilter");
+
+        page = page == null ? "1" : page;
+
+        ProductsDTO productDTOS = productService.getProductsList(cliente, productName, category, favOwnedFilter, page);
 
         req.setAttribute("category-list", productService.categories());
-        req.setAttribute("categoryFilter", (category == null || category.equals("--")) ? 0 : Integer.parseInt(category));
+        req.setAttribute("categoryFilter", Integer.parseInt(category));
         req.setAttribute("nameFilter", productName);
         req.setAttribute("product-tam", productDTOS.getSize());
         req.setAttribute("product-list", productDTOS.getProductsList());
         req.setAttribute("user", cliente != null);
 
-        req.getRequestDispatcher("product/index.jsp").forward(req,resp);
+        req.getRequestDispatcher("product/index.jsp").forward(req, resp);
     }
 
     @Override

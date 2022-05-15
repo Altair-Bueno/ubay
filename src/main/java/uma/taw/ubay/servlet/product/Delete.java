@@ -20,7 +20,7 @@ public class Delete extends HttpServlet {
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         String idParam = req.getParameter("id");
-        if(idParam == null) throw new RuntimeException("ERROR: Inténtelo de nuevo.");
+        if (idParam == null) throw new RuntimeException("ERROR: Inténtelo de nuevo.");
         int id = Integer.parseInt(idParam);
 
         productService.deleteProduct(id);
@@ -29,11 +29,11 @@ public class Delete extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             process(req, resp);
         } catch (Exception e) {
-            req.getRequestDispatcher("exception.jsp").forward(req, resp);
+            throw new ServletException(e);
         }
     }
 
@@ -42,7 +42,7 @@ public class Delete extends HttpServlet {
         try {
             process(req, resp);
         } catch (Exception e) {
-            req.getRequestDispatcher("exception.jsp").forward(req, resp);
+            throw new ServletException(e);
         }
     }
 }

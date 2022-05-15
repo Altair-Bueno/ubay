@@ -6,6 +6,9 @@ import jakarta.persistence.PersistenceContext;
 import uma.taw.ubay.entity.LoginCredentialsEntity;
 import uma.taw.ubay.entity.PasswordResetEntity;
 
+/**
+ * @author Altair Bueno
+ */
 @Stateless
 public class PasswordResetFacade extends AbstractFacade<PasswordResetEntity>{
 

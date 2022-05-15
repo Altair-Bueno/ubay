@@ -2,9 +2,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="uma.taw.ubay.dto.bids.ReceivedBidsDTO" %>
 <%@ page import="uma.taw.ubay.dto.bids.ProductDTO" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
-  User: Altair Bueno
+  Author: Altair Bueno 90% Francisco Javier Hernández 10%
   Date: 5/4/22
   Time: 11:21
   To change this template use File | Settings | File Templates.
@@ -27,6 +28,8 @@
         pageNumber = Integer.parseInt(pageNumberParameter);
     } catch (Exception ignored) {
     }
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 %>
 <html>
 <head>
@@ -37,54 +40,54 @@
     <title>Ubay | Bids Received</title>
 </head>
 <body>
-<%@include file="../../WEB-INF/components/navbar.jsp"%>
+<%@include file="../../WEB-INF/components/navbar.jsp" %>
 
 <div class="container mt-4">
     <div class="row">
-        <h1>Bids received</h1>
+        <h1>Pujas recibidas</h1>
     </div>
     <div class="row">
 
         <aside class="col-md-12 col-lg-2">
             <form action="${pageContext.request.contextPath}/vendor/bids">
                 <div class="mb-3">
-                    <label for="startDate" class="form-label">Start Date</label>
+                    <label for="startDate" class="form-label">Fecha de publicación</label>
                     <input type="date" class="form-control" id="startDate"
                            name="<%=VendorKeys.BID_START_DATE_PARAMETER%>"
                            value="<%=startDate%>">
                 </div>
                 <div class="mb-3">
-                    <label for="endDate" class="form-label">End Date</label>
+                    <label for="endDate" class="form-label">Fecha de cierre</label>
                     <input type="date" class="form-control" id="endDate"
                            name="<%=VendorKeys.BID_END_DATE_PARAMETER%>"
                            value="<%=endDate%>">
                 </div>
                 <div class="mb-3">
-                    <label for="productTitle" class="form-label">Product
-                        Title</label>
+                    <label for="productTitle" class="form-label">Título del producto</label>
                     <input type="text" class="form-control" id="productTitle"
                            name="<%=VendorKeys.BID_PRODUCT_TITLE_PARAMETER%>"
                            value="<%=productTitle%>">
                 </div>
                 <div class="mb-3">
-                    <label for="clientName" class="form-label">Client
-                        name</label>
+                    <label for="clientName" class="form-label">Nombre del cliente</label>
                     <input type="text" class="form-control" id="clientName"
                            name="<%=VendorKeys.BID_CLIENT_NAME_PARAMETER%>"
                            value="<%=clientName%>">
                 </div>
                 <div class="mb-3">
-                    <label for="pageNumber" class="form-label">Page</label>
-                    <input type="number" class = "form-control" id="pageNumber"
+                    <label for="pageNumber" class="form-label">Página</label>
+                    <input type="number" class="form-control" id="pageNumber"
                            name="<%=VendorKeys.BID_PAGE_NUMBER_PARAMETER%>"
                            value="<%=pageNumber%>">
                 </div>
                 <select
                         class="form-select mb-3"
+                        id="orderBy"
                         name="<%=VendorKeys.ORDER_BY_PARAMETER%>"
                 >
-                    <%for (String orderBy: VendorKeys.ORDER_BY_LIST){%>
-                    <option <%=orderBy.equals(request.getParameter(VendorKeys.ORDER_BY_PARAMETER)) ? "selected":""%> value="<%=orderBy%>">
+                    <%for (String orderBy : VendorKeys.ORDER_BY_LIST) {%>
+                    <option <%=orderBy.equals(request.getParameter(VendorKeys.ORDER_BY_PARAMETER)) ? "selected" : ""%>
+                            value="<%=orderBy%>">
                         <%=orderBy%>
                     </option>
                     <%}%>
@@ -95,13 +98,14 @@
                             type="checkbox"
                             id="flexCheckDefault"
                             name="<%=VendorKeys.ASC_PARAMETER%>"
-                            <%=request.getParameter(VendorKeys.ASC_PARAMETER) == null ? "":"checked"%>
+                        <%=request.getParameter(VendorKeys.ASC_PARAMETER) == null ? "":"checked"%>
                     >
                     <label class="form-check-label" for="flexCheckDefault">
-                        Sort ascending
+                        Ordenar ascendentemente
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <button type="button" class="btn btn-secondary" onclick="clearFilter()">Limpiar</button>
             </form>
         </aside>
         <main class="table-responsive col">
@@ -109,10 +113,10 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Published on</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Client name</th>
+                    <th scope="col">Fecha de publicación</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Nombre del cliente</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -126,7 +130,7 @@
                         <%=1 + i + pageNumber * 10%>
                     </th>
                     <td>
-                        <%=bid.getPublishDate()%>
+                        <%=dateFormat.format(bid.getPublishDate())%>
                     </td>
                     <td>
                         $<%=bid.getAmount()%>
@@ -146,5 +150,17 @@
         </main>
     </div>
 </div>
+
+<script>
+    function clearFilter() {
+        document.querySelector("#startDate").value = ""
+        document.querySelector("#endDate").value = ""
+        document.querySelector("#productTitle").value = ""
+        document.querySelector("#clientName").value = ""
+        document.querySelector("#pageNumber").value = "0"
+        document.querySelector("#orderBy").selectedIndex = 0
+    }
+</script>
+
 </body>
 </html>

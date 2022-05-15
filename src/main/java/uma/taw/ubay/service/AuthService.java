@@ -61,7 +61,7 @@ public class AuthService {
         if (entity != null && checkPasswordHash(password, entity.getPassword())) {
             username = entity.getUsername();
             var kind = entity.getKind();
-            return new LoginDTO(username,kind);
+            return new LoginDTO(username, kind);
         } else {
             throw new AuthenticationException("Invalid username or password");
         }

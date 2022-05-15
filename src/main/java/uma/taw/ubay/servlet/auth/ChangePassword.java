@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author Altair Bueno
  */
 @WebServlet("/auth/changePassword")
-public class ChangePassword extends HttpServlet{
+public class ChangePassword extends HttpServlet {
     @EJB
     AuthService service;
 
@@ -35,6 +35,6 @@ public class ChangePassword extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("changePassword.jsp").forward(req,resp);
+        req.getRequestDispatcher("changePassword.jsp").forward(req, resp);
     }
 }

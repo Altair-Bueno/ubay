@@ -15,14 +15,14 @@
     <title>Ubay | Eliminar categoria favorita</title>
 </head>
 <body>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
-<a class="btn btn-primary m-2" href="../categories" role="button">Go back</a>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
+
 <div class="container">
     <div class="container">
         <div class="col-6 position-absolute top-50 start-50 translate-middle">
             <form class="form" action="../categories" method="get">
-                <h1>Are you sure you want to delete favourite category?</h1>
-                <button type="submit" class="btn btn-danger mt-2">Submit</button>
+                <h1>¿Está seguro de que quiere eliminar la categoría de favoritos?</h1>
+                <button type="submit" class="btn btn-danger mt-2">Confirmar</button>
             </form>
 
         </div>

@@ -20,10 +20,14 @@ public class Modify extends HttpServlet {
     CategoriesService categoriesService;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request, response);}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {process(request,response);}
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+    }
 
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
@@ -31,8 +35,8 @@ public class Modify extends HttpServlet {
         String description = request.getParameter("description");
         String edited = request.getParameter("edited");
 
-        if(edited == null){
-            request.getRequestDispatcher("modify.jsp").forward(request,response);
+        if (edited == null) {
+            request.getRequestDispatcher("modify.jsp").forward(request, response);
         } else {
             categoriesService.modify(id, name, description);
             response.sendRedirect(request.getContextPath() + "/categories/");

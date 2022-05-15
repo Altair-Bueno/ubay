@@ -49,19 +49,20 @@ public class ClientFacade extends AbstractFacade<ClientEntity> {
         }
 
         if(address != null){
-            predicateList.add(builder.like(builder.upper(clientTable.get("address")), address.toUpperCase(Locale.ROOT) + "%"));
+            predicateList.add(builder.like(builder.upper(clientTable.get("address")), "%" + address.toUpperCase(Locale.ROOT) + "%"));
         }
         if(city != null){
-            predicateList.add(builder.like(builder.upper(clientTable.get("city")), city.toUpperCase(Locale.ROOT) + "%"));
+            predicateList.add(builder.like(builder.upper(clientTable.get("city")), "%" + city.toUpperCase(Locale.ROOT) + "%"));
         }
 
         if(name != null){
-            predicateList.add(builder.like(builder.upper(clientTable.get("name")), name.toUpperCase(Locale.ROOT) + "%"));
+            predicateList.add(builder.like(builder.upper(clientTable.get("name")), "%" + name.toUpperCase(Locale.ROOT) + "%"));
         }
 
         if(lastName != null){
-            predicateList.add(builder.like(builder.upper(clientTable.get("lastName")), lastName.toUpperCase(Locale.ROOT) + "%"));
+            predicateList.add(builder.like(builder.upper(clientTable.get("lastName")), "%" + lastName.toUpperCase(Locale.ROOT) + "%"));
         }
+
         query.select(clientTable)
                 .where(predicateList.toArray(new Predicate[0]))
                 .orderBy(builder.asc(clientTable.get("id")));

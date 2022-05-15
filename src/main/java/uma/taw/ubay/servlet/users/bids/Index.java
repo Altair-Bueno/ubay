@@ -32,7 +32,7 @@ public class Index extends HttpServlet {
         var orderByParameter = req.getParameter(UsersKeys.ORDER_BY_PARAMETER);
         var ascParameter = req.getParameter(UsersKeys.ASC_PARAMETER);
 
-        var bidList = service.getSentBids(loginCredentials, startDateParameter, endDateParameter, productTitleParameter, vendorNameParameter, pageParameter,orderByParameter,ascParameter);
+        var bidList = service.getSentBids(loginCredentials, startDateParameter, endDateParameter, productTitleParameter, vendorNameParameter, pageParameter, orderByParameter, ascParameter);
         req.setAttribute(UsersKeys.BID_LIST, bidList);
         req.getRequestDispatcher("/users/bids/index.jsp").forward(req, resp);
     }

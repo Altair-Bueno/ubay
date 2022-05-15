@@ -5,15 +5,19 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
+/**
+ * @author Altair Bueno
+ */
 
 @Embeddable
 public class PasswordResetEntityPK implements Serializable {
-    @Column(name = "username", nullable = false,length = 20)
+    @Column(name = "username", nullable = false, length = 20)
     private String username;
-    @Column(name = "request_id", nullable = false, length = 20, insertable = false,updatable = false)
+    @Column(name = "request_id", nullable = false, length = 20, insertable = false, updatable = false)
     private String requestId;
 
-    public PasswordResetEntityPK(){}
+    public PasswordResetEntityPK() {
+    }
 
     public PasswordResetEntityPK(String username, String requestId) {
         this.username = username;

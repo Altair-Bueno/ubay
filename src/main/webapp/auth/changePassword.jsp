@@ -14,7 +14,7 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
-    <title>Ubay-Change my password</title>
+    <title>Ubay | Cambiar mi contraseña</title>
 </head>
 <style>
     html,
@@ -59,19 +59,20 @@
 </style>
 <body class="text-center">
 <main class="form-signin">
-    <form method="post" action="${pageContext.request.contextPath}/auth/changePassword">
+    <form method="post"
+          action="${pageContext.request.contextPath}/auth/changePassword">
         <%--        <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">--%>
-        <h1 class="h3 mb-3 fw-normal">Change my password</h1>
+        <h1 class="h3 mb-3 fw-normal">Cambiar mi contraseña</h1>
         <div class="form-floating">
-            <input
-                    type="text"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder="Old Password"
-                    name="<%=AuthKeys.OLD_PASSWORD_PARAMETER%>"
-                    pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
+            <input type="password"
+                   class="form-control"
+                   id="floatingInput"
+                   placeholder="Old Password"
+                   name="<%=AuthKeys.OLD_PASSWORD_PARAMETER%>"
+                   pattern="<%=AuthKeys.PASSWORD_REGEX%>"
+                   required
             >
-            <label for="floatingInput">Old Password</label>
+            <label for="floatingInput">Contraseña actual</label>
         </div>
         <div class="form-floating">
             <input
@@ -81,8 +82,10 @@
                     placeholder="New Password"
                     name="<%=AuthKeys.PASSWORD_PARAMETER%>"
                     pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
+                    aria-describedby="passwordHelp"
             >
-            <label for="floatingPassword">New Password</label>
+            <label for="floatingPassword">Nueva contraseña</label>
+            <div id="passwordHelp" class="form-text">8 caracteres mínimo</div>
         </div>
         <div class="form-floating last">
             <input
@@ -93,9 +96,9 @@
                     name="<%=AuthKeys.REPEAT_PASSWORD_PARAMETER%>"
                     pattern="<%=AuthKeys.PASSWORD_REGEX%>" required
             >
-            <label for="floatingRepeat">Repeat New Password</label>
+            <label for="floatingRepeat">Repetir nueva contraseña</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Change password</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Cambiar contraseña</button>
     </form>
 </main>
 </body>

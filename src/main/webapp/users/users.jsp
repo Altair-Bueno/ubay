@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="uma.taw.ubay.dto.users.ClientDTO" %><%--
+<%@ page import="uma.taw.ubay.dto.users.ClientDTO" %>
+<%--
   Created by IntelliJ IDEA.
   User: jota
   Date: 28/3/22
@@ -16,42 +17,37 @@
     <title>Ubay | Usuarios</title>
 </head>
 <body>
-<%@include file="../WEB-INF/components/navbar.jsp"%>
+<%
+    String id = request.getAttribute("id") == null ? "" : (String) request.getAttribute("id");
+    String name = request.getAttribute("name") == null ? "" : (String) request.getAttribute("name");
+    String lastName = request.getParameter("lastName") == null ? "" : (String) request.getAttribute("lastName");
+    String address = request.getParameter("address") == null ? "" : (String) request.getAttribute("address");
+    String city = request.getParameter("city") == null ? "" : (String) request.getAttribute("city");
+    String gender = request.getParameter("gender") == null ? "" : (String) request.getAttribute("gender");
+%>
+<%@include file="../WEB-INF/components/navbar.jsp" %>
 <div>
-    <%--<form>
-        <h3>User data:</h3>
-        ID: <input type="text" name="id"> <br>
-        Name: <input type="text" name="name"> <br>
-        Last name: <input type="text" name="lastName"> <br>
-        Address: <input type="text" name="address"> <br>
-        City: <input type="text" name="city"> <br>
-        Gender: <select id="gender" name="gender">
-            <option id="--" name="--">--</option>
-            <option id="male" name="male">male</option>
-            <option id="female" name="female">female</option>
-            <option id="other" name="other">other</option>
-        </select> <br/>
-        <input type="submit"/>
-    </form>--%>
-
     <div class="container">
-        <h2>Search users: </h2>
+        <h1>Buscar usuarios</h1>
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Registrar
+            a un usuario nuevo</a>
         <div class="row">
             <div class="col-3">
                 <form>
                     <div class="form col">
-                        ID: <input type="text" class="form-control" id="id" name="id">
-                        Name: <input type="text" class="form-control" id="name" name="name">
-                        Last name: <input type="text" class="form-control" id="lastName" name="lastName" >
-                        Address: <input type="text" class="form-control" id="address" name="address" >
-                        City: <input type="text" class="form-control" id="city" name="city" aria-describedby="city">
-                        Gender: <select class="form-select" id="gender" name="gender">
-                        <option selected value="--">--</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        ID: <input type="number" class="form-control" id="id" name="id" value="<%=id%>" maxlength="5">
+                        Nombre: <input type="text" class="form-control" id="name" name="name" value="<%=name%>" maxlength="10">
+                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName" value="<%=lastName%>" maxlength="10">
+                        Dirección: <input type="text" class="form-control" id="address" name="address" value="<%=address%>" maxlength="15">
+                        Ciudad: <input type="text" class="form-control" id="city" name="city" aria-describedby="city" value="<%=city%>" maxlength="10">
+                        Género: <select class="form-select" id="gender" name="gender">
+                        <option <%=gender.equals("--") ? "selected" : ""%> value="--">--</option>
+                        <option <%=gender.equals("male") ? "selected" : ""%> value="male">Masculino</option>
+                        <option <%=gender.equals("female") ? "selected" : ""%> value="female">Femenino</option>
+                        <option <%=gender.equals("other") ? "selected" : ""%> value="other">Otro</option>
                     </select>
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                        <a class="btn btn-secondary mt-2" href="<%=request.getContextPath()%>/users/">Limpiar</a>
                     </div>
                 </form>
             </div>
@@ -61,15 +57,15 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Last Name</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>Birth Date</th>
-                        <th>Delete user</th>
-                        <th>Modify user</th>
-                        <th>Reset password</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Género</th>
+                        <th>Dirección</th>
+                        <th>Ciudad</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Eliminar usuario</th>
+                        <th>Modificar user</th>
+                        <th>Reestablecer contraseña</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -81,16 +77,25 @@
 
                     %>
                     <tr>
-                        <td><%=c.getId()%></td>
-                        <td><%=c.getName()%></td>
-                        <td><%=c.getLastName()%></td>
-                        <td><%=c.getGender()%></td>
-                        <td><%=c.getAddress()%></td>
-                        <td><%=c.getCity()%></td>
-                        <td><%=c.getBirthDate()%></td>
-                        <td><a href=delete?id=<%=c.getId()%>>Delete user</a></td>
-                        <td><a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modify user</a></td>
-                        <td><a href="passwordChangeLink?id=<%=c.getId()%>">Reset password</a></td>
+                        <td><%=c.getId()%>
+                        </td>
+                        <td><%=c.getName()%>
+                        </td>
+                        <td><%=c.getLastName()%>
+                        </td>
+                        <td><%=c.getGender()%>
+                        </td>
+                        <td><%=c.getAddress()%>
+                        </td>
+                        <td><%=c.getCity()%>
+                        </td>
+                        <td><%=c.getBirthDate()%>
+                        </td>
+                        <td><a href=delete?id=<%=c.getId()%>>Eliminar usuario</a></td>
+                        <td>
+                            <a href="modify?id=<%=c.getId()%>&name=<%=c.getName()%>&lastName=<%=c.getLastName()%>&gender=<%=c.getGender()%>&address=<%=c.getAddress()%>&city=<%=c.getCity()%>&birthDate=<%=c.getBirthDate()%>">Modificar
+                                usuario</a></td>
+                        <td><a href="passwordChangeLink?id=<%=c.getId()%>">Reestablecer contraseña</a></td>
                     </tr>
                     <%
                             }
@@ -98,57 +103,9 @@
                     %>
                     </tbody>
                 </table>
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/auth/register" role="button">Register new user</a>
             </div>
         </div>
     </div>
-
-
-    &nbsp;
-    &nbsp;
-<%--
-    <form>
-        <label for="userID">ID:</label><input type="text" name="userID" id="userID">
-        <label for="userName">Name:</label><input type="text" name="userName" id="userName">
-        <label for="userLastName">Last Name:</label><input type="text" name="userLastName" id="userLastName"><br>
-        <label for="userGender">Gender:</label><input type="text" name="userGender" id="userGender">
-        <label for="userAddress">Address:</label><input type="text" name="userAddress" id="userAddress">
-        <label for="userCity">City:</label><input type="text" name="userCity" id="userCity">
-        <label for="userBirthDate">Birth date:</label><input type="text" name="userBirthDate" id="userBirthDate"><br>
-    </form>
-
-    <script>
-        var table = document.getElementById('userDataTable'), rIndex;
-
-        for(var i = 0; i < table.rows.length; i++){
-            table.rows[i].onclick = function(){
-                rIndex = this.rowsIndex;
-                document.getElementById("userID").value = this.cells[0].innerHTML;
-                document.getElementById("userName").value = this.cells[1].innerHTML;
-                document.getElementById("userLastName").value = this.cells[2].innerHTML;
-                document.getElementById("userGender").value = this.cells[3].innerHTML;
-                document.getElementById("userAddress").value = this.cells[4].innerHTML;
-                document.getElementById("userCity").value = this.cells[5].innerHTML;
-                document.getElementById("userBirthDate").value = this.cells[6].innerHTML;
-            };
-        }
-    </script>
-
-    --%>
-
-<%--
-<h2>Create new user: </h2>
-    <a href="../auth/register.jsp">Click here to register a new user</a>
-
-    <h2>Delete a existing user by ID: </h2>
-        <form>
-            <label>
-                <input name="IDdeleteUser">
-                <input type="submit">
-            </label>
-        </form>
-
---%>
 
 </div>
 </body>
