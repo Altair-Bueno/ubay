@@ -40,7 +40,7 @@ public class Product extends HttpServlet {
         req.setAttribute("user", cliente);
         req.setAttribute("product", productDTO);
         req.setAttribute("highestBid", highestBid);
-        req.setAttribute("isAdmin", loginDTO.getKind().equals(KindEnum.admin));
+        req.setAttribute("isAdmin",loginDTO != null && loginDTO.getKind().equals(KindEnum.admin));
 
         req.getRequestDispatcher("item.jsp").forward(req, resp);
     }
