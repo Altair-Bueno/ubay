@@ -42,6 +42,12 @@ public class Users extends HttpServlet {
         List<ClientDTO> clientDTOList = usersService.users(id, name, lastName, address, city, gender);
 
         request.setAttribute("search-user", clientDTOList);
+        request.setAttribute("id", id);
+        request.setAttribute("name", name);
+        request.setAttribute("lastName", lastName);
+        request.setAttribute("address", address);
+        request.setAttribute("city", city);
+        request.setAttribute("gender", gender);
         request.getRequestDispatcher("users.jsp").forward(request, response);
     }
 }

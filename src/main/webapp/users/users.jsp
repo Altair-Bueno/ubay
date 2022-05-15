@@ -17,6 +17,14 @@
     <title>Ubay | Usuarios</title>
 </head>
 <body>
+<%
+    String id = request.getAttribute("id") == null ? "" : (String) request.getAttribute("id");
+    String name = request.getAttribute("name") == null ? "" : (String) request.getAttribute("name");
+    String lastName = request.getParameter("lastName") == null ? "" : (String) request.getAttribute("lastName");
+    String address = request.getParameter("address") == null ? "" : (String) request.getAttribute("address");
+    String city = request.getParameter("city") == null ? "" : (String) request.getAttribute("city");
+    String gender = request.getParameter("gender") == null ? "" : (String) request.getAttribute("gender");
+%>
 <%@include file="../WEB-INF/components/navbar.jsp" %>
 <div>
     <div class="container">
@@ -27,18 +35,19 @@
             <div class="col-3">
                 <form>
                     <div class="form col">
-                        ID: <input type="number" class="form-control" id="id" name="id" maxlength="5">
-                        Nombre: <input type="text" class="form-control" id="name" name="name" maxlength="10">
-                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName" maxlength="10">
-                        Dirección: <input type="text" class="form-control" id="address" name="address" maxlength="15">
-                        Ciudad: <input type="text" class="form-control" id="city" name="city" aria-describedby="city" maxlength="10">
+                        ID: <input type="number" class="form-control" id="id" name="id" value="<%=id%>" maxlength="5">
+                        Nombre: <input type="text" class="form-control" id="name" name="name" value="<%=name%>" maxlength="10">
+                        Apellidos: <input type="text" class="form-control" id="lastName" name="lastName" value="<%=lastName%>" maxlength="10">
+                        Dirección: <input type="text" class="form-control" id="address" name="address" value="<%=address%>" maxlength="15">
+                        Ciudad: <input type="text" class="form-control" id="city" name="city" aria-describedby="city" value="<%=city%>" maxlength="10">
                         Género: <select class="form-select" id="gender" name="gender">
-                        <option selected value="--">--</option>
-                        <option value="male">Masculino</option>
-                        <option value="female">Femenino</option>
-                        <option value="other">Otro</option>
+                        <option <%=gender.equals("--") ? "selected" : ""%> value="--">--</option>
+                        <option <%=gender.equals("male") ? "selected" : ""%> value="male">Masculino</option>
+                        <option <%=gender.equals("female") ? "selected" : ""%> value="female">Femenino</option>
+                        <option <%=gender.equals("other") ? "selected" : ""%> value="other">Otro</option>
                     </select>
                         <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                        <a class="btn btn-secondary mt-2" href="<%=request.getContextPath()%>/users/">Limpiar</a>
                     </div>
                 </form>
             </div>
